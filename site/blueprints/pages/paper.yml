@@ -64,7 +64,7 @@ columns:
             label: DOI
             type: text
             placeholder: 10.1234/abcd.5678
-            pattern: '^10\.\d{4,9}/\S+$'
+            pattern: '^10\.\d{4,9}\/\S+$'
           arxiv:
             label: arXiv ID
             type: text
@@ -73,6 +73,11 @@ columns:
           keywords:
             label: Keywords
             type: tags
+          submittedBy:
+            label: Submitted by
+            type: users
+            multiple: false
+            help: The member who added this paper (set automatically).
           pdf:
             label: PDF
             type: files

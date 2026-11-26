@@ -23,6 +23,14 @@ tabs:
             layout: table
             empty: Nothing waiting for review
             info: "{{ page.author.toPages.first.title }}"
+          papersReview:
+            type: pages
+            label: Papers awaiting review
+            parent: site.find("papers")
+            status: unlisted
+            layout: table
+            empty: No papers waiting for review
+            info: "{{ page.venue }} · {{ page.date.toDate('Y') }}"
           published:
             type: pages
             label: Recently published stories

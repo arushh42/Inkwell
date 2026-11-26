@@ -65,9 +65,13 @@ $issue       = page('stories')?->children()->listed()->count() ?? 0;
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         </a>
         <?php if ($user): ?>
-          <a class="btn btn--small btn--accent" href="<?= url('write') ?>" <?= e($template === 'write', 'aria-current="page"') ?>>
+          <a class="btn btn--small header-btn" href="<?= url('add-paper') ?>" <?= e($template === 'add-paper', 'aria-current="page"') ?>>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M12 11v6M9 14h6"/></svg>
+            <span>Add a paper</span>
+          </a>
+          <a class="btn btn--small btn--accent header-btn" href="<?= url('write') ?>" <?= e($template === 'write', 'aria-current="page"') ?>>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>
-            Write
+            <span>Write a story</span>
           </a>
           <a class="icon-btn" href="<?= url('logout', ['query' => ['csrf' => csrf()]]) ?>" aria-label="Log out" title="Log out">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>

@@ -30,6 +30,14 @@ Editors sign in to the Kirby Panel, write in a block editor, attach PDFs, and pu
 - A contributor's author profile stays hidden until their first story is published
 - Contributors have no Kirby permissions, no Panel access and no API access. Every action goes through the studio, which checks ownership and then writes as the system user
 
+**Add a paper from its DOI (`/add-paper`)**
+- Paste a DOI in any form (`10.1038/…`, `doi:…`, `https://doi.org/…`) and the title, authors, journal, volume, pages, date, arXiv preprint and abstract are filled in automatically
+- Uses only free, keyless APIs: doi.org content negotiation (Crossref and DataCite) plus the arXiv API. The lookup runs server-side, only contacts these fixed hosts, is cached for a day and rate-limited per user
+- **Licence-aware:** abstracts are only copied when they may be republished (CC BY, CC BY-SA, CC0, DataCite or arXiv metadata). Otherwise the member writes a short description, which is credited to them. The source is shown on the paper page
+- Citation superscripts are stripped from abstracts, while powers of ten such as 10^6 are kept
+- Duplicate DOIs are detected, with a link back to the existing paper or your own draft
+- Same workflow as stories: contributors submit for review and editors publish. Works without JavaScript too (server-side "Fetch details")
+
 **For editors: the Kirby Panel at `/panel`** (for everything else: papers, authors, users, settings)
 - A dashboard showing drafts, recently published stories, latest papers and counts
 - A draft → in review → published workflow

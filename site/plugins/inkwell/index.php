@@ -21,6 +21,8 @@ function asset_url(string $path): string
     return url($path) . '?v=' . $versions[$path];
 }
 
+load(['Inkwell\\DoiLookup' => __DIR__ . '/src/DoiLookup.php']);
+
 /**
  * Editors and admins can publish and edit anything; everyone else
  * (contributors who signed up) only writes and submits their own stories.
@@ -45,6 +47,16 @@ function inkwell_author_for(\Kirby\Cms\User|null $user): \Kirby\Cms\Page|null
     return $all->filter(fn ($a) => $a->account()->toUsers()->has($user))->first()
         ?? $all->findBy('email', $user->email())
         ?? $all->findBy('title', $user->name()->value());
+}
+
+/**
+ * Finds a paper (published or not) by DOI, case-insensitively.
+ */
+function inkwell_paper_by_doi(string $doi, \Kirby\Cms\Page|null $except = null): \Kirby\Cms\Page|null
+{
+    return page('papers')?->childrenAndDrafts()
+        ->filter(fn ($p) => strtolower($p->doi()->value()) === strtolower($doi) && ($except === null || !$p->is($except)))
+        ->first();
 }
 
 /**
@@ -221,6 +233,75 @@ Kirby::plugin('inkwell/core', [
     ],
 
     'routes' => [
+        /**
+         * DOI lookup for "Add a paper" (JSON). Signed-in members only,
+         * rate-limited, results cached for a day.
+         */
+        [
+            'pattern' => 'add-paper/lookup',
+            'action'  => function () {
+                if (kirby()->user() === null) {
+                    return Response::json(['error' => 'Please sign in first.'], 401);
+                }
+
+                $doi = Inkwell\DoiLookup::normalize(get('doi'));
+                if ($doi === null) {
+                    return Response::json(['error' => 'That doesn’t look like a DOI. It should start with “10.”, e.g. 10.1038/s41586-025-09422-z.'], 422);
+                }
+
+                if ($existing = inkwell_paper_by_doi($doi)) {
+                    $user    = kirby()->user();
+                    $canEdit = inkwell_is_editor($user) || $existing->submittedBy()->toUsers()->has($user);
+
+                    return Response::json([
+                        'error'     => 'This paper is already on ' . site()->title() . '.',
+                        'duplicate' => [
+                            'title' => $existing->title()->value(),
+                            'url'   => $existing->isListed() ? $existing->url() : null,
+                            'edit'  => $canEdit && !$existing->isListed() ? url('add-paper/' . $existing->slug()) : null,
+                        ],
+                    ], 409);
+                }
+
+                if (inkwell_rate_limit('doi-lookup', 20, 60) === false) {
+                    return Response::json(['error' => 'Too many lookups. Please wait a minute and try again.'], 429);
+                }
+
+                $cache = kirby()->cache('inkwell.core');
+                $key   = 'doi.' . md5(strtolower($doi));
+
+                try {
+                    $paper = $cache->get($key) ?? (new Inkwell\DoiLookup())->lookup($doi);
+                    $cache->set($key, $paper, 60 * 24);
+                    return Response::json(['paper' => $paper]);
+                } catch (RuntimeException $e) {
+                    return Response::json(['error' => $e->getMessage()], 502);
+                }
+            },
+        ],
+
+        /**
+         * Add a paper (/add-paper) or edit one you added (/add-paper/<slug>).
+         */
+        [
+            'pattern' => ['add-paper', 'add-paper/(:any)'],
+            'method'  => 'GET|POST',
+            'action'  => function (string|null $slug = null) {
+                if (kirby()->user() === null) {
+                    go(url('login', ['query' => ['redirect' => $slug ? 'add-paper/' . $slug : 'add-paper']]));
+                }
+
+                return Page::factory([
+                    'slug'     => 'add-paper',
+                    'template' => 'add-paper',
+                    'content'  => [
+                        'title'    => $slug ? 'Edit paper' : 'Add a paper',
+                        'editSlug' => $slug ?? '',
+                    ],
+                ]);
+            },
+        ],
+
         /**
          * Sign up as a contributor.
          */

@@ -20,6 +20,14 @@ sections:
     template: paper
     layout: table
     empty: No drafts
+  review:
+    type: pages
+    label: Awaiting review
+    status: unlisted
+    template: paper
+    layout: table
+    empty: Nothing waiting for review
+    help: Added by contributors via “Add a paper”. Open one at /add-paper/… or change its status to Published.
   published:
     type: pages
     label: Published papers
