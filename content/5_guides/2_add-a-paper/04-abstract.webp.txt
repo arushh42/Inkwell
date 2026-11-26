@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The abstract field filled in, with the licence source shown below it.
+
+----
+
+Uuid: 4427a85bc41569d4

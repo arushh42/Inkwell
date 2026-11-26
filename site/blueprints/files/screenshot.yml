@@ -1,0 +1,8 @@
+title: Screenshot
+accept:
+  mime: image/webp, image/png, image/jpeg
+fields:
+  alt:
+    label: Alt text
+    type: text
+    help: Describe what the screenshot shows for people using screen readers.

@@ -38,6 +38,12 @@ Editors sign in to the Kirby Panel, write in a block editor, attach PDFs, and pu
 - Duplicate DOIs are detected, with a link back to the existing paper or your own draft
 - Same workflow as stories: contributors submit for review and editors publish. Works without JavaScript too (server-side "Fetch details")
 
+**Illustrated guides (`/guides`)**
+- Step-by-step how-tos for writing a story and adding a paper, aimed at non-technical contributors, plus an FAQ
+- Each step shows a real screenshot with a spotlight on exactly where to click: a numbered marker and a callout, drawn in HTML/CSS over the image rather than baked into it
+- Story-style stepper with progress bars, Back/Next, arrow keys, swipe and `#step-N` deep links. Without JavaScript the steps show as a simple list, and all instructions are real text (screen-reader friendly)
+- Linked from the header and from the publishing panels of the writing studio and Add a paper
+
 **For editors: the Kirby Panel at `/panel`** (for everything else: papers, authors, users, settings)
 - A dashboard showing drafts, recently published stories, latest papers and counts
 - A draft → in review → published workflow
@@ -139,6 +145,22 @@ Editor saves in Panel ──▶ Kirby writes /tmp/content ──▶ hook diffs /
 - If GitHub is unreachable, the editor sees an error and the change is included with the next successful save.
 - Locally the plugin does nothing, because Kirby already writes into your Git working copy. Commit as usual.
 - Trade-off: an edit is visible immediately on the instance that handled it, and everywhere else after the redeploy (typically under a minute).
+
+## Regenerating the guides
+
+The guide screenshots and highlight positions are produced automatically. `tools/guides/capture.cjs` drives a real browser through each task: signing up, writing and submitting a story, adding a paper from a DOI, and approving as an editor. It screenshots every step and measures the on-screen position of the button or field to highlight. After design changes, run it against a **throwaway** instance, because it creates accounts and content:
+
+```bash
+# 1. start a disposable copy of the site (content is copied to a temp folder)
+TMPDIR=$(mktemp -d) KIRBY_ADMIN_EMAIL=editor@example.com KIRBY_ADMIN_PASSWORD=guide-admin-123 \
+  SITE_URL=http://localhost:8020 php -S localhost:8020 api/index.php
+
+# 2. in another terminal
+cd tools/guides && npm install          # puppeteer-core only; uses your installed Chrome
+BASE=http://localhost:8020 ADMIN_EMAIL=editor@example.com ADMIN_PASSWORD=guide-admin-123 npm run capture
+```
+
+This rewrites `content/5_guides/*`, the screenshots plus `guide.txt`. Step wording lives in `capture.cjs` and can also be edited in the Panel, but Panel edits are overwritten by the next regeneration. The `tools/` folder is excluded from Vercel uploads.
 
 ## Licensing note
 

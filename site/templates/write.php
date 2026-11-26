@@ -143,6 +143,9 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
         <?php if (!$isEditor && !$readOnly): ?>
           <p class="field__help publish-card__note">An editor reviews every story before it goes live.</p>
         <?php endif ?>
+        <?php if ($guide = page('guides/write-a-story')): ?>
+          <p class="publish-card__guide">New here? <a href="<?= $guide->url() ?>">Read the step-by-step guide →</a></p>
+        <?php endif ?>
 
         <?php if ($story): ?>
           <p class="publish-card__links">

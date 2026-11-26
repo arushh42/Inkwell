@@ -1,0 +1,37 @@
+title: Guides
+icon: question
+options:
+  delete: false
+  changeSlug: false
+  changeTemplate: false
+
+columns:
+  - width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          intro:
+            label: Intro
+            type: textarea
+            size: small
+            buttons: false
+          faq:
+            label: Good to know (FAQ)
+            type: structure
+            fields:
+              question:
+                label: Question
+                type: text
+              answer:
+                label: Answer
+                type: textarea
+                size: small
+                buttons: false
+  - width: 1/3
+    sections:
+      guides:
+        type: pages
+        label: Guides
+        template: guide
+        layout: list

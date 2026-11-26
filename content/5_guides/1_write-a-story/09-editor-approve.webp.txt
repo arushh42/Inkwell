@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: An editor’s view of a submitted story with the “Approve & publish” button.
+
+----
+
+Uuid: dea5f87c35cb0902

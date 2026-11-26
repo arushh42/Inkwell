@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The “In plain language” field with a short summary typed in.
+
+----
+
+Uuid: 4711f78e4e9e0141

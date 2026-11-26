@@ -53,7 +53,7 @@ $issue       = page('stories')?->children()->listed()->count() ?? 0;
       </a>
 
       <nav class="site-nav" aria-label="Main">
-        <?php foreach (['stories', 'papers', 'authors', 'about'] as $slug): ?>
+        <?php foreach (['stories', 'papers', 'authors', 'about', 'guides'] as $slug): ?>
           <?php if ($item = page($slug)): ?>
             <a href="<?= $item->url() ?>" <?= e($item->isOpen(), 'aria-current="page"') ?>><?= $item->title()->esc() ?></a>
           <?php endif ?>

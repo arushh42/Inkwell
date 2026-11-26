@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The Inkwell home page with the “Add a paper” button in the header highlighted.
+
+----
+
+Uuid: 8fd2db6377c9f126

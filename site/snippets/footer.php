@@ -17,7 +17,7 @@
         </div>
         <nav aria-label="Sections">
           <p class="kicker">Read</p>
-          <?php foreach (['stories', 'papers', 'authors', 'about'] as $slug): ?>
+          <?php foreach (['stories', 'papers', 'authors', 'about', 'guides'] as $slug): ?>
             <?php if ($item = page($slug)): ?><a href="<?= $item->url() ?>"><?= $item->title()->esc() ?></a><?php endif ?>
           <?php endforeach ?>
         </nav>

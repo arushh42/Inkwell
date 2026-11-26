@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The “Add a paper” page with a DOI pasted into the DOI box.
+
+----
+
+Uuid: 031d2d3d035a9f57

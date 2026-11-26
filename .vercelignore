@@ -10,3 +10,6 @@
 .env
 .env.*
 README.md
+
+# Dev tooling (not part of the site)
+/tools

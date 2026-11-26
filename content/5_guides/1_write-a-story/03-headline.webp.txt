@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The writing studio with a headline and subtitle typed in.
+
+----
+
+Uuid: f2ca5c85ce0a1c75

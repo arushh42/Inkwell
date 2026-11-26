@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The form filled in with the paper’s title, authors and journal.
+
+----
+
+Uuid: d77cfff44bff6a57

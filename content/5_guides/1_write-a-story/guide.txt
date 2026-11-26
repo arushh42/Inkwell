@@ -1,0 +1,101 @@
+Title: How to write a story
+
+----
+
+Intro: From signing up to seeing your story on the site, in eight short steps (plus one for editors). No technical knowledge needed.
+
+----
+
+Audience: Everyone who wants to write for Inkwell
+
+----
+
+Duration: 5 minutes
+
+----
+
+Cta: Write your first story
+
+----
+
+Ctalink: /write
+
+----
+
+Steps: 
+-
+  title: "Create your free account"
+  text: "Click **Become a contributor** at the bottom of any page (or **Sign in → Become a contributor**). Enter your name, email and a password with at least 8 characters, then click **Create my account**."
+  callout: "Fill in & click"
+  image:
+    - file://8b2e73e9f9c14592
+  url: "inkwellpress.vercel.app/signup"
+  box: "62.97,46.25,30.63,7.38"
+-
+  title: "Open the writing studio"
+  text: "Once you’re signed in, the header shows two new buttons. Click **Write a story** to open the writing studio."
+  callout: "Click “Write a story”"
+  image:
+    - file://2bf3f6c0b70b246d
+  url: "inkwellpress.vercel.app/"
+  box: "80.77,5.00,12.20,6.50"
+-
+  title: "Give it a headline"
+  text: "Click on **Headline** and type the title of your story. Press **Enter** to jump to the subtitle: one sentence that makes people want to read on."
+  callout: "Type your headline"
+  image:
+    - file://f2ca5c85ce0a1c75
+  url: "inkwellpress.vercel.app/write"
+  box: "4.22,22.00,60.62,20.50"
+-
+  title: "Write your story"
+  text: "Click below the toolbar and start writing. Press **Enter** for a new paragraph. Your text is only saved when you click a button on the right, so don’t close the tab before saving."
+  callout: "Write here"
+  image:
+    - file://0e43df9246a88729
+  url: "inkwellpress.vercel.app/write"
+  box: "4.22,24.00,60.62,52.00"
+-
+  title: "Format with the toolbar"
+  text: "Select some text and use the toolbar to make it **bold**, *italic* or a link, or turn a line into a heading, quote or list. Tip: typing `## ` at the start of a line also makes a heading."
+  callout: "Headings, bold, lists…"
+  image:
+    - file://a1fc2e2e59515754
+  url: "inkwellpress.vercel.app/write"
+  box: "4.22,45.88,60.62,8.25"
+-
+  title: "Add the details"
+  text: "On the right, choose whether it’s an **Article** or a **Blog post**, add a few **tags** (separated by commas) and, if you like, a **cover image**: click the dotted box and pick a photo up to 4 MB."
+  callout: "Type, tags & cover image"
+  image:
+    - file://c83a57476f5d367e
+  url: "inkwellpress.vercel.app/write"
+  box: "69.06,4.50,27.81,90.92"
+-
+  title: "Submit it for review"
+  text: "Happy with it? Click **Submit for review**. Not finished yet? Click **Save draft** and come back later. An editor reads every story before it goes live."
+  callout: "Click when you’re done"
+  image:
+    - file://a0fcb2e02646635b
+  url: "inkwellpress.vercel.app/write"
+  box: "70.94,46.05,23.75,7.38"
+-
+  title: "Keep track on your desk"
+  text: "Your story now shows under **Submitted for review** on your desk. You can keep editing until an editor publishes it, or **withdraw** it to make it a draft again. Once it’s published, it appears on the site with your name."
+  callout: "Your stories live here"
+  image:
+    - file://d9a34ec205ce502e
+  url: "inkwellpress.vercel.app/write/notes-from-my-first-week-of-fieldwork"
+  box: "69.06,39.30,27.81,21.38"
+-
+  title: "For editors: approve and publish"
+  text: "Editors see new submissions under **Awaiting review** in the writing studio. Open one, make any edits, then click **Approve & publish** to put it live."
+  callout: "Approve & publish"
+  image:
+    - file://dea5f87c35cb0902
+  url: "inkwellpress.vercel.app/write/notes-from-my-first-week-of-fieldwork"
+  box: "71.09,46.30,23.75,7.38"
+
+----
+
+Uuid: 726bd62fc87a171e
