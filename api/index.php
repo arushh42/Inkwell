@@ -107,22 +107,52 @@ if (is_dir($tmp . '/content') === false) {
     @rename($staging, $tmp . '/content');
 }
 
-// 3. Provision the admin account from environment variables
-$adminEmail = strtolower(trim((string)getenv('KIRBY_ADMIN_EMAIL')));
-$adminHash  = (string)getenv('KIRBY_ADMIN_PASSWORD_HASH');
+// 3. Provision the admin account from environment variables.
+//    Accepts a bcrypt/argon hash (KIRBY_ADMIN_PASSWORD_HASH) or a plain
+//    password (KIRBY_ADMIN_PASSWORD, or a non-hash pasted into the hash
+//    variable), which is hashed here. Values are trimmed, because stray
+//    whitespace from copy & paste is the most common cause of failed logins.
+$adminEmail    = strtolower(trim((string)getenv('KIRBY_ADMIN_EMAIL')));
+$adminName     = trim((string)getenv('KIRBY_ADMIN_NAME')) ?: 'Admin';
+$adminSecret   = trim((string)(getenv('KIRBY_ADMIN_PASSWORD_HASH') ?: getenv('KIRBY_ADMIN_PASSWORD')));
+$adminSecret   = trim($adminSecret, "\"'");  // tolerate accidentally quoted values
 
-if ($adminEmail !== '' && $adminHash !== '') {
-    $userDir = $tmp . '/accounts/' . substr(hash('sha256', $adminEmail), 0, 8);
+if ($adminEmail === '' || $adminSecret === '') {
+    error_log('[inkwell] Admin account not provisioned: set KIRBY_ADMIN_EMAIL and KIRBY_ADMIN_PASSWORD_HASH (or KIRBY_ADMIN_PASSWORD).');
+} else {
+    $accounts = $tmp . '/accounts';
+    $userDir  = $accounts . '/' . substr(hash('sha256', $adminEmail), 0, 8);
+    $marker   = $accounts . '/.provisioned';
+    $version  = hash('sha256', $adminEmail . "\0" . $adminName . "\0" . $adminSecret);
 
-    if (is_file($userDir . '/index.php') === false) {
+    // (re)write the account whenever the environment variables change
+    if (!is_file($marker) || file_get_contents($marker) !== $version) {
+        $isHash = password_get_info($adminSecret)['algo'] !== null;
+
+        if (!$isHash) {
+            if (str_starts_with($adminSecret, '$')) {
+                error_log('[inkwell] KIRBY_ADMIN_PASSWORD_HASH looks like an incomplete hash; it is being used as a plain password instead. Regenerate it if login fails.');
+            }
+            $adminSecret = password_hash($adminSecret, PASSWORD_DEFAULT);
+        }
+
+        // remove accounts provisioned from previous values (e.g. a changed email)
+        foreach (glob($accounts . '/*', GLOB_ONLYDIR) ?: [] as $dir) {
+            foreach (array_diff(scandir($dir) ?: [], ['.', '..']) as $file) {
+                @unlink($dir . '/' . $file);
+            }
+            @rmdir($dir);
+        }
+
         @mkdir($userDir, 0775, true);
         file_put_contents($userDir . '/index.php', '<?php return ' . var_export([
             'email'    => $adminEmail,
-            'name'     => getenv('KIRBY_ADMIN_NAME') ?: 'Admin',
+            'name'     => $adminName,
             'role'     => 'admin',
             'language' => 'en',
         ], true) . ';');
-        file_put_contents($userDir . '/.htpasswd', $adminHash);
+        file_put_contents($userDir . '/.htpasswd', $adminSecret);
+        file_put_contents($marker, $version);
     }
 }
 

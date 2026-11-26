@@ -81,7 +81,7 @@ Open <http://localhost:8000/panel> and create the first admin account. Browser-b
    ```bash
    php -r 'echo password_hash("choose-a-strong-password", PASSWORD_DEFAULT), PHP_EOL;'
    ```
-3. Add environment variables (see `.env.example`): `KIRBY_ADMIN_EMAIL`, `KIRBY_ADMIN_NAME`, `KIRBY_ADMIN_PASSWORD_HASH`, and optionally `SITE_URL`.
+3. Add environment variables (see `.env.example`): `KIRBY_ADMIN_EMAIL`, `KIRBY_ADMIN_NAME`, `KIRBY_ADMIN_PASSWORD_HASH` (or a plain `KIRBY_ADMIN_PASSWORD` marked *Secret*), and optionally `SITE_URL`. Values are trimmed, and the account is refreshed whenever they change.
 4. Create a [fine-grained GitHub token](https://github.com/settings/personal-access-tokens/new) with access to **only this repository** and the permission **Contents: Read and write**. Add it as `GITHUB_SYNC_TOKEN`. Repository and branch are detected from Vercel's system variables; override them with `GITHUB_SYNC_REPO` / `GITHUB_SYNC_BRANCH` if needed.
 5. Add the **Upstash Redis** integration from the Vercel Marketplace (free tier). It sets `KV_REST_API_URL` / `KV_REST_API_TOKEN`, and Panel logins then stay valid across serverless instances.
 
