@@ -27,7 +27,7 @@
           <?php foreach ($site->social()->toStructure() as $link): ?>
             <a href="<?= $link->url()->esc('attr') ?>" rel="me noopener"><?= ucfirst($link->platform()->esc()) ?></a>
           <?php endforeach ?>
-          <a href="<?= url('panel') ?>">Editor login</a>
+          <a href="<?= $kirby->user() ? url('write') : url('login') ?>"><?= $kirby->user() ? 'Write a story' : 'Editor login' ?></a>
         </nav>
       </div>
     </div>

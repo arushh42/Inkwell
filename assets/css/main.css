@@ -769,3 +769,29 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 
 .notice { margin: 0 0 24px; padding: 14px 18px; border: 2px solid var(--edge); border-radius: var(--radius); background: var(--yellow); color: #1A1814; font-weight: 600; }
 .notice--error { background: var(--red); color: var(--on-accent); }
+
+/* ---------- Sign in (/login) ---------- */
+
+.login { position: relative; display: grid; place-items: center; min-height: 72vh; padding-block: 64px; }
+.login__card {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 460px;
+  padding: 40px;
+  border: 2px solid var(--edge); border-radius: var(--radius);
+  background: var(--paper-2);
+  box-shadow: 10px 10px 0 var(--edge);
+}
+.login__title { font: 400 56px/1 var(--serif); letter-spacing: -.035em; font-variation-settings: "SOFT" 50; }
+.login__title em { color: var(--accent); font-weight: 600; font-variation-settings: "SOFT" 100, "WONK" 1; }
+.login__intro { margin: 14px 0 28px; font: 400 18px/1.5 var(--serif); color: var(--ink-2); }
+.login form .btn { margin-top: 8px; }
+.login__links { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 24px 0 0; font: 500 13px var(--mono); }
+.login__links a { color: var(--ink-2); text-decoration: none; }
+.login__links a:hover { color: var(--accent); }
+.login__seal { position: absolute; z-index: 2; width: 130px; height: 130px; stroke: none; top: calc(50% - 270px); left: calc(50% + 200px); animation: spin 24s linear infinite; }
+.login__seal text { font: 700 10px var(--mono); letter-spacing: .18em; fill: #1A1814; }
+@media (max-width: 640px) { .login__seal { display: none; } .login__card { padding: 28px; } }
+@media (prefers-reduced-motion: reduce) { .login__seal { animation: none; } }
+
+.check { display: flex; align-items: center; gap: 10px; margin: 0 0 20px; font-size: 15px; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--accent); }

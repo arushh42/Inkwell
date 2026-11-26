@@ -120,7 +120,7 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
         <?php if ($story): ?>
           <p class="publish-card__links">
             <a href="<?= $story->isListed() ? $story->url() : $story->previewUrl() ?>" target="_blank" rel="noopener"><?= $story->isListed() ? 'View live ↗' : 'Preview ↗' ?></a>
-            <a href="<?= $story->panel()->url() ?>">Advanced settings in Panel ↗</a>
+            <a href="<?= $story->panel()->url() ?>">Advanced settings (classic admin) ↗</a>
           </p>
         <?php endif ?>
       </div>

@@ -36,6 +36,36 @@
     return null;
   };
 
+  // Wrap stray top-level text/inline nodes in <p>, turn <div>s into <p>s and
+  // drop empty paragraphs, so the server always receives clean block HTML.
+  const BLOCKS = /^(P|H2|H3|BLOCKQUOTE|PRE|UL|OL|FIGURE|HR|DIV)$/;
+  const serialize = () => {
+    const out = document.createElement('div');
+    let para = null;
+    [...editor.cloneNode(true).childNodes].forEach((node) => {
+      if (node.nodeType === 1 && BLOCKS.test(node.nodeName)) {
+        para = null;
+        if (node.nodeName === 'DIV') {
+          const p = document.createElement('p');
+          p.innerHTML = node.innerHTML;
+          node = p;
+        }
+        out.appendChild(node);
+        return;
+      }
+      if (node.nodeType === 3 && node.textContent.trim() === '' && !para) return;
+      if (!para) {
+        para = document.createElement('p');
+        out.appendChild(para);
+      }
+      para.appendChild(node);
+    });
+    out.querySelectorAll('p, h2, h3').forEach((el) => {
+      if (el.textContent.trim() === '' && !el.querySelector('img')) el.remove();
+    });
+    return out.innerHTML;
+  };
+
   const isEmpty = () => editor.textContent.trim() === '' && !editor.querySelector('img');
 
   const updateStats = () => {
@@ -199,7 +229,7 @@
       editor.focus();
       return;
     }
-    input.value = isEmpty() ? '' : editor.innerHTML;
+    input.value = isEmpty() ? '' : serialize();
     submitting = true;
     form.classList.add('is-saving');
   });

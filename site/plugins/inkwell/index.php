@@ -120,7 +120,7 @@ Kirby::plugin('inkwell/core', [
             'method'  => 'GET|POST',
             'action'  => function (string|null $slug = null) {
                 if (kirby()->user() === null) {
-                    go('panel/login');
+                    go(url('login', ['query' => ['redirect' => $slug ? 'write/' . $slug : 'write']]));
                 }
 
                 return Page::factory([
@@ -131,6 +131,35 @@ Kirby::plugin('inkwell/core', [
                         'editSlug'  => $slug ?? '',
                     ],
                 ]);
+            },
+        ],
+
+        /**
+         * Editor sign-in in the site's own design (instead of the Panel's).
+         */
+        [
+            'pattern' => 'login',
+            'method'  => 'GET|POST',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'     => 'login',
+                    'template' => 'login',
+                    'content'  => ['title' => 'Sign in'],
+                ]);
+            },
+        ],
+
+        /**
+         * Sign out (CSRF-protected so other sites can't log editors out).
+         */
+        [
+            'pattern' => 'logout',
+            'action'  => function () {
+                if (csrf(get('csrf')) === true) {
+                    kirby()->user()?->logout();
+                }
+
+                go('/');
             },
         ],
 
