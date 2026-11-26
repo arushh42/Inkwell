@@ -2,7 +2,7 @@ Title: Papers
 
 ----
 
-Intro: Peer-reviewed research and preprints by Inkwell authors, with plain-language summaries.
+Intro: Landmark machine-learning research from the past two years — from reasoning language models to weather and Earth-system forecasting — each with a plain-language summary.
 
 ----
 

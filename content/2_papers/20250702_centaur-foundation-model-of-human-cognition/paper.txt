@@ -1,0 +1,61 @@
+Title: A foundation model to predict and capture human cognition
+
+----
+
+Abstract: Establishing a unified theory of cognition has been an important goal in psychology. A first step towards such a theory is to create a computational model that can predict human behaviour in a wide range of settings. Here we introduce Centaur, a computational model that can predict and simulate human behaviour in any experiment expressible in natural language. We derived Centaur by fine-tuning a state-of-the-art language model on a large-scale dataset called Psych-101. Psych-101 has an unprecedented scale, covering trial-by-trial data from more than 60,000 participants performing in excess of 10,000,000 choices in 160 experiments. Centaur not only captures the behaviour of held-out participants better than existing cognitive models, but it also generalizes to previously unseen cover stories, structural task modifications and entirely new domains. Furthermore, the model’s internal representations become more aligned with human neural activity after fine-tuning. Taken together, our results demonstrate that it is possible to discover computational models that capture human behaviour across a wide range of domains. We believe that such models provide tremendous potential for guiding the development of cognitive theories, and we present a case study to demonstrate this.
+
+----
+
+Abstractsource: Nature (2025), licensed under CC BY 4.0
+
+----
+
+Text: [{"content": {"level": "h2", "text": "In plain language"}, "id": "1de2a459-a810-301d-88ee-8b7e14e7ae23", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Centaur is a language model fine-tuned to predict how people behave in psychology experiments. Its training set, Psych-101, contains trial-by-trial data from more than 60,000 participants making over ten million choices across 160 experiments. Centaur predicts the behaviour of new participants better than existing cognitive models, generalises to modified tasks and entirely new domains, and its internal representations become more aligned with human brain activity after fine-tuning.</p>"}, "id": "fc7795c2-5f8c-7ee3-4d02-5508530a4235", "isHidden": false, "type": "text"}]
+
+----
+
+Authors: 
+
+----
+
+Coauthors: Marcel Binz, Elif Akata, Matthias Bethge, Franziska Brändle, Fred Callaway, Julian Coda-Forno, Peter Dayan, Can Demircan
+
+----
+
+Authortotal: 40
+
+----
+
+Date: 2025-07-02
+
+----
+
+Venue: Nature
+
+----
+
+Volume: 644
+
+----
+
+Pages: 1002-1009
+
+----
+
+Doi: 10.1038/s41586-025-09215-4
+
+----
+
+Arxiv: 2410.20268
+
+----
+
+Keywords: Cognitive science, Large language models, Foundation models
+
+----
+
+Pdf: 
+
+----
+
+Uuid: 806433a96783d9bd

@@ -1,0 +1,61 @@
+Title: DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning
+
+----
+
+Abstract: General reasoning represents a long-standing and formidable challenge in artificial intelligence (AI). Recent breakthroughs, exemplified by large language models (LLMs) and chain-of-thought (CoT) prompting, have achieved considerable success on foundational reasoning tasks. However, this success is heavily contingent on extensive human-annotated demonstrations and the capabilities of models are still insufficient for more complex problems. Here we show that the reasoning abilities of LLMs can be incentivized through pure reinforcement learning (RL), obviating the need for human-labelled reasoning trajectories. The proposed RL framework facilitates the emergent development of advanced reasoning patterns, such as self-reflection, verification and dynamic strategy adaptation. Consequently, the trained model achieves superior performance on verifiable tasks such as mathematics, coding competitions and STEM fields, surpassing its counterparts trained through conventional supervised learning on human demonstrations. Moreover, the emergent reasoning patterns exhibited by these large-scale models can be systematically used to guide and enhance the reasoning capabilities of smaller models.
+
+----
+
+Abstractsource: Nature (2025), licensed under CC BY 4.0
+
+----
+
+Text: [{"content": {"level": "h2", "text": "In plain language"}, "id": "12f214f0-d854-fb6e-18c7-6e6af0f4b5c8", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Large language models usually learn step-by-step reasoning by imitating examples written by people. This paper shows that reasoning can instead be encouraged with pure reinforcement learning, rewarding the model for correct answers, without any human-labelled reasoning traces. Behaviours such as self-reflection, checking its own work and switching strategies emerge on their own. The resulting model performs strongly on mathematics, coding competitions and other STEM tasks, and its reasoning patterns can be used to improve smaller models.</p>"}, "id": "fbec468e-d6a9-d38a-3c0f-14001db03d5b", "isHidden": false, "type": "text"}]
+
+----
+
+Authors: 
+
+----
+
+Coauthors: Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Peiyi Wang, Qihao Zhu, Runxin Xu, Ruoyu Zhang
+
+----
+
+Authortotal: 194
+
+----
+
+Date: 2025-09-17
+
+----
+
+Venue: Nature
+
+----
+
+Volume: 645
+
+----
+
+Pages: 633-638
+
+----
+
+Doi: 10.1038/s41586-025-09422-z
+
+----
+
+Arxiv: 2501.12948
+
+----
+
+Keywords: Large language models, Reinforcement learning, Reasoning
+
+----
+
+Pdf: 
+
+----
+
+Uuid: 4820c9e99297ff78

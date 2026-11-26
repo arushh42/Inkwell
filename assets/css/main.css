@@ -815,3 +815,8 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .publish-card__note { margin-top: 12px; text-align: center; }
 .drafts-card__label .count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 6px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-size: 11px; letter-spacing: 0; }
 .drafts-card__empty { margin: 12px 0 0; font: italic 400 15px/1.5 var(--serif); color: var(--ink-3); }
+
+/* ---------- Paper extras ---------- */
+.paper__etal { font-style: normal; font: 500 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-left: 6px; white-space: nowrap; }
+.index-card__source { margin: 16px 0 0; font: 500 11px/1.5 var(--mono); letter-spacing: .04em; color: #7a7366; }
+.facts__muted { font-weight: 400; color: var(--ink-3); }

@@ -134,4 +134,4 @@ Editor saves in Panel ──▶ Kirby writes /tmp/content ──▶ hook diffs /
 
 ## Licensing note
 
-Kirby is free to try locally and on test servers. A public production site needs a [Kirby licence](https://getkirby.com/buy). Demo content on this site is fictional; DOIs use the `10.5555` example prefix.
+Kirby is free to try locally and on test servers. A public production site needs a [Kirby licence](https://getkirby.com/buy). The stories and author profiles are fictional demo content. The **papers are real**: five landmark machine-learning papers published in *Nature* in 2024–25, credited to their actual authors and linked to the publications by DOI. Their abstracts are reproduced under CC BY 4.0, or for Aurora from arXiv's CC0 metadata, and each page states its source.

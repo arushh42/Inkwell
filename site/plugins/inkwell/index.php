@@ -173,21 +173,42 @@ Kirby::plugin('inkwell/core', [
         },
 
         /**
+         * True when only the first few of a long author list are stored.
+         */
+        'hasMoreAuthors' => function (): bool {
+            return $this->authorTotal()->toInt() > count($this->authorNames());
+        },
+
+        /**
+         * Display byline, e.g. "Daya Guo, Dejian Yang, Haowei Zhang et al."
+         */
+        'byline' => function (int|null $max = null): string {
+            $names     = $this->authorNames();
+            $truncated = $this->hasMoreAuthors() || ($max !== null && count($names) > $max);
+            $names     = $max !== null ? array_slice($names, 0, $max) : $names;
+
+            return implode(', ', $names) . ($truncated ? ' et al.' : '');
+        },
+
+        /**
          * BibTeX citation for a paper.
          */
         'bibtex' => function (): string {
-            $authors = implode(' and ', $this->authorNames());
+            $names   = $this->authorNames();
+            $authors = implode(' and ', $names) . ($this->hasMoreAuthors() ? ' and others' : '');
             $year    = $this->date()->toDate('Y');
-            $first   = Str::slug(explode(' ', $authors)[0] ?? 'paper', '');
-            $key     = $first . $year . Str::slug(explode(' ', $this->title()->value())[0], '');
+            $family  = explode(' ', $names[0] ?? 'paper');
+            $key     = Str::slug(end($family), '') . $year . Str::slug(explode(' ', $this->title()->value())[0], '');
 
             $fields = array_filter([
                 'title'   => $this->title()->value(),
                 'author'  => $authors,
                 'journal' => $this->venue()->value(),
+                'volume'  => $this->volume()->value(),
+                'pages'   => str_replace('-', '--', (string)$this->pages()->value()),
                 'year'    => $year,
                 'doi'     => $this->doi()->value(),
-                'url'     => $this->url(),
+                'url'     => $this->doi()->isNotEmpty() ? 'https://doi.org/' . $this->doi()->value() : $this->url(),
             ]);
 
             $lines = [];

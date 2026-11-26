@@ -105,7 +105,7 @@ $tags    = page('stories')->children()->listed()->pluck('tags', ',', true);
       <a class="catalogue__card" href="<?= $paper->url() ?>">
         <span class="catalogue__meta"><?= $paper->date()->toDate('Y') ?> · <?= esc(Kirby\Toolkit\Str::short($paper->venue()->value(), 38)) ?></span>
         <span class="catalogue__name"><?= $paper->title()->esc() ?></span>
-        <span class="catalogue__authors"><?= esc(implode(', ', $paper->authorNames())) ?></span>
+        <span class="catalogue__authors"><?= esc($paper->byline(3)) ?></span>
       </a>
     <?php endforeach ?>
     <a class="btn btn--block" href="<?= page('papers')->url() ?>">All papers →</a>

@@ -16,6 +16,11 @@ columns:
         type: textarea
         buttons: false
         required: true
+      abstractSource:
+        label: Abstract source & licence
+        type: text
+        placeholder: "Nature, CC BY 4.0"
+        help: Where the abstract text comes from, shown under the abstract (required for CC-licensed abstracts).
       text:
         label: Summary / notes (optional)
         type: blocks
@@ -31,9 +36,14 @@ columns:
             type: pages
             query: site.find("authors").children
           coauthors:
-            label: External co-authors
+            label: External authors
             type: tags
-            help: Names of co-authors without a profile here.
+            help: Authors without a profile here, in byline order. For long author lists, enter the first few and set the total below.
+          authorTotal:
+            label: Total number of authors
+            type: number
+            min: 1
+            help: Leave empty if every author is listed. Otherwise the byline ends in “et al.”
           date:
             label: Publication date
             type: date
@@ -42,11 +52,24 @@ columns:
           venue:
             label: Journal / conference
             type: text
+          volume:
+            label: Volume
+            type: text
+            width: 1/2
+          pages:
+            label: Pages
+            type: text
+            width: 1/2
           doi:
             label: DOI
             type: text
             placeholder: 10.1234/abcd.5678
             pattern: '^10\.\d{4,9}/\S+$'
+          arxiv:
+            label: arXiv ID
+            type: text
+            placeholder: "2501.12948"
+            pattern: '^\d{4}\.\d{4,5}$'
           keywords:
             label: Keywords
             type: tags
