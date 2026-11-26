@@ -31,7 +31,7 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
       <?php endif ?>
 
       <label class="visually-hidden" for="title">Headline</label>
-      <textarea class="writer__title" id="title" name="title" rows="1" placeholder="Headline" required data-autogrow><?= esc($values['title']) ?></textarea>
+      <textarea class="writer__title" id="title" name="title" rows="1" placeholder="Headline" required data-autogrow <?= e($story === null, 'autofocus') ?>><?= esc($values['title']) ?></textarea>
 
       <label class="visually-hidden" for="subtitle">Subtitle</label>
       <textarea class="writer__subtitle" id="subtitle" name="subtitle" rows="1" placeholder="Add a subtitle that hooks the reader…" data-autogrow><?= esc($values['subtitle']) ?></textarea>
