@@ -9,6 +9,12 @@
   },
   "routes": [
     {
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "inkwell-arush-2b94.vercel.app" }],
+      "status": 308,
+      "headers": { "Location": "https://inkwellpress.vercel.app/$1" }
+    },
+    {
       "src": "/assets/(.*)",
       "headers": { "cache-control": "public, max-age=86400" },
       "continue": true
