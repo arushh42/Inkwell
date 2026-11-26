@@ -26,6 +26,14 @@ $tmp  = rtrim(sys_get_temp_dir(), '/') . '/inkwell';
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 $_SERVER['PHP_SELF']    = '/index.php';
 
+// Behind Vercel's proxy every request appears to come from the same local
+// address. Use the client IP that Vercel's edge sets (and overwrites, so it
+// can't be spoofed) — otherwise Kirby's brute-force protection would lock
+// out *all* editors after 10 failed logins by anyone.
+if (getenv('VERCEL') && !empty($_SERVER['HTTP_X_REAL_IP'])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_REAL_IP'];
+}
+
 $path = rawurldecode(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
 
 /**
