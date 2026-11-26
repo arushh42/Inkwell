@@ -1,0 +1,65 @@
+Title: Confidence Aware SSD Ensemble with Weighted Boxes Fusion for Weapon Detection
+
+----
+
+Abstract: The safety and security of public spaces is of vital importance, driving the need for sophisticated surveillance systems capable of accurately detecting weapons, which are often hampered by issues like partial occlusion, varying lighting, and cluttered backgrounds. While single-model detectors are advanced, they often lack robustness in these challenging conditions. This paper presents the hypothesis that ensemble of Single Shot Multibox Detector (SSD) models with diverse feature extraction backbones can significantly enhance detection robustness. To leverage diverse feature representations, individual SSD models were trained using a selection of backbone networks: VGG16, ResNet50, EfficientNet, and MobileNetV3. The study is conducted on a dataset consisting of images of three distinct weapon classes: guns, heavy weapons and knives. The predictions from these models are combined using the Weighted Boxes Fusion (WBF) method, an ensemble technique designed to optimize bounding box accuracy. Our key finding is that the fusion strategy is as critical as the ensemble's diversity, a WBF approach using a 'max' confidence scoring strategy achieved a mean Average Precision (mAP) of 0.838. This represents a 2.948% relative improvement over the best-performing single model and consistently outperforms other fusion heuristics. This research offers a robust approach to enhancing real-time weapon detection capabilities in surveillance applications by demonstrating that confidence-aware fusion is a key mechanism for improving accuracy metrics of ensembles.
+
+----
+
+Abstractsource: arXiv via DataCite metadata (CC0)
+
+----
+
+Text: 
+
+----
+
+Authors: 
+
+----
+
+Coauthors: Atharva Jadhav, Arush Karekar, Manas Divekar, Shachi Natu
+
+----
+
+Authortotal: 
+
+----
+
+Date: 2025-09-01
+
+----
+
+Venue: arXiv
+
+----
+
+Volume: 
+
+----
+
+Pages: 
+
+----
+
+Doi: 10.48550/arXiv.2509.23697
+
+----
+
+Arxiv: 2509.23697
+
+----
+
+Keywords: 
+
+----
+
+Submittedby: - user://bae8c8fb
+
+----
+
+Pdf: 
+
+----
+
+Uuid: ux9vpaww3bwy59j7
