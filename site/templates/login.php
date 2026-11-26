@@ -34,6 +34,8 @@
       <button class="btn btn--accent btn--block" type="submit">Sign in →</button>
     </form>
 
+    <p class="login__signup">New here? <a href="<?= url('signup') ?>">Become a contributor →</a></p>
+
     <p class="login__links">
       <a href="<?= $site->url() ?>">← Back to the site</a>
       <a href="<?= url('panel') ?>">Classic admin panel ↗</a>

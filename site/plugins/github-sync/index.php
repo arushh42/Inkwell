@@ -19,7 +19,8 @@ $sync = function (string $what) {
         return;
     }
 
-    $user    = $kirby->user();
+    // the real signed-in writer, even when the write ran as the system user
+    $user    = $kirby->auth()->user(null, false) ?? $kirby->user();
     $message = $what . "\n\nPublished from the Kirby Panel" . ($user ? ' by ' . ($user->name()->or($user->email())) : '') . '.';
 
     try {
@@ -28,7 +29,7 @@ $sync = function (string $what) {
         // The change is saved on this instance; tell the editor it isn't
         // persisted yet. The next successful save will include it.
         error_log($e->getMessage());
-        throw new Kirby\Exception\Exception(
+        throw new \Kirby\Exception\Exception(
             'Saved, but not yet persisted to GitHub: ' . $e->getMessage() . ' — it will be retried with your next save.'
         );
     }

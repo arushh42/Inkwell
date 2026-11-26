@@ -6,7 +6,7 @@
       <section class="footer-cta">
         <p class="kicker">Write for us</p>
         <h2 class="footer-cta__title">Have something worth reading <em>slowly</em>?</h2>
-        <a class="btn btn--accent" href="<?= page('about') ? page('about')->url() : url('panel') ?>">Pitch a story →</a>
+        <a class="btn btn--accent" href="<?= $kirby->user() ? url('write') : url('signup') ?>"><?= $kirby->user() ? 'Write a story →' : 'Become a contributor →' ?></a>
       </section>
       <?php endif ?>
 

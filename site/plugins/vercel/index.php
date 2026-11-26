@@ -5,6 +5,8 @@ use Kirby\Session\FileSessionStore;
 
 load([
     'Inkwell\\Vercel\\UpstashSessionStore' => __DIR__ . '/src/UpstashSessionStore.php',
+    'Inkwell\\Vercel\\Redis'               => __DIR__ . '/src/Redis.php',
+    'Inkwell\\Vercel\\AccountMirror'       => __DIR__ . '/src/AccountMirror.php',
 ]);
 
 /**
@@ -15,6 +17,8 @@ load([
  * - Stores Panel sessions in Upstash Redis when credentials are present,
  *   so logins survive across serverless instances. Without credentials,
  *   Kirby's default file-based store is used.
+ * - Mirrors user accounts (e.g. sign-ups) to Redis so every serverless
+ *   instance knows about them (see AccountMirror).
  */
 $components = [];
 
@@ -33,6 +37,35 @@ $components['session::store'] = function (Kirby $kirby) use ($redisUrl, $redisTo
     return new FileSessionStore($kirby->root('sessions'));
 };
 
+/**
+ * Upload account changes to Redis — only on serverless deployments, where
+ * the accounts folder is a per-instance copy in /tmp.
+ */
+$mirrorAccounts = function () {
+    $kirby = kirby();
+    $redis = Inkwell\Vercel\Redis::fromEnv();
+
+    if ($redis === null || $kirby->root('accounts') === $kirby->root('site') . '/accounts') {
+        return;
+    }
+
+    $adminEmail = strtolower(trim((string)getenv('KIRBY_ADMIN_EMAIL')));
+    $exclude    = $adminEmail !== '' ? [substr(hash('sha256', $adminEmail), 0, 8)] : [];
+
+    try {
+        (new Inkwell\Vercel\AccountMirror($redis, $kirby->root('accounts'), $exclude))->push();
+    } catch (Throwable $e) {
+        error_log('[inkwell] Could not save account changes to Redis: ' . $e->getMessage());
+        throw new \Kirby\Exception\Exception('The account change could not be saved permanently. Please try again.');
+    }
+};
+
+$userHooks = [];
+foreach (['create', 'update', 'delete', 'changeEmail', 'changeName', 'changePassword', 'changeRole', 'changeLanguage'] as $action) {
+    $userHooks['user.' . $action . ':after'] = $mirrorAccounts;
+}
+
 Kirby::plugin('inkwell/vercel', [
     'components' => $components,
+    'hooks'      => $userHooks,
 ]);

@@ -1,0 +1,26 @@
+title: Contributor
+description: Signed up on the website. Writes in the writing studio and submits stories for review; an editor or admin publishes them.
+
+# Contributors never touch Kirby directly: no Panel, no REST API, no direct
+# page/file permissions. Everything goes through /write, which checks that a
+# contributor only edits their own unpublished stories and can't publish.
+permissions:
+  access:
+    panel: false
+    site: false
+    languages: false
+    system: false
+    users: false
+  site: false
+  pages: false
+  files: false
+  languages: false
+  users: false
+  user:
+    changeEmail: false
+    changeLanguage: false
+    changeName: false
+    changePassword: false
+    changeRole: false
+    delete: false
+    update: false

@@ -24,8 +24,18 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
 
       <?php if ($error): ?>
         <div class="notice notice--error" role="alert"><?= esc($error) ?></div>
+      <?php elseif ($setupPending): ?>
+        <div class="notice" role="status">We’re still setting up your author profile — this takes about a minute. You can start writing now; saving will work once it’s ready (just refresh this page in a moment).</div>
+      <?php elseif ($welcome): ?>
+        <div class="notice" role="status">Welcome to <?= $site->title()->esc() ?>, <?= $kirby->user()->name()->esc() ?>! Write your first story below. When it’s ready, submit it for review and an editor will publish it.</div>
+      <?php elseif ($readOnly): ?>
+        <div class="notice" role="status">This story is published. If it needs changes, ask an editor.</div>
       <?php elseif ($saved === 'draft'): ?>
-        <div class="notice" role="status">Draft saved. Only signed-in editors can see it.</div>
+        <div class="notice" role="status">Draft saved. Only you<?= $isEditor ? ' and other editors' : ' and the editors' ?> can see it.</div>
+      <?php elseif ($saved === 'submitted'): ?>
+        <div class="notice" role="status"><?= $isEditor ? 'Story moved to “In review”.' : 'Submitted for review! An editor will read it and publish it. You can keep editing until then.' ?></div>
+      <?php elseif ($saved === 'withdrawn'): ?>
+        <div class="notice" role="status">Submission withdrawn. The story is a draft again.</div>
       <?php elseif ($saved === 'unpublished'): ?>
         <div class="notice" role="status">Story unpublished and moved back to drafts.</div>
       <?php endif ?>
@@ -58,7 +68,7 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
         <span class="toolbar__stats" data-stats>0 words</span>
       </div>
 
-      <div class="writer__body prose prose--story" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Story" data-placeholder="Tell your story…" data-editor><?= $values['text'] ?></div>
+      <div class="writer__body prose prose--story" contenteditable="<?= $readOnly ? 'false' : 'true' ?>" role="textbox" aria-multiline="true" aria-label="Story" data-placeholder="Tell your story…" data-editor><?= $values['text'] ?></div>
       <textarea name="text" hidden data-editor-input></textarea>
     </div>
 
@@ -75,12 +85,17 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
         </fieldset>
 
         <div class="field">
-          <label class="field__label" for="author">Author</label>
-          <select class="input" id="author" name="author">
-            <?php foreach ($authors as $author): ?>
-              <option value="<?= $author->id() ?>" <?= e($author->id() === $values['author'], 'selected') ?>><?= $author->title()->esc() ?></option>
-            <?php endforeach ?>
-          </select>
+          <?php if ($isEditor): ?>
+            <label class="field__label" for="author">Author</label>
+            <select class="input" id="author" name="author">
+              <?php foreach ($authors as $author): ?>
+                <option value="<?= $author->id() ?>" <?= e($author->id() === $values['author'], 'selected') ?>><?= $author->title()->esc() ?><?= $author->isDraft() ? ' (new contributor)' : '' ?></option>
+              <?php endforeach ?>
+            </select>
+          <?php else: ?>
+            <span class="field__label">Author</span>
+            <p class="writer__byline"><?php if ($myAuthor) snippet('avatar', ['author' => $myAuthor]) ?> <?= $myAuthor?->title()->esc() ?? esc($kirby->user()->name()) ?></p>
+          <?php endif ?>
         </div>
 
         <div class="field">
@@ -108,19 +123,33 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
         </div>
 
         <div class="publish-card__actions">
-          <?php if ($story && $story->isListed()): ?>
+          <?php if ($readOnly): ?>
+            <a class="btn btn--block" href="<?= $story->url() ?>">View published story</a>
+          <?php elseif ($isEditor && $story && $story->isListed()): ?>
             <button class="btn btn--accent btn--block" type="submit" name="action" value="publish">Update story</button>
             <button class="btn btn--block" type="submit" name="action" value="unpublish">Unpublish</button>
+          <?php elseif ($isEditor): ?>
+            <button class="btn btn--accent btn--block" type="submit" name="action" value="publish"><?= $story && $story->isUnlisted() ? 'Approve &amp; publish' : 'Publish' ?></button>
+            <button class="btn btn--block" type="submit" name="action" value="draft">Save <?= $story && $story->isUnlisted() ? '' : 'draft' ?></button>
+          <?php elseif ($story && $story->isUnlisted()): ?>
+            <button class="btn btn--accent btn--block" type="submit" name="action" value="submit">Save changes</button>
+            <button class="btn btn--block" type="submit" name="action" value="withdraw">Withdraw submission</button>
           <?php else: ?>
-            <button class="btn btn--accent btn--block" type="submit" name="action" value="publish">Publish</button>
+            <button class="btn btn--accent btn--block" type="submit" name="action" value="submit">Submit for review</button>
             <button class="btn btn--block" type="submit" name="action" value="draft">Save draft</button>
           <?php endif ?>
         </div>
 
+        <?php if (!$isEditor && !$readOnly): ?>
+          <p class="field__help publish-card__note">An editor reviews every story before it goes live.</p>
+        <?php endif ?>
+
         <?php if ($story): ?>
           <p class="publish-card__links">
-            <a href="<?= $story->isListed() ? $story->url() : $story->previewUrl() ?>" target="_blank" rel="noopener"><?= $story->isListed() ? 'View live ↗' : 'Preview ↗' ?></a>
-            <a href="<?= $story->panel()->url() ?>">Advanced settings (classic admin) ↗</a>
+            <a href="<?= $story->isDraft() ? $story->previewUrl() : $story->url() ?>" target="_blank" rel="noopener"><?= $story->isListed() ? 'View live ↗' : 'Preview ↗' ?></a>
+            <?php if ($isEditor): ?>
+              <a href="<?= $story->panel()->url() ?>">Advanced settings (classic admin) ↗</a>
+            <?php endif ?>
           </p>
         <?php endif ?>
       </div>
@@ -130,26 +159,29 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
           <p class="kicker">Your desk</p>
           <a href="<?= url('write') ?>" class="drafts-card__new">+ New</a>
         </div>
-        <?php if ($drafts->isNotEmpty()): ?>
-          <p class="drafts-card__label">Drafts</p>
+        <?php
+        $groups = [
+            ($isEditor ? 'Awaiting review' : 'Submitted for review') => [$inReview, 'modified'],
+            'Drafts'             => [$drafts, 'modified'],
+            ($isEditor ? 'Recently published' : 'Published') => [$published, 'date'],
+        ];
+        $empty = true;
+        ?>
+        <?php foreach ($groups as $label => [$items, $dateField]): ?>
+          <?php if ($items->isEmpty()) continue; $empty = false; ?>
+          <p class="drafts-card__label"><?= $label ?><?php if ($label === 'Awaiting review'): ?> <span class="count"><?= $items->count() ?></span><?php endif ?></p>
           <ul class="drafts-card__list">
-            <?php foreach ($drafts as $draft): ?>
-              <li <?= e($story && $draft->is($story), 'aria-current="true"') ?>>
-                <a href="<?= url('write/' . $draft->slug()) ?>"><?= $draft->title()->esc() ?></a>
-                <span><?= $draft->modified('j M') ?></span>
+            <?php foreach ($items as $item): ?>
+              <li <?= e($story && $item->is($story), 'aria-current="true"') ?>>
+                <a href="<?= url('write/' . $item->slug()) ?>"><?= $item->title()->esc() ?></a>
+                <span><?= $dateField === 'date' ? $item->date()->toDate('j M') : $item->modified('j M') ?></span>
               </li>
             <?php endforeach ?>
           </ul>
+        <?php endforeach ?>
+        <?php if ($empty): ?>
+          <p class="drafts-card__empty">Nothing here yet — your stories will show up as you write them.</p>
         <?php endif ?>
-        <p class="drafts-card__label">Recently published</p>
-        <ul class="drafts-card__list">
-          <?php foreach ($mine as $item): ?>
-            <li <?= e($story && $item->is($story), 'aria-current="true"') ?>>
-              <a href="<?= url('write/' . $item->slug()) ?>"><?= $item->title()->esc() ?></a>
-              <span><?= $item->date()->toDate('j M') ?></span>
-            </li>
-          <?php endforeach ?>
-        </ul>
       </div>
     </aside>
   </div>

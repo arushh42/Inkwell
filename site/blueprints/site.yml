@@ -15,6 +15,14 @@ tabs:
             layout: table
             empty: No drafts — start writing!
             info: "{{ page.kind }} · {{ page.author.toPages.first.title }}"
+          review:
+            type: pages
+            label: Awaiting review
+            parent: site.find("stories")
+            status: unlisted
+            layout: table
+            empty: Nothing waiting for review
+            info: "{{ page.author.toPages.first.title }}"
           published:
             type: pages
             label: Recently published stories
@@ -49,6 +57,9 @@ tabs:
                 link: pages/stories
               - label: Drafts
                 value: "{{ site.find('stories').drafts.count }}"
+                link: pages/stories
+              - label: Awaiting review
+                value: "{{ site.find('stories').children.unlisted.count }}"
                 link: pages/stories
               - label: Papers
                 value: "{{ site.find('papers').children.listed.count }}"

@@ -22,6 +22,14 @@ Editors sign in to the Kirby Panel, write in a block editor, attach PDFs, and pu
 - Live word count and reading time, an "Edit this story" link on every story, and a "Your desk" list of drafts
 - Pasted HTML is sanitized and stored as native Kirby blocks, so the Panel and the studio edit the same content
 
+**For contributors: sign-up and editorial review**
+- Anyone can sign up at `/signup` to become a **Contributor**: name, email and password, protected by a honeypot field, a minimum fill-in time and a rate limit of 5 sign-ups per hour per network
+- Contributors write in the studio and **submit for review**. They can only open their own stories, can't publish, and can't edit a story once it's live
+- Editors and admins see an **Awaiting review** queue in the studio and the Panel, and approve stories with one click
+- Stories in review stay private (404 for everyone except the author and editors), so a contributor can't bypass review by sharing a link
+- A contributor's author profile stays hidden until their first story is published
+- Contributors have no Kirby permissions, no Panel access and no API access. Every action goes through the studio, which checks ownership and then writes as the system user
+
 **For editors: the Kirby Panel at `/panel`** (for everything else: papers, authors, users, settings)
 - A dashboard showing drafts, recently published stories, latest papers and counts
 - A draft → in review → published workflow
@@ -94,6 +102,16 @@ Kirby expects a writable, persistent disk. Vercel functions have a read-only fil
 - The admin account is provisioned from environment variables, so no password hash is ever committed.
 - `vercel.json` routes only `/assets/*` as static files. `/content` and `/site` are never publicly reachable.
 - The `vercel-php` runtime ships without GD, so images are served at their original size instead of failing.
+
+### How member accounts work on serverless
+
+Kirby stores user accounts as files, and on Vercel those files live in each instance's private `/tmp`. Accounts created by sign-ups are therefore **mirrored to Upstash Redis** (`site/plugins/vercel/src/AccountMirror.php`):
+
+- After any account change, the changed files are uploaded and a version counter is bumped.
+- Before Kirby boots, an instance downloads accounts if the version has changed. This only happens on requests that can involve a signed-in user, so anonymous readers cost no extra Redis calls.
+- Each instance remembers what it last synced, so an account is only deleted when it really was deleted, not because an instance hadn't seen it yet.
+- File modification times are preserved. Kirby ends any session that started before the password file's mtime, so a fresh mtime would log members out everywhere. For the same reason, the environment-provisioned admin's password file gets a fixed timestamp.
+- Password hashes live only in the private Redis database, never in the public Git repository.
 
 ### How Panel edits are persisted (GitHub sync)
 

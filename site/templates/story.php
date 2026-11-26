@@ -21,7 +21,7 @@ $more   = $author
       <p class="story__subtitle"><?= $page->subtitle()->esc() ?></p>
     <?php endif ?>
     <?php snippet('byline', ['page' => $page, 'author' => $author]) ?>
-    <?php if ($kirby->user()): ?>
+    <?php if (inkwell_is_editor($kirby->user())): ?>
       <a class="btn btn--small story__edit" href="<?= url('write/' . $page->slug()) ?>">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>
         Edit this story

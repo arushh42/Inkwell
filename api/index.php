@@ -134,7 +134,8 @@ if ($adminEmail === '' || $adminSecret === '') {
     $version  = hash('sha256', $adminEmail . "\0" . $adminName . "\0" . $adminSecret);
 
     // (re)write the account whenever the environment variables change
-    if (!is_file($marker) || file_get_contents($marker) !== $version) {
+    $previous = json_decode((string)@file_get_contents($marker), true) ?: [];
+    if (($previous['version'] ?? null) !== $version) {
         $isHash = password_get_info($adminSecret)['algo'] !== null;
 
         if (!$isHash) {
@@ -147,12 +148,14 @@ if ($adminEmail === '' || $adminSecret === '') {
             $adminSecret = password_hash($adminSecret, PASSWORD_DEFAULT);
         }
 
-        // remove accounts provisioned from previous values (e.g. a changed email)
-        foreach (glob($accounts . '/*', GLOB_ONLYDIR) ?: [] as $dir) {
-            foreach (array_diff(scandir($dir) ?: [], ['.', '..']) as $file) {
-                @unlink($dir . '/' . $file);
+        // remove the admin account provisioned from previous values (e.g. a
+        // changed email) — but never member accounts created by sign-ups
+        $oldDir = $previous['dir'] ?? null;
+        if ($oldDir && $oldDir !== basename($userDir) && preg_match('/^[a-f0-9]{8}$/', $oldDir)) {
+            foreach (array_diff(scandir($accounts . '/' . $oldDir) ?: [], ['.', '..']) as $file) {
+                @unlink($accounts . '/' . $oldDir . '/' . $file);
             }
-            @rmdir($dir);
+            @rmdir($accounts . '/' . $oldDir);
         }
 
         @mkdir($userDir, 0775, true);
@@ -163,7 +166,30 @@ if ($adminEmail === '' || $adminSecret === '') {
             'language' => 'en',
         ], true) . ';');
         file_put_contents($userDir . '/.htpasswd', $adminSecret);
-        file_put_contents($marker, $version);
+        // Kirby ends sessions that started before the password file's mtime.
+        // Every new serverless instance rewrites this file, so give it a fixed
+        // timestamp — otherwise each cold start would sign the admin out.
+        touch($userDir . '/.htpasswd', 946684800);
+        file_put_contents($marker, json_encode(['version' => $version, 'dir' => basename($userDir)]));
+    }
+}
+
+// 3b. Accounts created at runtime (sign-ups) live in Redis; download them
+//     before Kirby boots — only for requests that can involve a signed-in
+//     user, so anonymous readers don't pay for an extra Redis round-trip.
+require_once $root . '/site/plugins/vercel/src/Redis.php';
+require_once $root . '/site/plugins/vercel/src/AccountMirror.php';
+
+$redis = Inkwell\Vercel\Redis::fromEnv();
+$needsAccounts = isset($_COOKIE['kirby_session'])
+    || preg_match('#^/(login|signup|write|logout|panel|api)(/|$)#', $path) === 1;
+
+if ($redis && $needsAccounts) {
+    try {
+        $adminDir = $adminEmail !== '' ? [substr(hash('sha256', $adminEmail), 0, 8)] : [];
+        (new Inkwell\Vercel\AccountMirror($redis, $tmp . '/accounts', $adminDir))->hydrate();
+    } catch (Throwable $e) {
+        error_log('[inkwell] Could not load member accounts from Redis: ' . $e->getMessage());
     }
 }
 
@@ -221,6 +247,7 @@ if ($path === '/__health') {
         'password_format'     => $format,
         'plain_password_long_enough' => $format === 'plain password' ? (mb_strlen($secret) >= 8 ? 'yes' : 'NO — Kirby requires at least 8 characters') : 'n/a',
         'account_provisioned' => count(glob($tmp . '/accounts/*/index.php') ?: []) > 0,
+        'accounts_on_instance' => count(glob($tmp . '/accounts/*/index.php') ?: []),
         'login_blocks'        => $blocked,
         'sessions'            => $redis,
         'github_sync'         => getenv('GITHUB_SYNC_TOKEN') ? 'token set' : 'not configured',

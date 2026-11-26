@@ -21,6 +21,22 @@ sections:
         label: Date
         width: 1/6
         display: "{{ page.date.toDate('d.m.Y') }}"
+  review:
+    type: pages
+    label: Awaiting review
+    status: unlisted
+    template: story
+    layout: table
+    empty: Nothing waiting for review
+    help: Submitted by contributors. Open one in the writing studio (/write) or change its status to Published.
+    columns:
+      kind:
+        label: Type
+        width: 1/6
+      date:
+        label: Date
+        width: 1/6
+        display: "{{ page.date.toDate('d.m.Y') }}"
   published:
     type: pages
     label: Published

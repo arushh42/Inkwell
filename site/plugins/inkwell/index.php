@@ -22,9 +22,83 @@ function asset_url(string $path): string
 }
 
 /**
+ * Editors and admins can publish and edit anything; everyone else
+ * (contributors who signed up) only writes and submits their own stories.
+ */
+function inkwell_is_editor(\Kirby\Cms\User|null $user): bool
+{
+    return $user !== null && in_array($user->role()->id(), ['admin', 'editor'], true);
+}
+
+/**
+ * The author profile page that belongs to a login account: linked via the
+ * author's "account" field, falling back to a matching email or name.
+ */
+function inkwell_author_for(\Kirby\Cms\User|null $user): \Kirby\Cms\Page|null
+{
+    if ($user === null || ($authors = page('authors')) === null) {
+        return null;
+    }
+
+    $all = $authors->childrenAndDrafts();
+
+    return $all->filter(fn ($a) => $a->account()->toUsers()->has($user))->first()
+        ?? $all->findBy('email', $user->email())
+        ?? $all->findBy('title', $user->name()->value());
+}
+
+/**
+ * Simple rate limit (per client IP) backed by Redis on Vercel, or Kirby's
+ * cache locally. Returns false once $max attempts within $seconds are used.
+ */
+function inkwell_rate_limit(string $action, int $max, int $seconds): bool
+{
+    $key   = 'inkwell:rate:' . $action . ':' . kirby()->visitor()->ip(hash: true);
+    $redis = class_exists('Inkwell\\Vercel\\Redis') ? Inkwell\Vercel\Redis::fromEnv() : null;
+
+    if ($redis !== null) {
+        try {
+            return $redis->allow($key, $max, $seconds);
+        } catch (Throwable) {
+            return true; // never lock people out because Redis hiccuped
+        }
+    }
+
+    $cache = kirby()->cache('inkwell.core');
+    $count = (int)$cache->get($key, 0) + 1;
+    $cache->set($key, $count, (int)ceil($seconds / 60));
+
+    return $count <= $max;
+}
+
+/**
  * Inkwell core plugin: publication-specific helpers, routes and feeds.
  */
 Kirby::plugin('inkwell/core', [
+
+    'options' => [
+        'cache' => true,
+    ],
+
+    'hooks' => [
+        /**
+         * When a contributor's story goes live, make their author
+         * profile public too (it's created hidden on sign-up).
+         */
+        'page.changeStatus:after' => function ($newPage) {
+            if ($newPage->intendedTemplate()->name() !== 'story' || $newPage->isListed() === false) {
+                return;
+            }
+
+            $refs = $newPage->author()->yaml(); // e.g. ["page://abc123"]
+
+            foreach (page('authors')?->drafts() ?? [] as $draft) {
+                if (in_array($draft->uuid()->toString(), $refs, true)) {
+                    kirby()->impersonate('kirby', fn () => $draft->changeStatus('listed'));
+                }
+            }
+        },
+    ],
 
     'pageMethods' => [
         /**
@@ -126,6 +200,21 @@ Kirby::plugin('inkwell/core', [
     ],
 
     'routes' => [
+        /**
+         * Sign up as a contributor.
+         */
+        [
+            'pattern' => 'signup',
+            'method'  => 'GET|POST',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'     => 'signup',
+                    'template' => 'signup',
+                    'content'  => ['title' => 'Become a contributor'],
+                ]);
+            },
+        ],
+
         /**
          * Front-end writing studio: /write (new story) and /write/<slug> (edit).
          * Only for signed-in editors; everyone else is sent to the login.
