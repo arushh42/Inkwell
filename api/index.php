@@ -133,6 +133,9 @@ if ($adminEmail === '' || $adminSecret === '') {
             if (str_starts_with($adminSecret, '$')) {
                 error_log('[inkwell] KIRBY_ADMIN_PASSWORD_HASH looks like an incomplete hash; it is being used as a plain password instead. Regenerate it if login fails.');
             }
+            if (mb_strlen($adminSecret) < 8) {
+                error_log('[inkwell] The admin password is shorter than 8 characters; Kirby will reject it at login. Use a longer password.');
+            }
             $adminSecret = password_hash($adminSecret, PASSWORD_DEFAULT);
         }
 
@@ -154,6 +157,68 @@ if ($adminEmail === '' || $adminSecret === '') {
         file_put_contents($userDir . '/.htpasswd', $adminSecret);
         file_put_contents($marker, $version);
     }
+}
+
+// Diagnostics: /__health shows how this instance is configured.
+// Only yes/no checks and a masked email — never secrets.
+if ($path === '/__health') {
+    $raw      = getenv('KIRBY_ADMIN_PASSWORD_HASH') !== false && getenv('KIRBY_ADMIN_PASSWORD_HASH') !== ''
+        ? ['KIRBY_ADMIN_PASSWORD_HASH', (string)getenv('KIRBY_ADMIN_PASSWORD_HASH')]
+        : ['KIRBY_ADMIN_PASSWORD', (string)getenv('KIRBY_ADMIN_PASSWORD')];
+    $secret   = trim(trim($raw[1]), "\"'");
+    $algo     = password_get_info($secret)['algoName'] ?? 'unknown';
+    $format   = match (true) {
+        $secret === ''                    => 'missing',
+        $algo !== 'unknown'               => $algo . ' hash (' . strlen($secret) . ' chars)',
+        str_starts_with($secret, '$')     => 'INCOMPLETE hash (' . strlen($secret) . ' chars, bcrypt needs 60)',
+        default                           => 'plain password',
+    };
+    $rawEmail = (string)getenv('KIRBY_ADMIN_EMAIL');
+    $mask     = static fn (string $e) => preg_replace('/^(.)[^@]*(@.*)$/', '$1***$2', $e);
+
+    $blocked = ['ips' => 0, 'emails' => 0];
+    $logins  = @json_decode((string)@file_get_contents($tmp . '/accounts/.logins'), true) ?: [];
+    foreach (['by-ip' => 'ips', 'by-email' => 'emails'] as $key => $label) {
+        foreach ($logins[$key] ?? [] as $entry) {
+            if (($entry['trials'] ?? 0) >= 10 && ($entry['time'] ?? 0) > time() - 3600) {
+                $blocked[$label]++;
+            }
+        }
+    }
+
+    $redisUrl   = getenv('KV_REST_API_URL') ?: getenv('UPSTASH_REDIS_REST_URL');
+    $redisToken = getenv('KV_REST_API_TOKEN') ?: getenv('UPSTASH_REDIS_REST_TOKEN');
+    $redis      = 'not configured';
+    if ($redisUrl && $redisToken) {
+        $c = curl_init(rtrim($redisUrl, '/'));
+        curl_setopt_array($c, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => '["PING"]', CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 5,
+            CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $redisToken, 'Content-Type: application/json']]);
+        $pong  = json_decode((string)curl_exec($c), true)['result'] ?? null;
+        $redis = $pong === 'PONG' ? 'connected' : 'configured but NOT reachable (HTTP ' . curl_getinfo($c, CURLINFO_HTTP_CODE) . ')';
+    }
+
+    if (!is_file($tmp . '/instance')) {
+        file_put_contents($tmp . '/instance', bin2hex(random_bytes(3)) . ' started ' . gmdate('c'));
+    }
+
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    header('X-Robots-Tag: noindex');
+    echo json_encode([
+        'php'                 => PHP_VERSION,
+        'instance'            => file_get_contents($tmp . '/instance'),
+        'admin_email'         => $rawEmail === '' ? 'MISSING' : $mask(strtolower(trim($rawEmail))),
+        'admin_email_trimmed' => $rawEmail !== trim($rawEmail) ? 'yes (had extra spaces — fixed automatically)' : 'no',
+        'password_variable'   => $secret === '' ? 'MISSING' : $raw[0],
+        'password_format'     => $format,
+        'plain_password_long_enough' => $format === 'plain password' ? (mb_strlen($secret) >= 8 ? 'yes' : 'NO — Kirby requires at least 8 characters') : 'n/a',
+        'account_provisioned' => count(glob($tmp . '/accounts/*/index.php') ?: []) > 0,
+        'login_blocks'        => $blocked,
+        'sessions'            => $redis,
+        'github_sync'         => getenv('GITHUB_SYNC_TOKEN') ? 'token set' : 'not configured',
+        'gd'                  => extension_loaded('gd'),
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    exit;
 }
 
 // 4. Boot Kirby
