@@ -1,0 +1,1 @@
+Alt: The editor after submitting, with a confirmation and the story listed under “Submitted”.

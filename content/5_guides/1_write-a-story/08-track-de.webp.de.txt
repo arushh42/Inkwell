@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Der Editor nach dem Einreichen, mit Bestätigung und dem Beitrag unter „Eingereicht“.
+
+----
+
+Uuid: 83fc4fd0071d8615

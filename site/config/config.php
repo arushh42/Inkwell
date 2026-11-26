@@ -9,6 +9,12 @@
 return [
     'debug' => getenv('KIRBY_DEBUG') === 'true',
 
+    // German is the default language; English is a translation.
+    // Both live under a prefix (/de/…, /en/…) and the bare domain sends
+    // visitors to the language their browser prefers.
+    'languages'        => true,
+    'languages.detect' => true,
+
     // Never allow creating the first admin account through the browser
     // on a public server. Locally this is overridden in config.localhost.php,
     // on Vercel the admin is provisioned from environment variables.

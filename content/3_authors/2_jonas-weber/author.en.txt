@@ -1,0 +1,5 @@
+Role: PhD candidate · Computational linguistics
+
+----
+
+Bio: Jonas studies how language models deal with long documents. He also runs our monthly reading group.

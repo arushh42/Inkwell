@@ -1,0 +1,32 @@
+Title: Anleitungen
+
+----
+
+Intro: Kurze Anleitungen mit Screenshots. Bei jedem Schritt sehen Sie, wo Sie klicken müssen.
+
+----
+
+Faq: 
+
+-
+  question: "Wer kann für Inkwell schreiben?"
+  answer: "Alle. Über „Konto erstellen“ unten auf jeder Seite legen Sie ein kostenloses Konto an."
+-
+  question: "Warum ist mein Beitrag noch nicht online?"
+  answer: "Die Redaktion liest jeden Beitrag und jedes Paper, bevor es veröffentlicht wird. Bis dahin können Sie weiter daran arbeiten. Sie finden ihn im Editor unter „Ihre Beiträge“."
+-
+  question: "Kann ich einen veröffentlichten Beitrag noch ändern?"
+  answer: "Bitte wenden Sie sich an die Redaktion. Veröffentlichte Beiträge sind gesperrt, damit alles geprüft ist, was Leser:innen sehen."
+-
+  question: "Was ist eine DOI und wo finde ich sie?"
+  answer: "Eine DOI ist eine dauerhafte Kennung für ein Paper. Sie beginnt mit „10.“ und steht meist auf der Webseite des Papers, oft als Link wie https://doi.org/10.1038/…"
+-
+  question: "Warum wurde das Abstract nicht ausgefüllt?"
+  answer: "Manche Verlage erlauben nicht, ihre Abstracts zu übernehmen. Beschreiben Sie das Paper dann in ein paar eigenen Sätzen. Ihre Beschreibung wird mit Ihrem Namen angezeigt."
+-
+  question: "Kann ich auf Deutsch und Englisch schreiben?"
+  answer: "Ja. Schreiben Sie in einer der beiden Sprachen. Für eine Übersetzung öffnen Sie Ihren Beitrag und wechseln oben im Editor die Sprache."
+
+----
+
+Uuid: guidesoverview01

@@ -1,9 +1,0 @@
-Template: screenshot
-
-----
-
-Alt: The story area of the writing studio with two paragraphs of text.
-
-----
-
-Uuid: 0e43df9246a88729

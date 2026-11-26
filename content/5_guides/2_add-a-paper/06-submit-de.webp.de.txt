@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Schaltfläche „Zur Prüfung einreichen“ auf der Seite „Paper eintragen“.
+
+----
+
+Uuid: 3000e39452880219

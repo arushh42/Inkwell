@@ -21,16 +21,20 @@ return function ($kirby, $page) {
     $maxNames = 8; // longer author lists are stored as "first 8 … et al. (total)"
 
     if ($slug && $paper === null) {
-        go('add-paper');
+        go(lurl('add-paper'));
     }
 
     $isMine = fn ($p) => $p->submittedBy()->toUsers()->has($user);
 
     if ($paper && !$isEditor && !$isMine($paper)) {
-        go('add-paper');
+        go(lurl('add-paper'));
     }
 
     $readOnly = $paper && !$isEditor && $paper->isListed();
+
+    $lang        = $kirby->language()->code();
+    $versions    = $paper ? inkwell_versions($paper) : [];
+    $translating = $paper !== null && !in_array($lang, $versions, true);
     $as       = fn (callable $write) => $isEditor ? $write() : $kirby->impersonate('kirby', $write);
 
     // existing plain-language summary (text blocks) → plain text for the form
@@ -71,16 +75,20 @@ return function ($kirby, $page) {
         if ($action === 'lookup') {
             try {
                 if (csrf(get('csrf')) !== true) {
-                    throw new Exception('Your session expired. Reload the page and try again.');
+                    throw new Exception(t('error.session'));
                 }
                 $doi = Inkwell\DoiLookup::normalize($values['doi']);
                 if ($doi === null) {
-                    throw new Exception('That doesn’t look like a DOI. It should start with “10.”');
+                    throw new Exception(t('doi.error.invalid'));
                 }
                 if ($dupe = inkwell_paper_by_doi($doi, $paper)) {
-                    throw new Exception('This paper is already on ' . $kirby->site()->title() . ': “' . $dupe->title() . '”.');
+                    throw new Exception(tt('doi.error.exists.named', null, ['title' => $dupe->title()->value()]));
                 }
-                $found  = (new Inkwell\DoiLookup())->lookup($doi);
+                try {
+                    $found = (new Inkwell\DoiLookup())->lookup($doi);
+                } catch (RuntimeException $e) {
+                    throw new Exception($e->getCode() === 404 ? t('doi.error.notFound') : t('doi.error.unavailable'));
+                }
                 $values = array_merge($values, [
                     'doi'            => $found['doi'],
                     'title'          => $found['title'],
@@ -95,50 +103,48 @@ return function ($kirby, $page) {
                     'abstractSource' => $found['abstractSource'],
                     'keywords'       => implode(', ', $found['keywords']),
                 ]);
-                $notice = $found['abstractOpen']
-                    ? 'Details fetched from ' . $found['registry'] . '. Please check them before saving.'
-                    : 'Details fetched from ' . $found['registry'] . '. The abstract isn’t openly licensed, so please describe the paper in your own words.';
+                $notice = tt($found['abstractOpen'] ? 'ap.notice.fetched' : 'ap.notice.fetched.own', null, ['registry' => $found['registry']]);
             } catch (Throwable $e) {
                 $error = $e->getMessage();
             }
         } else {
             try {
                 if (csrf(get('csrf')) !== true) {
-                    throw new Exception('Your session expired. Reload the page and try again.');
+                    throw new Exception(t('error.session'));
                 }
 
                 if ($readOnly) {
-                    throw new Exception('This paper is already published. Ask an editor if it needs changes.');
+                    throw new Exception(t('ap.readonly'));
                 }
 
                 $allowed = $isEditor ? ['draft', 'publish', 'unpublish'] : ['draft', 'submit', 'withdraw'];
                 if (!in_array($action, $allowed, true)) {
-                    throw new Exception('That action isn’t available to you.');
+                    throw new Exception(t('write.error.action'));
                 }
 
                 // validation
                 $doi = Inkwell\DoiLookup::normalize($values['doi']);
                 if ($doi === null) {
-                    throw new Exception('Please enter a valid DOI (it starts with “10.”).');
+                    throw new Exception(t('ap.error.doi'));
                 }
                 if ($dupe = inkwell_paper_by_doi($doi, $paper)) {
-                    throw new Exception('This paper is already on ' . $kirby->site()->title() . ': “' . $dupe->title() . '”.');
+                    throw new Exception(tt('doi.error.exists.named', null, ['title' => $dupe->title()->value()]));
                 }
                 if ($values['title'] === '') {
-                    throw new Exception('The paper needs a title.');
+                    throw new Exception(t('ap.error.title'));
                 }
                 $names = array_values(array_filter(array_map('trim', preg_split('/\R/', $values['authors']))));
                 if ($names === []) {
-                    throw new Exception('Please list at least one author.');
+                    throw new Exception(t('ap.error.authors'));
                 }
                 if (V::date($values['date']) === false) {
-                    throw new Exception('Please enter the publication date as YYYY-MM-DD.');
+                    throw new Exception(t('ap.error.date'));
                 }
                 if ($values['abstract'] === '') {
-                    throw new Exception('Please add the abstract, or a short description in your own words.');
+                    throw new Exception(t('ap.error.abstract'));
                 }
                 if ($values['arxiv'] !== '' && preg_match('/^\d{4}\.\d{4,5}$/', $values['arxiv']) !== 1) {
-                    throw new Exception('The arXiv ID should look like 2501.12948.');
+                    throw new Exception(t('ap.error.arxiv'));
                 }
 
                 // a description written by the member is credited to them
@@ -149,15 +155,17 @@ return function ($kirby, $page) {
                 $total   = max(count($names), (int)$values['authorTotal']);
                 $summary = array_filter(array_map('trim', preg_split('/\R{2,}/', $values['summary'])));
                 $blocks  = $summary === [] ? [] : Blocks::factory(array_merge(
-                    [['type' => 'heading', 'content' => ['level' => 'h2', 'text' => 'In plain language']]],
+                    [['type' => 'heading', 'content' => ['level' => 'h2', 'text' => t('ap.f.summary')]]],
                     array_map(fn ($p) => ['type' => 'text', 'content' => ['text' => '<p>' . Str::esc($p) . '</p>']], $summary)
                 ))->toArray();
 
+                // only the plain-language summary differs between languages;
+                // the paper's own metadata (title, authors, abstract…) is shared
+                $text    = ['text' => Json::encode($blocks)];
                 $content = [
                     'title'          => $values['title'],
                     'abstract'       => $values['abstract'],
                     'abstractSource' => $source,
-                    'text'           => Json::encode($blocks),
                     'coauthors'      => implode(', ', array_map(fn ($n) => str_replace(',', '', $n), array_slice($names, 0, $maxNames))),
                     'authorTotal'    => $total > min(count($names), $maxNames) ? $total : '',
                     'date'           => $values['date'],
@@ -169,9 +177,9 @@ return function ($kirby, $page) {
                     'keywords'       => implode(', ', array_unique(array_filter(array_map('trim', explode(',', $values['keywords']))))),
                 ];
 
-                $paper = $as(function () use ($paper, $papers, $content, $user) {
+                $paper = $as(function () use ($paper, $papers, $content, $text, $user, $lang) {
                     if ($paper) {
-                        return $paper->update($content);
+                        return inkwell_save_version($paper, $text, $content, $lang);
                     }
 
                     $base = Str::slug(Str::short($content['title'], 70, '')) ?: 'paper';
@@ -183,7 +191,7 @@ return function ($kirby, $page) {
                     return $papers->createChild([
                         'slug'     => $slug,
                         'template' => 'paper',
-                        'content'  => $content + ['submittedBy' => [$user->uuid()->toString()]],
+                        'content'  => $text + $content + ['submittedBy' => [$user->uuid()->toString()], 'availableIn' => [$lang]],
                     ]);
                 });
 
@@ -199,12 +207,12 @@ return function ($kirby, $page) {
 
                 go($action === 'publish'
                     ? $paper->url()
-                    : url('add-paper/' . $paper->slug(), ['query' => ['saved' => match ($action) {
+                    : lurl('add-paper/' . $paper->slug(), ['saved' => match ($action) {
                         'submit'    => 'submitted',
                         'withdraw'  => 'withdrawn',
                         'unpublish' => 'unpublished',
                         default     => 'draft',
-                    }]]));
+                    }]));
             } catch (Throwable $e) {
                 $error = $e->getMessage();
             }
@@ -219,6 +227,9 @@ return function ($kirby, $page) {
         'paper'     => $paper,
         'isEditor'  => $isEditor,
         'readOnly'  => $readOnly,
+        'lang'      => $lang,
+        'versions'  => $versions,
+        'translating' => $translating,
         'values'    => $values,
         'error'     => $error,
         'notice'    => $notice,

@@ -1,9 +1,0 @@
-Template: screenshot
-
-----
-
-Alt: The “Submit for review” button on the “Add a paper” page.
-
-----
-
-Uuid: 959102294fb595d4

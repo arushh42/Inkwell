@@ -1,0 +1,25 @@
+Title: Jonas Weber
+
+----
+
+Role: Doktorand · Computerlinguistik
+
+----
+
+Bio: Jonas untersucht, wie Sprachmodelle mit langen Dokumenten umgehen. Außerdem organisiert er unseren monatlichen Lesekreis.
+
+----
+
+Website: 
+
+----
+
+Email: 
+
+----
+
+Avatar: 
+
+----
+
+Uuid: 59ad83a58305fc0b

@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstrakte Illustration zu „Notizen aus dem Lesekreis: Lesen Modelle mit langem Kontext wirklich?“
+
+----
+
+Caption: 
+
+----
+
+Uuid: 006765b4a0921dec

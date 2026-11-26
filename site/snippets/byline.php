@@ -11,8 +11,8 @@
       <a class="byline__name" href="<?= $author->url() ?>"><?= $author->title()->esc() ?></a>
     <?php endif ?>
     <span class="byline__meta">
-      <time datetime="<?= $page->date()->toDate('Y-m-d') ?>"><?= $page->date()->toDate('M j, Y') ?></time>
-      <span aria-hidden="true">·</span> <?= $page->readingTime() ?> min read
+      <time datetime="<?= $page->date()->toDate('Y-m-d') ?>"><?= inkwell_date($page->date(), 'M j, Y') ?></time>
+      <span aria-hidden="true">·</span> <?= tt('minRead', null, ['n' => $page->readingTime()]) ?>
     </span>
   </div>
 </div>

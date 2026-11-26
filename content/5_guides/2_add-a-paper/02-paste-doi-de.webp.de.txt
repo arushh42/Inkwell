@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Seite „Paper eintragen“ mit einer eingefügten DOI.
+
+----
+
+Uuid: 6b2636679ce86e84

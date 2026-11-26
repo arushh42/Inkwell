@@ -60,6 +60,7 @@ columns:
       ctaLink:
         label: Button link
         type: text
+        translate: false
         placeholder: /write
     sections:
       files:

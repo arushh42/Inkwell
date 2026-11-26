@@ -1,0 +1,9 @@
+Title: Inkwell
+
+----
+
+Tagline: A small magazine for long reads, field notes and research.
+
+----
+
+Description: Inkwell publishes articles, blog posts and research summaries by its authors. Anyone can sign up and send in a story.

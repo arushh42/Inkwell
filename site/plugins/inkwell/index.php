@@ -23,6 +23,8 @@ function asset_url(string $path): string
 
 load(['Inkwell\\DoiLookup' => __DIR__ . '/src/DoiLookup.php']);
 
+require_once __DIR__ . '/i18n.php';
+
 /**
  * Editors and admins can publish and edit anything; everyone else
  * (contributors who signed up) only writes and submits their own stories.
@@ -199,7 +201,7 @@ Kirby::plugin('inkwell/core', [
             $truncated = $this->hasMoreAuthors() || ($max !== null && count($names) > $max);
             $names     = $max !== null ? array_slice($names, 0, $max) : $names;
 
-            return implode(', ', $names) . ($truncated ? ' et al.' : '');
+            return implode(', ', $names) . ($truncated ? ' ' . t('paper.etal') : '');
         },
 
         /**
@@ -233,20 +235,27 @@ Kirby::plugin('inkwell/core', [
     ],
 
     'routes' => [
+        /*
+         * All of the site's own pages live under the language prefix
+         * (/de/write, /en/write, …). Kirby calls language routes with the
+         * Language object first and makes it the current language.
+         */
+
         /**
          * DOI lookup for "Add a paper" (JSON). Signed-in members only,
          * rate-limited, results cached for a day.
          */
         [
-            'pattern' => 'add-paper/lookup',
-            'action'  => function () {
+            'pattern'  => 'add-paper/lookup',
+            'language' => '*',
+            'action'   => function ($language) {
                 if (kirby()->user() === null) {
-                    return Response::json(['error' => 'Please sign in first.'], 401);
+                    return Response::json(['error' => t('doi.error.login')], 401);
                 }
 
                 $doi = Inkwell\DoiLookup::normalize(get('doi'));
                 if ($doi === null) {
-                    return Response::json(['error' => 'That doesn’t look like a DOI. It should start with “10.”, e.g. 10.1038/s41586-025-09422-z.'], 422);
+                    return Response::json(['error' => t('doi.error.invalid')], 422);
                 }
 
                 if ($existing = inkwell_paper_by_doi($doi)) {
@@ -254,17 +263,17 @@ Kirby::plugin('inkwell/core', [
                     $canEdit = inkwell_is_editor($user) || $existing->submittedBy()->toUsers()->has($user);
 
                     return Response::json([
-                        'error'     => 'This paper is already on ' . site()->title() . '.',
+                        'error'     => t('doi.error.exists'),
                         'duplicate' => [
                             'title' => $existing->title()->value(),
                             'url'   => $existing->isListed() ? $existing->url() : null,
-                            'edit'  => $canEdit && !$existing->isListed() ? url('add-paper/' . $existing->slug()) : null,
+                            'edit'  => $canEdit && !$existing->isListed() ? lurl('add-paper/' . $existing->slug()) : null,
                         ],
                     ], 409);
                 }
 
                 if (inkwell_rate_limit('doi-lookup', 20, 60) === false) {
-                    return Response::json(['error' => 'Too many lookups. Please wait a minute and try again.'], 429);
+                    return Response::json(['error' => t('doi.error.rate')], 429);
                 }
 
                 $cache = kirby()->cache('inkwell.core');
@@ -273,9 +282,11 @@ Kirby::plugin('inkwell/core', [
                 try {
                     $paper = $cache->get($key) ?? (new Inkwell\DoiLookup())->lookup($doi);
                     $cache->set($key, $paper, 60 * 24);
+                    $paper['abstractSourceLabel'] = $paper['abstractSource'] !== '' ? inkwell_source_label($paper['abstractSource']) : '';
                     return Response::json(['paper' => $paper]);
                 } catch (RuntimeException $e) {
-                    return Response::json(['error' => $e->getMessage()], 502);
+                    $message = $e->getCode() === 404 ? t('doi.error.notFound') : t('doi.error.unavailable');
+                    return Response::json(['error' => $message], $e->getCode() === 404 ? 404 : 502);
                 }
             },
         ],
@@ -284,18 +295,19 @@ Kirby::plugin('inkwell/core', [
          * Add a paper (/add-paper) or edit one you added (/add-paper/<slug>).
          */
         [
-            'pattern' => ['add-paper', 'add-paper/(:any)'],
-            'method'  => 'GET|POST',
-            'action'  => function (string|null $slug = null) {
+            'pattern'  => ['add-paper', 'add-paper/(:any)'],
+            'language' => '*',
+            'method'   => 'GET|POST',
+            'action'   => function ($language, string|null $slug = null) {
                 if (kirby()->user() === null) {
-                    go(url('login', ['query' => ['redirect' => $slug ? 'add-paper/' . $slug : 'add-paper']]));
+                    go(lurl('login', ['redirect' => $slug ? 'add-paper/' . $slug : 'add-paper']));
                 }
 
                 return Page::factory([
                     'slug'     => 'add-paper',
                     'template' => 'add-paper',
                     'content'  => [
-                        'title'    => $slug ? 'Edit paper' : 'Add a paper',
+                        'title'    => strip_tags(kti($slug ? t('ap.edit') : t('ap.title'))),
                         'editSlug' => $slug ?? '',
                     ],
                 ]);
@@ -303,54 +315,56 @@ Kirby::plugin('inkwell/core', [
         ],
 
         /**
-         * Sign up as a contributor.
+         * Sign up as an author.
          */
         [
-            'pattern' => 'signup',
-            'method'  => 'GET|POST',
-            'action'  => function () {
+            'pattern'  => 'signup',
+            'language' => '*',
+            'method'   => 'GET|POST',
+            'action'   => function ($language) {
                 return Page::factory([
                     'slug'     => 'signup',
                     'template' => 'signup',
-                    'content'  => ['title' => 'Become a contributor'],
+                    'content'  => ['title' => strip_tags(kti(t('signup.title')))],
                 ]);
             },
         ],
 
         /**
-         * Front-end writing studio: /write (new story) and /write/<slug> (edit).
-         * Only for signed-in editors; everyone else is sent to the login.
+         * Writing studio: /write (new story) and /write/<slug> (edit).
          */
         [
-            'pattern' => ['write', 'write/(:any)'],
-            'method'  => 'GET|POST',
-            'action'  => function (string|null $slug = null) {
+            'pattern'  => ['write', 'write/(:any)'],
+            'language' => '*',
+            'method'   => 'GET|POST',
+            'action'   => function ($language, string|null $slug = null) {
                 if (kirby()->user() === null) {
-                    go(url('login', ['query' => ['redirect' => $slug ? 'write/' . $slug : 'write']]));
+                    go(lurl('login', ['redirect' => $slug ? 'write/' . $slug : 'write']));
                 }
 
                 return Page::factory([
                     'slug'     => 'write',
                     'template' => 'write',
                     'content'  => [
-                        'title'     => $slug ? 'Edit story' : 'Write a story',
-                        'editSlug'  => $slug ?? '',
+                        'title'    => $slug ? t('story.edit') : t('header.write'),
+                        'editSlug' => $slug ?? '',
                     ],
                 ]);
             },
         ],
 
         /**
-         * Editor sign-in in the site's own design (instead of the Panel's).
+         * Sign in, in the site's own design (instead of the Panel's).
          */
         [
-            'pattern' => 'login',
-            'method'  => 'GET|POST',
-            'action'  => function () {
+            'pattern'  => 'login',
+            'language' => '*',
+            'method'   => 'GET|POST',
+            'action'   => function ($language) {
                 return Page::factory([
                     'slug'     => 'login',
                     'template' => 'login',
-                    'content'  => ['title' => 'Sign in'],
+                    'content'  => ['title' => t('login.submit')],
                 ]);
             },
         ],
@@ -359,24 +373,27 @@ Kirby::plugin('inkwell/core', [
          * Sign out (CSRF-protected so other sites can't log editors out).
          */
         [
-            'pattern' => 'logout',
-            'action'  => function () {
+            'pattern'  => 'logout',
+            'language' => '*',
+            'action'   => function ($language) {
                 if (csrf(get('csrf')) === true) {
                     kirby()->user()?->logout();
                 }
 
-                go('/');
+                go(lurl());
             },
         ],
 
         /**
-         * RSS 2.0 feed of the latest stories and papers.
+         * RSS 2.0 feed per language: /de/feed.xml, /en/feed.xml.
          */
         [
-            'pattern' => 'feed.xml',
-            'action'  => function () {
+            'pattern'  => 'feed.xml',
+            'language' => '*',
+            'action'   => function ($language) {
                 $items = site()->find('stories')->children()->listed()
                     ->add(site()->find('papers')->children()->listed())
+                    ->filter(fn ($p) => inkwell_is_translated($p))
                     ->sortBy('date', 'desc')
                     ->limit(20);
 
@@ -387,7 +404,26 @@ Kirby::plugin('inkwell/core', [
         ],
 
         /**
-         * XML sitemap for search engines.
+         * BibTeX for a paper: /de/papers/<slug>.bib
+         */
+        [
+            'pattern'  => 'papers/(:any).bib',
+            'language' => '*',
+            'action'   => function ($language, string $slug) {
+                $paper = page('papers/' . $slug);
+
+                if (!$paper || $paper->isListed() === false) {
+                    return false;
+                }
+
+                return new Response($paper->bibtex(), 'application/x-bibtex', 200, [
+                    'Content-Disposition' => 'attachment; filename="' . $slug . '.bib"',
+                ]);
+            },
+        ],
+
+        /**
+         * One sitemap for both languages, with hreflang alternates.
          */
         [
             'pattern' => 'sitemap.xml',
@@ -402,20 +438,26 @@ Kirby::plugin('inkwell/core', [
         ],
 
         /**
-         * Download a paper's BibTeX entry: /papers/<slug>.bib
+         * Old links without a language prefix (/stories/…, /write) are sent
+         * to the same page in the visitor's language, so nothing shared
+         * before the site became bilingual breaks.
          */
         [
-            'pattern' => 'papers/(:any).bib',
-            'action'  => function (string $slug) {
-                $paper = page('papers/' . $slug);
+            'pattern' => '(:all)',
+            'action'  => function (string $path = '') {
+                $first = explode('/', $path)[0];
+                $skip  = ['', 'de', 'en', 'panel', 'api', 'media', 'assets', 'sitemap.xml'];
 
-                if (!$paper || $paper->isListed() === false) {
-                    return false;
+                if (in_array($first, $skip, true) || str_starts_with($path, '@')) {
+                    /** @var \Kirby\Http\Route $this */
+                    return $this->next();
                 }
 
-                return new Response($paper->bibtex(), 'application/x-bibtex', 200, [
-                    'Content-Disposition' => 'attachment; filename="' . $slug . '.bib"',
-                ]);
+                $kirby    = kirby();
+                $language = $kirby->detectedLanguage() ?? $kirby->defaultLanguage();
+                $query    = $kirby->request()->query()->toArray();
+
+                go(lurl($path, $query, $language->code()), 301);
             },
         ],
     ],

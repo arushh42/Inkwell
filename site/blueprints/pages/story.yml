@@ -49,6 +49,7 @@ columns:
           kind:
             label: Type
             type: toggles
+            translate: false
             default: article
             options:
               article: Article
@@ -56,12 +57,14 @@ columns:
           author:
             label: Author
             type: pages
+            translate: false
             query: site.find("authors").children
             multiple: false
             required: true
           date:
             label: Publish date
             type: date
+            translate: false
             time: false
             default: today
             required: true
@@ -74,12 +77,24 @@ columns:
           cover:
             label: Cover image
             type: files
+            translate: false
             multiple: false
             uploads: cover
             query: page.images
           featured:
             label: Feature on home page
             type: toggle
+            translate: false
+          availableIn:
+            label: Language versions
+            type: checkboxes
+            translate: false
+            columns: 2
+            default: de
+            options:
+              de: Deutsch
+              en: English
+            help: Tick every language this page has been written or translated in. A language that isn’t ticked shows the other version with a short note.
       files:
         type: files
         label: Images

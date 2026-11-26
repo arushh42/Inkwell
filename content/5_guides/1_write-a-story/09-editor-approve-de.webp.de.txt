@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Ansicht der Redaktion mit der Schaltfläche „Freigeben“.
+
+----
+
+Uuid: a87a5d2c7db3d3eb

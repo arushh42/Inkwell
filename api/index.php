@@ -182,7 +182,7 @@ require_once $root . '/site/plugins/vercel/src/AccountMirror.php';
 
 $redis = Inkwell\Vercel\Redis::fromEnv();
 $needsAccounts = isset($_COOKIE['kirby_session'])
-    || preg_match('#^/(login|signup|write|logout|panel|api)(/|$)#', $path) === 1;
+    || preg_match('#^/(?:(?:de|en)/)?(login|signup|write|add-paper|logout|panel|api)(/|$)#', $path) === 1;
 
 if ($redis && $needsAccounts) {
     try {

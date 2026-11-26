@@ -1,0 +1,28 @@
+Title: Guides
+
+----
+
+Intro: Short how-tos with screenshots. Each step shows where to click.
+
+----
+
+Faq: 
+
+-
+  question: "Who can write for Inkwell?"
+  answer: "Anyone. Create a free account with “Create an account” at the bottom of any page."
+-
+  question: "Why isn’t my story online yet?"
+  answer: "An editor reads every story and paper before it is published. Until then you can keep working on it. You’ll find it under “Your stories” in the editor."
+-
+  question: "Can I change a story after it is published?"
+  answer: "Please ask an editor. Published stories are locked so that everything readers see has been checked."
+-
+  question: "What is a DOI and where do I find it?"
+  answer: "A DOI is a permanent ID for a research paper. It starts with “10.” and is usually shown on the paper’s web page, often as a link like https://doi.org/10.1038/…"
+-
+  question: "Why wasn’t the abstract filled in?"
+  answer: "Some publishers don’t allow their abstracts to be copied. In that case, describe the paper in a few sentences of your own. Your description is shown with your name."
+-
+  question: "Can I write in German and English?"
+  answer: "Yes. Write in either language. To add a translation, open your story and switch the language at the top of the editor."

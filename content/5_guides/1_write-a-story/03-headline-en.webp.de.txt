@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The editor with a headline and subtitle typed in.
+
+----
+
+Uuid: 3b7adc4c60199cf0

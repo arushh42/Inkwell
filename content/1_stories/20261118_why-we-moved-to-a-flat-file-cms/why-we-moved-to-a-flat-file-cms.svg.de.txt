@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstrakte Illustration zu „Warum wir auf ein dateibasiertes CMS umgestiegen sind“
+
+----
+
+Caption: 
+
+----
+
+Uuid: 91416d105b9b8037

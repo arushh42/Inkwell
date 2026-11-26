@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The toolbar with buttons for headings, bold, italic, links, quotes and lists.
+
+----
+
+Uuid: 09e8230bcc5a1706

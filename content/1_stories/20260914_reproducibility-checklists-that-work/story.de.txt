@@ -1,0 +1,41 @@
+Title: Checklisten für Reproduzierbarkeit, die wirklich helfen
+
+----
+
+Subtitle: Die meisten Checklisten werden in der Nacht vor der Deadline ausgefüllt. Ein paar verändern, wie geforscht wird.
+
+----
+
+Text: [{"content": {"text": "<p>Checklisten für Reproduzierbarkeit sind bei vielen Konferenzen inzwischen Standard. Ob sie etwas bringen, hängt davon ab, wann man sie benutzt.</p>"}, "id": "48b75572-f845-b7b2-2155-816ddd409582", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Am Anfang beginnen"}, "id": "4cc55ec4-3d14-6d47-b5f0-a971ad56eb40", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Gruppen, die die Checkliste zu Projektbeginn einführen und nicht erst beim Schreiben des Papers, berichten von deutlich weniger fehlenden Details.</p>"}, "id": "e5e0d561-c373-5e20-e919-6d85eb797bcd", "isHidden": false, "type": "text"}, {"content": {"text": "<ul><li>Halten Sie die Version jeder Abhängigkeit fest.</li><li>Veröffentlichen Sie den genauen Daten-Split.</li><li>Notieren Sie die Seeds, die Sie tatsächlich verwendet haben.</li><li>Schreiben Sie auf, was Sie versucht haben und was nicht funktioniert hat.</li></ul>"}, "id": "d6a77d8f-ac1f-baf6-15ee-1eed7aa9dfd5", "isHidden": false, "type": "list"}, {"content": {"text": "<p>Nichts davon ist glamourös. Aber alles davon erspart der nächsten Person Wochen.</p>"}, "id": "1f50dd04-14ed-9ac9-e0db-36943cc5c3df", "isHidden": false, "type": "text"}]
+
+----
+
+Kind: article
+
+----
+
+Author: - page://7ed89acdf64a8458
+
+----
+
+Date: 2026-09-14
+
+----
+
+Tags: Open Science, Forschungsmethoden
+
+----
+
+Cover: - file://a7238806938f18b2
+
+----
+
+Featured: false
+
+----
+
+Uuid: 76ea5e09f7837884
+
+----
+
+Availablein: de, en

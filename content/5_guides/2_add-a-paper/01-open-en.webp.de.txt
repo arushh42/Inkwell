@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The home page with the “Add a paper” button highlighted.
+
+----
+
+Uuid: b2a9e2866a604d1b

@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Werkzeugleiste mit Schaltflächen für Überschriften, Fett, Kursiv, Links, Zitate und Listen.
+
+----
+
+Uuid: 53f1c14008d8d1d2

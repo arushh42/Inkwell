@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The sign-up page with fields for name, email and password.
+
+----
+
+Uuid: dcc34769a2062547

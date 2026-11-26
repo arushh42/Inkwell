@@ -1,0 +1,1 @@
+Alt: The toolbar with buttons for headings, bold, italic, links, quotes and lists.

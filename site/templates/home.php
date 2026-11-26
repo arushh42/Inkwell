@@ -21,36 +21,36 @@ $tags    = page('stories')->children()->listed()->pluck('tags', ',', true);
 
 <section class="hero container">
   <div class="hero__text">
-    <p class="kicker">An independent publication</p>
+    <p class="kicker"><?= t('home.kicker') ?></p>
     <h1 class="hero__title"><?= $page->headline()->kti() ?></h1>
     <?php if ($page->intro()->isNotEmpty()): ?>
       <p class="hero__intro"><?= $page->intro()->esc() ?></p>
     <?php endif ?>
     <div class="hero__actions">
-      <a class="btn btn--accent" href="<?= page('stories')->url() ?>">Start reading →</a>
-      <a class="btn" href="<?= page('papers')->url() ?>">Browse papers</a>
+      <a class="btn btn--accent" href="<?= page('stories')->url() ?>"><?= t('home.read') ?> →</a>
+      <a class="btn" href="<?= page('papers')->url() ?>"><?= t('home.research') ?></a>
     </div>
   </div>
 
-  <aside class="contents" aria-label="In this issue">
-    <p class="contents__title">In this issue</p>
+  <aside class="contents" aria-label="<?= t('home.issue') ?>">
+    <p class="contents__title"><?= t('home.issue') ?></p>
     <ol class="contents__list">
-      <li><a href="<?= page('stories')->url() ?>"><span>Stories</span><b><?= $stories->count() ?></b></a></li>
-      <li><a href="<?= url('stories', ['params' => ['kind' => 'blog']]) ?>"><span>Blog posts</span><b><?= $stories->filterBy('kind', 'blog')->count() ?></b></a></li>
-      <li><a href="<?= page('papers')->url() ?>"><span>Research papers</span><b><?= $papers->count() ?></b></a></li>
-      <li><a href="<?= page('authors')->url() ?>"><span>Contributors</span><b><?= $authors->count() ?></b></a></li>
+      <li><a href="<?= page('stories')->url() ?>"><span><?= t('home.count.stories') ?></span><b><?= $stories->count() ?></b></a></li>
+      <li><a href="<?= url('stories', ['params' => ['kind' => 'blog']]) ?>"><span><?= t('home.count.blog') ?></span><b><?= $stories->filterBy('kind', 'blog')->count() ?></b></a></li>
+      <li><a href="<?= page('papers')->url() ?>"><span><?= t('home.count.papers') ?></span><b><?= $papers->count() ?></b></a></li>
+      <li><a href="<?= page('authors')->url() ?>"><span><?= t('home.count.authors') ?></span><b><?= $authors->count() ?></b></a></li>
     </ol>
     <svg class="contents__stamp" viewBox="0 0 120 120" aria-hidden="true">
       <defs><path id="stamp-circle" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>
       <circle class="contents__stamp-bg" cx="60" cy="60" r="58"/>
-      <text><textPath href="#stamp-circle" textLength="272" lengthAdjust="spacing">READ SLOWLY ✳ THINK LONG ✳ </textPath></text>
+      <text><textPath href="#stamp-circle" textLength="272" lengthAdjust="spacing"><?= t('home.stamp') ?></textPath></text>
       <circle class="contents__stamp-dot" cx="60" cy="60" r="16"/>
     </svg>
   </aside>
 </section>
 
 <?php if (count($tags) > 0): ?>
-<div class="ticker" aria-label="Topics">
+<div class="ticker" aria-label="<?= t('stories.kicker.topic') ?>">
   <div class="ticker__track">
     <?php for ($copy = 0; $copy < 2; $copy++): ?>
       <div class="ticker__group" <?= e($copy === 1, 'aria-hidden="true"') ?>>
@@ -67,9 +67,9 @@ $tags    = page('stories')->children()->listed()->pluck('tags', ',', true);
 <?php if ($lead): ?>
 <section class="container section">
   <header class="section-head">
-    <h2 class="section-head__title">Featured</h2>
+    <h2 class="section-head__title"><?= t('home.featured') ?></h2>
     <span class="section-head__rule" aria-hidden="true"></span>
-    <a class="section-head__link" href="<?= page('stories')->url() ?>">All stories →</a>
+    <a class="section-head__link" href="<?= page('stories')->url() ?>"><?= t('home.allStories') ?></a>
   </header>
   <div class="featured-grid">
     <?php snippet('story-card', ['story' => $lead, 'size' => 'large']) ?>
@@ -85,7 +85,7 @@ $tags    = page('stories')->children()->listed()->pluck('tags', ',', true);
 <div class="container section split">
   <section>
     <header class="section-head">
-      <h2 class="section-head__title">Latest</h2>
+      <h2 class="section-head__title"><?= t('home.latest') ?></h2>
       <span class="section-head__rule" aria-hidden="true"></span>
     </header>
     <div class="story-list">
@@ -98,8 +98,8 @@ $tags    = page('stories')->children()->listed()->pluck('tags', ',', true);
   <?php if ($page->showPapers()->toBool() && $papers->isNotEmpty()): ?>
   <aside class="catalogue">
     <header class="catalogue__head">
-      <p class="kicker">From the lab</p>
-      <h2 class="catalogue__title">Recent research</h2>
+      <p class="kicker"><?= t('home.lab.kicker') ?></p>
+      <h2 class="catalogue__title"><?= t('home.lab.title') ?></h2>
     </header>
     <?php foreach ($papers->limit(3) as $paper): ?>
       <a class="catalogue__card" href="<?= $paper->url() ?>">
@@ -108,7 +108,7 @@ $tags    = page('stories')->children()->listed()->pluck('tags', ',', true);
         <span class="catalogue__authors"><?= esc($paper->byline(3)) ?></span>
       </a>
     <?php endforeach ?>
-    <a class="btn btn--block" href="<?= page('papers')->url() ?>">All papers →</a>
+    <a class="btn btn--block" href="<?= page('papers')->url() ?>"><?= t('home.allPapers') ?></a>
   </aside>
   <?php endif ?>
 </div>
@@ -116,9 +116,9 @@ $tags    = page('stories')->children()->listed()->pluck('tags', ',', true);
 <?php if ($authors->isNotEmpty()): ?>
 <section class="container section">
   <header class="section-head">
-    <h2 class="section-head__title">Contributors</h2>
+    <h2 class="section-head__title"><?= t('home.authors') ?></h2>
     <span class="section-head__rule" aria-hidden="true"></span>
-    <a class="section-head__link" href="<?= page('authors')->url() ?>">Meet everyone →</a>
+    <a class="section-head__link" href="<?= page('authors')->url() ?>"><?= t('home.allAuthors') ?></a>
   </header>
   <div class="contributors">
     <?php foreach ($authors as $author): ?>

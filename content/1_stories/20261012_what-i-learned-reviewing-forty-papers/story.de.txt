@@ -1,0 +1,41 @@
+Title: Was ich beim Begutachten von vierzig Konferenz-Papern gelernt habe
+
+----
+
+Subtitle: Seit ich Gutachten schreibe, schreibe ich selbst besser. Diese Muster trennten Annahmen von Ablehnungen.
+
+----
+
+Text: [{"content": {"text": "<p>Dieses Jahr habe ich vierzig Einreichungen begutachtet. Die stärksten Paper hatten thematisch wenig gemeinsam, im Aufbau aber sehr viel.</p>"}, "id": "36a182b6-dab8-4748-7183-a0b8edb5aeb8", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Die These auf Seite eins"}, "id": "b02a6828-67fb-5358-e7f3-89baf0e74413", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Die besten Paper nannten ihren Beitrag im ersten Absatz und verbrachten den Rest damit, ihn zu belegen.</p>"}, "id": "8969069b-d8ad-318a-180f-f84bfc7e89d7", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Zeigen, wo es nicht funktioniert"}, "id": "69291325-a032-a39e-3494-7b557f9724d0", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Paper, die offen über die Grenzen ihrer Methode schrieben, haben mich mehr überzeugt, nicht weniger.</p>"}, "id": "498a6171-1cef-9116-bf2c-3d452d0012f0", "isHidden": false, "type": "text"}, {"content": {"text": "<p>Gutachter:innen sind müde Leser:innen. Schreiben Sie für müde Leser:innen.</p>", "citation": ""}, "id": "cbc9b9d6-6b4c-bdd0-df6e-147181a02703", "isHidden": false, "type": "quote"}]
+
+----
+
+Kind: blog
+
+----
+
+Author: - page://59ad83a58305fc0b
+
+----
+
+Date: 2026-10-12
+
+----
+
+Tags: Wissenschaft, Peer Review
+
+----
+
+Cover: - file://c76b47509800fe5d
+
+----
+
+Featured: false
+
+----
+
+Uuid: 1e99e7099aaf1e6f
+
+----
+
+Availablein: de, en

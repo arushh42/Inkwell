@@ -1,0 +1,85 @@
+Title: So tragen Sie ein Paper ein
+
+----
+
+Intro: Teilen Sie ein Forschungspaper, indem Sie seine DOI einfügen. Titel, Autor:innen und Zeitschrift werden automatisch ausgefüllt, das dauert nur ein, zwei Minuten.
+
+----
+
+Audience: Autor:innen und Redaktion, die Forschung teilen
+
+----
+
+Duration: 2 Minuten
+
+----
+
+Cta: Paper eintragen
+
+----
+
+Steps: 
+-
+  title: "„Paper eintragen“ öffnen"
+  text: "Melden Sie sich an und klicken Sie in der Kopfzeile auf **Paper eintragen**. Noch kein Konto? Schritt 1 der Anleitung *So schreiben Sie einen Beitrag* erklärt, wie Sie eines anlegen."
+  callout: "Auf „Paper eintragen“ klicken"
+  image:
+    - file://7aa9371bb912d312
+  url: "inkwellpress.vercel.app/de"
+  box: "68.93,5.13,11.99,6.25"
+-
+  title: "DOI einfügen"
+  text: "Jedes veröffentlichte Paper hat eine **DOI**, eine dauerhafte Kennung, die mit **10.** beginnt. Sie steht auf der Webseite des Papers. Kopieren Sie sie (der vollständige Link *https://doi.org/…* geht auch) und fügen Sie sie in dieses Feld ein. Die Daten werden automatisch geladen."
+  callout: "DOI hier einfügen"
+  image:
+    - file://6b2636679ce86e84
+  url: "inkwellpress.vercel.app/de/add-paper"
+  box: "6.09,46.00,44.61,7.88"
+-
+  title: "Angaben prüfen"
+  text: "Nach ein paar Sekunden erscheinen **Titel, Autor:innen, Zeitschrift, Datum, Band und Seiten**. Lesen Sie alles kurz durch, Sie können noch alles ändern. Ist das Paper schon auf Inkwell, bekommen Sie stattdessen einen Link dorthin."
+  callout: "Titel und Autor:innen prüfen"
+  image:
+    - file://1a5ead54ff7ba3bd
+  url: "inkwellpress.vercel.app/de/add-paper"
+  box: "4.22,41.46,60.62,17.17"
+-
+  title: "Abstract prüfen"
+  text: "Ist die Zusammenfassung des Papers (das **Abstract**) frei lizenziert, wird sie übernommen und darunter die Quelle angezeigt. Wenn nicht, bleibt das Feld leer. Schreiben Sie dann zwei, drei eigene Sätze, die unter Ihrem Namen erscheinen."
+  callout: "Abstract und Quelle"
+  image:
+    - file://0ec8c92bead999cf
+  url: "inkwellpress.vercel.app/de/add-paper"
+  box: "4.22,30.42,60.62,39.17"
+-
+  title: "Einfach erklären"
+  text: "Erklären Sie unter **Kurz erklärt** in ein paar Sätzen, was die Forschenden herausgefunden haben und warum das wichtig ist, für Leute, die nicht vom Fach sind. Das ist freiwillig, macht die Paper auf Inkwell aber erst richtig lesbar."
+  callout: "Optional"
+  image:
+    - file://2dedcf0985adecbf
+  url: "inkwellpress.vercel.app/de/add-paper"
+  box: "4.22,40.34,60.62,19.31"
+-
+  title: "Einreichen"
+  text: "Klicken Sie auf **Zur Prüfung einreichen**. Die Redaktion prüft das Paper und veröffentlicht es. Bis dahin finden Sie es rechts unter **Ihre Paper**."
+  callout: "Klicken, wenn Sie fertig sind"
+  image:
+    - file://3000e39452880219
+  url: "inkwellpress.vercel.app/de/add-paper"
+  box: "71.09,19.55,23.75,7.38"
+-
+  title: "Für die Redaktion: freigeben"
+  text: "Die Redaktion findet neue Paper auf der Seite *Paper eintragen* unter **Warten auf Freigabe**. Öffnen Sie eines, prüfen Sie es und klicken Sie auf **Freigeben**."
+  callout: "Freigeben"
+  image:
+    - file://8e66f29878f6ce97
+  url: "inkwellpress.vercel.app/de/add-paper/accurate-structure-prediction-of-biomolecular-interactions-with-alphaf"
+  box: "71.09,25.55,23.75,7.38"
+
+----
+
+Ctalink: add-paper
+
+----
+
+Uuid: 6c1b3757a897ae18

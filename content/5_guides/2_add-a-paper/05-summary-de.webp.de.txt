@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Das Feld „Kurz erklärt“ mit einer kurzen Zusammenfassung.
+
+----
+
+Uuid: 2dedcf0985adecbf

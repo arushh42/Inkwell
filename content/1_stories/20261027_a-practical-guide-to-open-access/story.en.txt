@@ -1,0 +1,13 @@
+Title: A practical guide to open-access publishing
+
+----
+
+Subtitle: Green, gold, diamond — what the colours mean and how to choose the right route for your paper.
+
+----
+
+Text: [{"content":{"text":"<p>Open access sounds simple: make research free to read. In practice the options are a rainbow of colours and licences.</p>"},"id":"44f062ea-7d38-d92b-8319-bf51f3cc8c5f","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"Green open access"},"id":"e4ef73a5-0904-92f9-f0f3-11736c9aa53f","isHidden":false,"type":"heading"},{"content":{"text":"<p>You publish in a traditional journal and deposit your accepted manuscript in a repository. It is free for authors, but check the journal’s embargo policy.</p>"},"id":"a0d1ed9e-5ec6-837f-7253-3e8dc7492538","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"Gold and diamond"},"id":"c1c2e898-e8a8-2849-673b-af6b4777647c","isHidden":false,"type":"heading"},{"content":{"text":"<p>Gold journals are open from day one, often funded by article processing charges. Diamond journals charge neither readers nor authors.</p>"},"id":"166317fa-a564-6af8-d21c-fccdbf5da9e1","isHidden":false,"type":"text"},{"content":{"text":"<ul><li>Check your funder’s requirements first.</li><li>Prefer CC BY unless you have a reason not to.</li><li>Keep your accepted manuscript — you will need it.</li></ul>"},"id":"26ceb029-0b12-fdba-6b03-5880b8a5ade4","isHidden":false,"type":"list"},{"content":{"text":"<p>Whatever route you choose, publishing a plain-language summary alongside your paper — like the ones on Inkwell — dramatically widens your audience.</p>"},"id":"e86edbf2-b7cd-9cec-e0d0-d74565eb3768","isHidden":false,"type":"text"}]
+
+----
+
+Tags: Open science, Publishing

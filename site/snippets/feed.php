@@ -4,7 +4,8 @@
     <title><?= site()->title()->escape('xml') ?></title>
     <link><?= site()->url() ?></link>
     <description><?= site()->tagline()->escape('xml') ?></description>
-    <atom:link href="<?= url('feed.xml') ?>" rel="self" type="application/rss+xml" />
+    <language><?= kirby()->language()->code() ?></language>
+    <atom:link href="<?= lurl('feed.xml') ?>" rel="self" type="application/rss+xml" />
     <?php foreach ($items as $item): ?>
     <item>
       <title><?= $item->title()->escape('xml') ?></title>

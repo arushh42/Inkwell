@@ -1,0 +1,41 @@
+Title: Gestaltung für lange Texte im Web
+
+----
+
+Subtitle: Zeilenlänge, Rhythmus und Zurückhaltung: die typografischen Entscheidungen hinter dieser Website.
+
+----
+
+Text: [{"content": {"text": "<p>Die meisten Websites sind zum Überfliegen gemacht. Ein Magazin sollte zum Lesen gemacht sein.</p>"}, "id": "5d8b61b7-7565-c1c2-e65c-9980811b31c8", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Zeilenlänge"}, "id": "1e9ee83f-df64-ee8d-fcf6-86cd5630f039", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Wir begrenzen den Fließtext auf etwa 70 Zeichen pro Zeile. Bei längeren Zeilen muss das Auge mehr arbeiten, um den Anfang der nächsten Zeile zu finden.</p>"}, "id": "e87defca-ce31-efc1-b1b9-4c9492c3ac18", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Serifen zum Lesen, Grotesk für die Bedienung"}, "id": "9641eed4-8471-7911-0d12-d7ee9bf34907", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Der Fließtext steht in einer Serifenschrift mit großzügigem Zeilenabstand, Navigation und Metadaten in einer Grotesk. Der Kontrast zeigt, was man liest und was man anklickt.</p>"}, "id": "68b2527f-960d-117d-efe8-f3a5abe4b209", "isHidden": false, "type": "text"}, {"content": {"code": ".prose {\n  font-family: Charter, Georgia, serif;\n  font-size: 20px;\n  line-height: 1.72;\n  max-width: 700px;\n}", "language": "css"}, "id": "de98b00f-2308-c72b-4c62-f4fc42662f8d", "isHidden": false, "type": "code"}, {"content": {"level": "h2", "text": "Dunkelmodus ist Pflicht"}, "id": "ff5e3e47-8a91-9378-a349-9681d77c090d", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Viele lesen abends. Das Farbschema des Systems zu respektieren, kostet nur ein paar Zeilen CSS.</p>"}, "id": "2ce66ee4-b134-954a-9587-5cb83ec6898f", "isHidden": false, "type": "text"}]
+
+----
+
+Kind: article
+
+----
+
+Author: - page://711f662d8e702444
+
+----
+
+Date: 2026-09-30
+
+----
+
+Tags: Design, Typografie, Webentwicklung
+
+----
+
+Cover: - file://292f888bee9cd706
+
+----
+
+Featured: false
+
+----
+
+Uuid: bb675f3256fc123e
+
+----
+
+Availablein: de, en

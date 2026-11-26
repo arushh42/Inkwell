@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Der Editor mit eingegebener Überschrift und Untertitel.
+
+----
+
+Uuid: b529bf5208a68011

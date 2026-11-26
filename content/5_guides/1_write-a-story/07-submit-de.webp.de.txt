@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Schaltflächen „Zur Prüfung einreichen“ und „Entwurf speichern“.
+
+----
+
+Uuid: 4a7358b6bc943c4e

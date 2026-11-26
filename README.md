@@ -44,6 +44,15 @@ Editors sign in to the Kirby Panel, write in a block editor, attach PDFs, and pu
 - Story-style stepper with progress bars, Back/Next, arrow keys, swipe and `#step-N` deep links. Without JavaScript the steps show as a simple list, and all instructions are real text (screen-reader friendly)
 - Linked from the header and from the publishing panels of the writing studio and Add a paper
 
+**Bilingual: German and English**
+- German is the default language and English a translation. Every page lives under `/de/…` or `/en/…`, and the bare domain redirects visitors to their browser's language. Old unprefixed links are redirected too (301)
+- All interface text comes from `site/translations/de.php` and `en.php` (about 280 strings). Dates are localised ("26. November 2026")
+- A **DE | EN** switch in the header always goes to the same page in the other language
+- **Single-language pages** (as described in the technical proposal): if a story exists in only one language, the other URL shows the original text with a note ("Diese Seite gibt es nur auf Englisch."). That URL is `noindex` with a canonical pointing to the original, and it's left out of the sitemap and that language's RSS feed. `hreflang` links only name versions that exist
+- Fields that are the same in both languages (date, DOI, author, cover, abstract, …) are entered once. Only the text is translated
+- The writing studio and Add a paper show which language versions exist and let authors add the missing one. When a German version is added to an English-only story, the English text is moved to its own file first, so nothing is overwritten (`inkwell_save_version()` in `site/plugins/inkwell/i18n.php`)
+- The guides exist in both languages, with German screenshots of the German interface
+
 **For editors: the Kirby Panel at `/panel`** (for everything else: papers, authors, users, settings)
 - A dashboard showing drafts, recently published stories, latest papers and counts
 - A draft → in review → published workflow
@@ -79,7 +88,9 @@ site/blueprints/              Panel forms: site, pages (story, paper, author…)
 site/templates/               Page templates (home, stories, story, papers, paper, authors…)
 site/snippets/                Header, footer, cards, byline, pagination, RSS, sitemap
 site/controllers/             Filtering, pagination and search logic
-site/plugins/inkwell/         Page methods (readingTime, excerpt, bibtex…) and routes (feed, sitemap, .bib)
+site/plugins/inkwell/         Page methods (readingTime, excerpt, bibtex…), routes (feed, sitemap, .bib), language helpers (i18n.php)
+site/languages/               German (default, /de) and English (/en)
+site/translations/            All interface text in German and English
 site/plugins/vercel/          Serverless compatibility (image fallback, Redis session store)
 site/plugins/github-sync/     Commits Panel edits to GitHub when running serverless
 assets/css/main.css           All styles
@@ -155,12 +166,14 @@ The guide screenshots and highlight positions are produced automatically. `tools
 TMPDIR=$(mktemp -d) KIRBY_ADMIN_EMAIL=editor@example.com KIRBY_ADMIN_PASSWORD=guide-admin-123 \
   SITE_URL=http://localhost:8020 php -S localhost:8020 api/index.php
 
-# 2. in another terminal
+# 2. in another terminal (one language per run, each against a fresh instance)
 cd tools/guides && npm install          # puppeteer-core only; uses your installed Chrome
-BASE=http://localhost:8020 ADMIN_EMAIL=editor@example.com ADMIN_PASSWORD=guide-admin-123 npm run capture
+LANG_CODE=de BASE=http://localhost:8020 ADMIN_EMAIL=editor@example.com ADMIN_PASSWORD=guide-admin-123 node capture.cjs
+# restart the disposable instance (fresh TMPDIR), then:
+LANG_CODE=en BASE=http://localhost:8020 ADMIN_EMAIL=editor@example.com ADMIN_PASSWORD=guide-admin-123 node capture.cjs
 ```
 
-This rewrites `content/5_guides/*`, the screenshots plus `guide.txt`. Step wording lives in `capture.cjs` and can also be edited in the Panel, but Panel edits are overwritten by the next regeneration. The `tools/` folder is excluded from Vercel uploads.
+Each run rewrites that language's screenshots (`*-de.webp`, `*-en.webp`) and `guide.de.txt` / `guide.en.txt` in `content/5_guides/*`. The German run also writes the shared fields. Step wording lives in `capture.cjs` and can also be edited in the Panel, but Panel edits are overwritten by the next regeneration. The `tools/` folder is excluded from Vercel uploads.
 
 ## Licensing note
 

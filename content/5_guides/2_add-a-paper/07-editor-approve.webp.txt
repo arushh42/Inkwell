@@ -1,9 +1,0 @@
-Template: screenshot
-
-----
-
-Alt: An editor’s view of a submitted paper with the “Approve & publish” button.
-
-----
-
-Uuid: c455d0d57712a4ed

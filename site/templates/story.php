@@ -5,26 +5,29 @@ $cover  = $page->cover()->toFile();
 $more   = $author
     ? $author->stories()->not($page)->limit(2)
     : $page->siblings()->listed()->not($page)->limit(2);
+// the text of an untranslated page is in its original language
+$textLang = inkwell_is_translated($page) ? null : inkwell_versions($page)[0];
+$langAttr = $textLang ? ' lang="' . $textLang . '"' : '';
 ?>
 <?php snippet('header') ?>
 
 <article class="story">
   <header class="story__head">
     <p class="eyebrow eyebrow--center">
-      <span class="sticker sticker--<?= $page->kind()->esc('attr') ?>"><?= $page->kind()->value() === 'blog' ? 'Blog post' : 'Article' ?></span>
+      <span class="sticker sticker--<?= $page->kind()->esc('attr') ?>"><?= $page->kind()->value() === 'blog' ? t('kind.blog') : t('kind.article') ?></span>
       <?php foreach (array_slice($page->tags()->split(','), 0, 2) as $tag): ?>
         <a class="eyebrow__tag" href="<?= url('stories', ['params' => ['tag' => urlencode($tag)]]) ?>"><?= esc($tag) ?></a>
       <?php endforeach ?>
     </p>
-    <h1 class="story__title"><?= $page->title()->esc() ?></h1>
+    <h1 class="story__title"<?= $langAttr ?>><?= $page->title()->esc() ?></h1>
     <?php if ($page->subtitle()->isNotEmpty()): ?>
-      <p class="story__subtitle"><?= $page->subtitle()->esc() ?></p>
+      <p class="story__subtitle"<?= $langAttr ?>><?= $page->subtitle()->esc() ?></p>
     <?php endif ?>
     <?php snippet('byline', ['page' => $page, 'author' => $author]) ?>
     <?php if (inkwell_is_editor($kirby->user())): ?>
-      <a class="btn btn--small story__edit" href="<?= url('write/' . $page->slug()) ?>">
+      <a class="btn btn--small story__edit" href="<?= lurl('write/' . $page->slug()) ?>">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>
-        Edit this story
+        <?= t('story.edit') ?>
       </a>
     <?php endif ?>
   </header>
@@ -42,7 +45,7 @@ $more   = $author
     </figure>
   <?php endif ?>
 
-  <div class="prose prose--story reading">
+  <div class="prose prose--story reading"<?= $langAttr ?>>
     <?= $page->text()->toBlocks() ?>
     <span class="end-mark" aria-hidden="true"></span>
   </div>
@@ -60,7 +63,7 @@ $more   = $author
       <div class="author-box">
         <?php snippet('avatar', ['author' => $author, 'size' => 'md']) ?>
         <div>
-          <p class="kicker">Written by</p>
+          <p class="kicker"><?= t('story.writtenBy') ?></p>
           <h2 class="author-box__name"><a href="<?= $author->url() ?>"><?= $author->title()->esc() ?></a></h2>
           <p class="author-box__role"><?= $author->role()->esc() ?></p>
           <p class="author-box__bio"><?= $author->bio()->esc() ?></p>
@@ -73,7 +76,7 @@ $more   = $author
 <?php if ($more->isNotEmpty()): ?>
 <section class="container section">
   <header class="section-head">
-    <h2 class="section-head__title">More from <?= $author ? $author->title()->esc() : $site->title()->esc() ?></h2>
+    <h2 class="section-head__title"><?= esc(tt('story.moreFrom', null, ['name' => $author ? $author->title()->value() : $site->title()->value()])) ?></h2>
     <span class="section-head__rule" aria-hidden="true"></span>
   </header>
   <div class="card-grid card-grid--2">

@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstrakte Illustration zu „Checklisten für Reproduzierbarkeit, die wirklich helfen“
+
+----
+
+Caption: 
+
+----
+
+Uuid: a7238806938f18b2

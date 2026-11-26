@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Das ausgefüllte Abstract mit der Quelle darunter.
+
+----
+
+Uuid: 0ec8c92bead999cf

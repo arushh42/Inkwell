@@ -1,0 +1,41 @@
+Title: Notizen aus dem Lesekreis: Lesen Modelle mit langem Kontext wirklich?
+
+----
+
+Subtitle: Diesen Monat ging es um drei Paper, die testen, ob Modelle die Mitte eines langen Prompts überhaupt nutzen.
+
+----
+
+Text: [{"content": {"text": "<p>Unser Lesekreis im November hat sich eine scheinbar einfache Frage vorgenommen: Wenn man einem Sprachmodell hundert Seiten gibt, nutzt es dann auch alle?</p>"}, "id": "ead50aa9-e1e8-2c7c-3831-555f82993b50", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Der Aufbau"}, "id": "795c7318-ff6e-4c9e-a702-f83cc32c7181", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Alle drei Paper platzieren eine wichtige Information an verschiedenen Stellen eines langen Dokuments und messen, wie gut das Modell sie wiederfindet. Das Hauptergebnis ist inzwischen bekannt: In der Mitte sinkt die Genauigkeit. Im Detail unterscheiden sich die Paper aber.</p>"}, "id": "35e3dfd7-453e-ec6a-4dd9-eeb6356085c6", "isHidden": false, "type": "text"}, {"content": {"text": "<ul><li>Positionseffekte werden durch Instruction Tuning kleiner, verschwinden aber nicht.</li><li>Ablenkende Passagen schaden mehr als die reine Länge.</li><li>Lässt man das Modell erst zitieren und dann antworten, holt es den Großteil des Verlusts wieder auf.</li></ul>"}, "id": "65152d99-d7a0-db43-0226-e62ad33fad11", "isHidden": false, "type": "list"}, {"content": {"level": "h2", "text": "Diskussion"}, "id": "106dddcf-253c-3fe9-33d7-0cbb61827082", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Die meiste Zeit haben wir über die Evaluation gestritten. Tests nach dem Muster „Nadel im Heuhaufen“ sind leicht zu bauen, bilden aber vielleicht nicht ab, wie Menschen lange Kontexte tatsächlich nutzen.</p>"}, "id": "7a9b6367-84fc-0029-c728-d4a1d69f7591", "isHidden": false, "type": "text"}, {"content": {"text": "<p>Ein Benchmark ist eine Hypothese darüber, was wichtig ist.</p>", "citation": "Jonas, frei nach einem Gutachter"}, "id": "678fb088-3b21-57a5-21d9-5243d93f4c8a", "isHidden": false, "type": "quote"}, {"content": {"text": "<p>Nächsten Monat: Retrieval-Augmented Generation gegen langen Kontext. Snacks nicht vergessen.</p>"}, "id": "ab48b948-7bef-5697-235d-706e063b485e", "isHidden": false, "type": "text"}]
+
+----
+
+Kind: blog
+
+----
+
+Author: - page://59ad83a58305fc0b
+
+----
+
+Date: 2026-11-09
+
+----
+
+Tags: Machine Learning, Lesekreis
+
+----
+
+Cover: - file://006765b4a0921dec
+
+----
+
+Featured: true
+
+----
+
+Uuid: 7c9b33412c543800
+
+----
+
+Availablein: de, en

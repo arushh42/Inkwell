@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Der Bereich Veröffentlichung mit Art, Schlagwörtern und Titelbild.
+
+----
+
+Uuid: e68432cdc01fedab

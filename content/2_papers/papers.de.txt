@@ -1,0 +1,9 @@
+Title: Forschung
+
+----
+
+Intro: Aktuelle Paper aus dem maschinellen Lernen, jeweils mit einer kurzen Zusammenfassung in einfacher Sprache.
+
+----
+
+Uuid: 72aca2150c205531

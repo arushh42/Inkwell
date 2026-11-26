@@ -18,3 +18,6 @@
 
 # Dev tooling dependencies
 /tools/**/node_modules
+
+# iCloud/Finder conflict copies ("file 2.php")
+* 2.*

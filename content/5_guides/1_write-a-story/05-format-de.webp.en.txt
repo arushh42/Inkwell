@@ -1,0 +1,1 @@
+Alt: Die Werkzeugleiste mit Schaltflächen für Überschriften, Fett, Kursiv, Links, Zitate und Listen.

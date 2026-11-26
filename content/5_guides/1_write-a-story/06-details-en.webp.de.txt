@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The publishing panel with type, tags and cover image.
+
+----
+
+Uuid: 372633b2f77dd5b7

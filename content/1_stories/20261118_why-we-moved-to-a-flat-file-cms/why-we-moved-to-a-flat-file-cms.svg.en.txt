@@ -1,0 +1,5 @@
+Alt: Abstract illustration for “Why we moved our publication to a flat-file CMS”
+
+----
+
+Caption: 

@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The “Submit for review” and “Save draft” buttons.
+
+----
+
+Uuid: 43b1df51fa60a8e4

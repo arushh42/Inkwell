@@ -1,0 +1,13 @@
+Title: Why we moved our publication to a flat-file CMS
+
+----
+
+Subtitle: No database, no plugins graveyard, no 2 a.m. upgrades. Here is what we gained — and what we gave up.
+
+----
+
+Text: [{"content":{"text":"<p>For years our publication ran on a database-backed CMS. It worked, until it didn’t: a plugin update broke the editor the night before a launch, and restoring a backup meant restoring <em>everything</em>.</p>"},"id":"c58de88c-9ac3-42d6-170b-ab419e254e58","isHidden":false,"type":"text"},{"content":{"text":"<p>When we rebuilt Inkwell we chose Kirby, a flat-file CMS written in PHP. Every story you read here is a folder with a text file and its images. That is the whole database.</p>"},"id":"f2029628-95e6-6c0e-83d7-1c2d9d56733c","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"Content you can read with any editor"},"id":"b9c72c0d-c668-3032-328a-aa7fd91184bf","isHidden":false,"type":"heading"},{"content":{"text":"<p>Because content lives in plain text, it can be versioned with Git, reviewed in pull requests and moved between servers by copying a folder.</p>"},"id":"40498f36-e07d-c016-7391-d7126afdb195","isHidden":false,"type":"text"},{"content":{"code":"<?php foreach (page('stories')->children()->listed() as $story): ?>\n  <h2><?= $story->title()->esc() ?></h2>\n<?php endforeach ?>","language":"php"},"id":"664c5191-c81b-dddf-dced-c93004cdc92c","isHidden":false,"type":"code"},{"content":{"level":"h2","text":"A Panel editors actually like"},"id":"2fba85c3-0a60-303f-583f-ead7a5625e02","isHidden":false,"type":"heading"},{"content":{"text":"<p>Kirby’s Panel is generated from YAML blueprints. We defined exactly the fields our authors need — subtitle, cover, tags, author — and nothing more.</p>"},"id":"893a495e-bb4e-a037-c3c9-64bc50c19a00","isHidden":false,"type":"text"},{"content":{"text":"<p>The best CMS is the one your editors stop noticing.</p>","citation":""},"id":"10987af5-762b-01d2-1a52-c0a64ef6966b","isHidden":false,"type":"quote"},{"content":{"level":"h2","text":"The trade-offs"},"id":"181f2041-9287-2236-ea2a-7cc42f38b2c5","isHidden":false,"type":"heading"},{"content":{"text":"<ul><li>Full-text search is in-memory, which is fine for thousands of pages, not millions.</li><li>Serverless hosting needs extra care, because the file system is read-only.</li><li>Production use requires a Kirby licence.</li></ul>"},"id":"b3ea9fb7-c642-2468-5b7c-924e53b0a821","isHidden":false,"type":"list"},{"content":{"text":"<p>For a publication of our size, those trade-offs were easy to accept.</p>"},"id":"f3c6ef80-29a1-d35f-498e-da9258872f03","isHidden":false,"type":"text"}]
+
+----
+
+Tags: Kirby, PHP, Web development

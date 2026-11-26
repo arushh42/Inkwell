@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstrakte Illustration zu „Gestaltung für lange Texte im Web“
+
+----
+
+Caption: 
+
+----
+
+Uuid: 292f888bee9cd706

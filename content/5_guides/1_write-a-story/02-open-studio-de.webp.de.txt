@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Startseite, die Schaltfläche „Beitrag schreiben“ ist hervorgehoben.
+
+----
+
+Uuid: bfa5eed3699922d7

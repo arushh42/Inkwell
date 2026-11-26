@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The text area of the editor with two paragraphs.
+
+----
+
+Uuid: 4434a30aec6a44b5

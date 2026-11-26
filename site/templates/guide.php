@@ -7,12 +7,12 @@ $total = $steps->count();
 
 <article class="guide container section">
   <header class="guide__head">
-    <a class="guide__back" href="<?= $page->parent()->url() ?>">← All guides</a>
-    <p class="kicker">Guide<?php if ($page->duration()->isNotEmpty()): ?> · <?= $page->duration()->esc() ?><?php endif ?> · <?= $total ?> steps</p>
+    <a class="guide__back" href="<?= $page->parent()->url() ?>"><?= t('guide.back') ?></a>
+    <p class="kicker"><?= t('guide.kicker') ?><?php if ($page->duration()->isNotEmpty()): ?> · <?= $page->duration()->esc() ?><?php endif ?> · <?= tt('guides.steps', null, ['count' => $total]) ?></p>
     <h1 class="page-head__title"><?= $page->title()->esc() ?></h1>
     <p class="page-head__sub"><?= $page->intro()->esc() ?></p>
     <?php if ($page->audience()->isNotEmpty()): ?>
-      <p class="guide__audience">For: <?= $page->audience()->esc() ?></p>
+      <p class="guide__audience"><?= esc(tt('guide.for', null, ['audience' => $page->audience()->value()])) ?></p>
     <?php endif ?>
   </header>
 
@@ -59,18 +59,18 @@ $total = $steps->count();
           </figure>
 
           <div class="tour__text">
-            <p class="tour__count">Step <?= $i + 1 ?> of <?= $total ?></p>
+            <p class="tour__count"><?= tt('guide.step', null, ['n' => $i + 1, 'total' => $total]) ?></p>
             <h2 class="tour__title"><?= $step->title()->esc() ?></h2>
             <div class="tour__body"><?= $step->text()->kt() ?></div>
             <div class="tour__nav" hidden data-nav>
-              <button type="button" class="btn" data-prev <?= e($i === 0, 'disabled') ?>>← Back</button>
+              <button type="button" class="btn" data-prev <?= e($i === 0, 'disabled') ?>><?= t('guide.prev') ?></button>
               <?php if ($i < $total - 1): ?>
-                <button type="button" class="btn btn--accent" data-next>Next step →</button>
+                <button type="button" class="btn btn--accent" data-next><?= t('guide.next') ?></button>
               <?php elseif ($page->cta()->isNotEmpty()): ?>
-                <a class="btn btn--accent" href="<?= url($page->ctaLink()->or('/')->value()) ?>"><?= $page->cta()->esc() ?> →</a>
+                <a class="btn btn--accent" href="<?= lurl(ltrim($page->ctaLink()->or('')->value(), '/')) ?>"><?= $page->cta()->esc() ?> →</a>
               <?php endif ?>
             </div>
-            <p class="tour__hint" hidden data-hint>Tip: use the ← → arrow keys<span class="tour__hint-touch"> or swipe</span>.</p>
+            <p class="tour__hint" hidden data-hint><?= t('guide.tip') ?> (← →)<span class="tour__hint-touch"><?= t('guide.tip.touch') ?></span>.</p>
           </div>
         </li>
       <?php endforeach ?>
@@ -79,16 +79,17 @@ $total = $steps->count();
 
   <?php if ($page->cta()->isNotEmpty()): ?>
     <div class="guide__cta" data-cta>
-      <p>Ready to try it yourself?</p>
-      <a class="btn btn--accent" href="<?= url($page->ctaLink()->or('/')->value()) ?>"><?= $page->cta()->esc() ?> →</a>
+      <p><?= t('guide.try') ?></p>
+      <a class="btn btn--accent" href="<?= lurl(ltrim($page->ctaLink()->or('')->value(), '/')) ?>"><?= $page->cta()->esc() ?> →</a>
     </div>
   <?php endif ?>
 
   <?php if ($other = $page->siblings(false)->listed()->first()): ?>
-    <p class="guide__next">Next guide: <a href="<?= $other->url() ?>"><?= $other->title()->esc() ?> →</a></p>
+    <p class="guide__next"><?= t('guide.nextGuide') ?> <a href="<?= $other->url() ?>"><?= $other->title()->esc() ?> →</a></p>
   <?php endif ?>
 </article>
 
+<script>window.INKWELL_I18N = <?= json_encode(['step' => t('guide.step')], JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) ?>;</script>
 <script src="<?= asset_url('assets/js/guide.js') ?>" defer></script>
 
 <?php snippet('footer') ?>

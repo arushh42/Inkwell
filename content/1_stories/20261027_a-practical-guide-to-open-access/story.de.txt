@@ -1,0 +1,41 @@
+Title: Open Access in der Praxis
+
+----
+
+Subtitle: Grün, Gold, Diamant: was die Farben bedeuten und wie Sie den passenden Weg für Ihr Paper finden.
+
+----
+
+Text: [{"content": {"text": "<p>Open Access klingt einfach: Forschung soll frei lesbar sein. In der Praxis gibt es aber eine ganze Palette an Farben und Lizenzen.</p>"}, "id": "44f062ea-7d38-d92b-8319-bf51f3cc8c5f", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Grüner Open Access"}, "id": "e4ef73a5-0904-92f9-f0f3-11736c9aa53f", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Sie veröffentlichen in einer klassischen Zeitschrift und legen Ihr akzeptiertes Manuskript zusätzlich in einem Repositorium ab. Für Autor:innen ist das kostenlos, aber prüfen Sie die Sperrfrist der Zeitschrift.</p>"}, "id": "a0d1ed9e-5ec6-837f-7253-3e8dc7492538", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Gold und Diamant"}, "id": "c1c2e898-e8a8-2849-673b-af6b4777647c", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Goldene Zeitschriften sind vom ersten Tag an frei zugänglich und finanzieren sich oft über Publikationsgebühren. Diamant-Zeitschriften verlangen weder von Lesenden noch von Autor:innen Geld.</p>"}, "id": "166317fa-a564-6af8-d21c-fccdbf5da9e1", "isHidden": false, "type": "text"}, {"content": {"text": "<ul><li>Prüfen Sie zuerst die Vorgaben Ihres Förderers.</li><li>Nehmen Sie CC BY, wenn nichts dagegen spricht.</li><li>Heben Sie Ihr akzeptiertes Manuskript auf, Sie werden es brauchen.</li></ul>"}, "id": "26ceb029-0b12-fdba-6b03-5880b8a5ade4", "isHidden": false, "type": "list"}, {"content": {"text": "<p>Egal welchen Weg Sie wählen: Eine Zusammenfassung in einfacher Sprache neben dem Paper, wie hier auf Inkwell, erreicht deutlich mehr Leser:innen.</p>"}, "id": "e86edbf2-b7cd-9cec-e0d0-d74565eb3768", "isHidden": false, "type": "text"}]
+
+----
+
+Kind: article
+
+----
+
+Author: - page://7ed89acdf64a8458
+
+----
+
+Date: 2026-10-27
+
+----
+
+Tags: Open Science, Publizieren
+
+----
+
+Cover: - file://094a55d981096919
+
+----
+
+Featured: true
+
+----
+
+Uuid: b627c522215a81e3
+
+----
+
+Availablein: de, en

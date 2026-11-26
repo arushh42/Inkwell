@@ -9,22 +9,22 @@ $papers  = $page->papers();
   <header class="profile profile--<?= $page->swatch() ?>">
     <?php snippet('avatar', ['author' => $page, 'size' => 'lg']) ?>
     <div>
-      <p class="kicker">Contributor</p>
+      <p class="kicker"><?= t('author.kicker') ?></p>
       <h1 class="profile__name"><?= $page->title()->esc() ?></h1>
       <p class="profile__role"><?= $page->role()->esc() ?></p>
       <p class="profile__bio"><?= $page->bio()->esc() ?></p>
       <p class="profile__links">
-        <span class="profile__stat"><b><?= $stories->count() ?></b> stories</span>
-        <span class="profile__stat"><b><?= $papers->count() ?></b> papers</span>
-        <?php if ($page->website()->isNotEmpty()): ?><a class="btn btn--small" href="<?= $page->website()->esc('attr') ?>" rel="noopener">Website ↗</a><?php endif ?>
-        <?php if ($page->email()->isNotEmpty()): ?><a class="btn btn--small" href="mailto:<?= $page->email()->esc('attr') ?>">Email</a><?php endif ?>
+        <span class="profile__stat"><?= inkwell_count('stories.count', $stories->count()) ?></span>
+        <span class="profile__stat"><?= inkwell_count('papers.count', $papers->count()) ?></span>
+        <?php if ($page->website()->isNotEmpty()): ?><a class="btn btn--small" href="<?= $page->website()->esc('attr') ?>" rel="noopener"><?= t('author.website') ?></a><?php endif ?>
+        <?php if ($page->email()->isNotEmpty()): ?><a class="btn btn--small" href="mailto:<?= $page->email()->esc('attr') ?>"><?= t('author.email') ?></a><?php endif ?>
       </p>
     </div>
   </header>
 
   <?php if ($stories->isNotEmpty()): ?>
     <header class="section-head">
-      <h2 class="section-head__title">Stories</h2>
+      <h2 class="section-head__title"><?= t('author.stories') ?></h2>
       <span class="section-head__rule" aria-hidden="true"></span>
     </header>
     <div class="card-grid">
@@ -36,7 +36,7 @@ $papers  = $page->papers();
 
   <?php if ($papers->isNotEmpty()): ?>
     <header class="section-head">
-      <h2 class="section-head__title">Papers</h2>
+      <h2 class="section-head__title"><?= t('author.papers') ?></h2>
       <span class="section-head__rule" aria-hidden="true"></span>
     </header>
     <div class="reading-wide">

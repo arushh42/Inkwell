@@ -14,11 +14,13 @@ columns:
       abstract:
         label: Abstract
         type: textarea
+        translate: false
         buttons: false
         required: true
       abstractSource:
         label: Abstract source & licence
         type: text
+        translate: false
         placeholder: "Nature, CC BY 4.0"
         help: Where the abstract text comes from, shown under the abstract (required for CC-licensed abstracts).
       text:
@@ -34,53 +36,75 @@ columns:
           authors:
             label: Authors (on this site)
             type: pages
+            translate: false
             query: site.find("authors").children
           coauthors:
             label: External authors
             type: tags
+            translate: false
             help: Authors without a profile here, in byline order. For long author lists, enter the first few and set the total below.
           authorTotal:
             label: Total number of authors
             type: number
+            translate: false
             min: 1
             help: Leave empty if every author is listed. Otherwise the byline ends in “et al.”
           date:
             label: Publication date
             type: date
+            translate: false
             required: true
             default: today
           venue:
             label: Journal / conference
             type: text
+            translate: false
           volume:
             label: Volume
             type: text
+            translate: false
             width: 1/2
           pages:
             label: Pages
             type: text
+            translate: false
             width: 1/2
           doi:
             label: DOI
             type: text
+            translate: false
             placeholder: 10.1234/abcd.5678
             pattern: '^10\.\d{4,9}\/\S+$'
           arxiv:
             label: arXiv ID
             type: text
+            translate: false
             placeholder: "2501.12948"
             pattern: '^\d{4}\.\d{4,5}$'
           keywords:
             label: Keywords
             type: tags
+            translate: false
           submittedBy:
             label: Submitted by
             type: users
+            translate: false
             multiple: false
             help: The member who added this paper (set automatically).
+          availableIn:
+            label: Language versions
+            type: checkboxes
+            translate: false
+            columns: 2
+            default: de
+            options:
+              de: Deutsch
+              en: English
+            help: Tick every language this page has a summary in. A language that isn’t ticked shows the other version with a short note.
           pdf:
             label: PDF
             type: files
+            translate: false
             multiple: false
             uploads: pdf
             query: page.documents

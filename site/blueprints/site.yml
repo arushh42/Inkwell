@@ -102,6 +102,7 @@ tabs:
       social:
         label: Social links
         type: structure
+        translate: false
         fields:
           platform:
             type: select

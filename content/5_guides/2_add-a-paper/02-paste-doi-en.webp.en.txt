@@ -1,0 +1,1 @@
+Alt: The “Add a paper” page with a DOI pasted into the DOI box.

@@ -1,9 +1,0 @@
-Template: screenshot
-
-----
-
-Alt: The writing studio after submitting, with a confirmation message and the story listed under “Submitted for review”.
-
-----
-
-Uuid: d9a34ec205ce502e

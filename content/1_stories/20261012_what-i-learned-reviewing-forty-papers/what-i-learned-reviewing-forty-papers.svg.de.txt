@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstrakte Illustration zu „Was ich beim Begutachten von vierzig Konferenz-Papern gelernt habe“
+
+----
+
+Caption: 
+
+----
+
+Uuid: c76b47509800fe5d

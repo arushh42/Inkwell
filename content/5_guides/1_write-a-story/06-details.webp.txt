@@ -1,9 +1,0 @@
-Template: screenshot
-
-----
-
-Alt: The publishing panel with article/blog toggle, tags field and cover image upload.
-
-----
-
-Uuid: c83a57476f5d367e

@@ -33,7 +33,9 @@
       bar.classList.toggle('is-current', i === current);
     });
     history.replaceState(null, '', `#step-${current + 1}`);
-    live.textContent = `Step ${current + 1} of ${steps.length}: ${steps[current].querySelector('.tour__title').textContent}`;
+    const label = ((window.INKWELL_I18N || {}).step || 'Step {n} of {total}')
+      .replace('{n}', current + 1).replace('{total}', steps.length);
+    live.textContent = `${label}: ${steps[current].querySelector('.tour__title').textContent}`;
     if (scroll && tour.getBoundingClientRect().top < 0) tour.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (focus) steps[current].querySelector('.tour__title').focus({ preventScroll: true });
   };

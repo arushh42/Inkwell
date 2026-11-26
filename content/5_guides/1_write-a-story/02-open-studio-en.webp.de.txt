@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The home page with the “Write a story” button highlighted.
+
+----
+
+Uuid: 7180712b95a4cf17

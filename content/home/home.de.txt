@@ -1,0 +1,21 @@
+Title: Startseite
+
+----
+
+Headline: Texte zum *langsamen* Lesen.
+
+----
+
+Intro: Artikel, Blogbeiträge und Forschungszusammenfassungen unserer Autor:innen. Nehmen Sie sich Zeit dafür.
+
+----
+
+Featured: 
+
+----
+
+Showpapers: true
+
+----
+
+Uuid: e83249bd3ba79932

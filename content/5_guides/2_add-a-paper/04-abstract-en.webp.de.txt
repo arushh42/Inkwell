@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: The abstract field filled in, with its source shown below.
+
+----
+
+Uuid: ca588e9aba31caa5

@@ -3,7 +3,8 @@
   "private": true,
   "description": "Regenerates the illustrated how-to guides in content/5_guides (see README).",
   "scripts": {
-    "capture": "node capture.cjs"
+    "capture:de": "LANG_CODE=de node capture.cjs",
+    "capture:en": "LANG_CODE=en node capture.cjs"
   },
   "devDependencies": {
     "puppeteer-core": "^22.15.0"

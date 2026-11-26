@@ -1,0 +1,77 @@
+Title: How to add a paper
+
+----
+
+Intro: Share a research paper by pasting its DOI. Title, authors and journal are filled in for you, so it only takes a minute or two.
+
+----
+
+Audience: Authors and editors who share research
+
+----
+
+Duration: 2 minutes
+
+----
+
+Cta: Add a paper
+
+----
+
+Steps: 
+-
+  title: "Open “Add a paper”"
+  text: "Sign in, then click **Add a paper** in the header. No account yet? Step 1 of *How to write a story* explains how to create one."
+  callout: "Click “Add a paper”"
+  image:
+    - file://b2a9e2866a604d1b
+  url: "inkwellpress.vercel.app/en"
+  box: "73.49,5.13,9.94,6.25"
+-
+  title: "Paste the DOI"
+  text: "Every published paper has a **DOI**, a permanent ID that starts with **10.** You’ll find it on the paper’s web page. Copy it (the full *https://doi.org/…* link works too) and paste it into this box. The details load automatically."
+  callout: "Paste the DOI here"
+  image:
+    - file://dc01c1ee35e7898c
+  url: "inkwellpress.vercel.app/en/add-paper"
+  box: "6.09,46.00,45.45,7.88"
+-
+  title: "Check the details"
+  text: "After a few seconds the **title, authors, journal, date, volume and pages** appear. Read them over. You can still change everything. If the paper is already on Inkwell, you get a link to it instead."
+  callout: "Check title and authors"
+  image:
+    - file://bfa29d30d1b0b834
+  url: "inkwellpress.vercel.app/en/add-paper"
+  box: "4.22,41.46,60.62,17.17"
+-
+  title: "Check the abstract"
+  text: "If the paper’s summary (the **abstract**) is openly licensed, it is copied in, with its source shown below. If not, the box stays empty. Then write two or three sentences of your own, which will be credited to you."
+  callout: "Abstract and source"
+  image:
+    - file://ca588e9aba31caa5
+  url: "inkwellpress.vercel.app/en/add-paper"
+  box: "4.22,30.42,60.62,39.17"
+-
+  title: "Explain it in plain words"
+  text: "Under **In plain language**, explain in a couple of sentences what the researchers found and why it matters, for someone outside the field. This is optional, but it is what makes the papers on Inkwell readable."
+  callout: "Optional"
+  image:
+    - file://27e3bd9a70a89f9b
+  url: "inkwellpress.vercel.app/en/add-paper"
+  box: "4.22,40.34,60.62,19.31"
+-
+  title: "Submit it"
+  text: "Click **Submit for review**. An editor checks the paper and publishes it. Until then you’ll find it under **Your papers** on the right."
+  callout: "Click when you’re done"
+  image:
+    - file://afd22894136addce
+  url: "inkwellpress.vercel.app/en/add-paper"
+  box: "71.09,19.55,23.75,7.38"
+-
+  title: "For editors: publish it"
+  text: "Editors find new papers under **Waiting for review** on the *Add a paper* page. Open one, check it and click **Approve and publish**."
+  callout: "Approve and publish"
+  image:
+    - file://02a649b711f3dc10
+  url: "inkwellpress.vercel.app/en/add-paper/accurate-structure-prediction-of-biomolecular-interactions-with-alphaf"
+  box: "71.09,25.55,23.75,7.38"

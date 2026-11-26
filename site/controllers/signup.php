@@ -13,7 +13,7 @@ use Kirby\Toolkit\V;
  */
 return function ($kirby) {
     if ($kirby->user()) {
-        go('write');
+        go(lurl('write'));
     }
 
     $session = $kirby->session();
@@ -29,48 +29,49 @@ return function ($kirby) {
 
         try {
             if (csrf(get('csrf')) !== true) {
-                throw new Exception('Your session expired. Please try again.');
+                throw new Exception(t('error.session'));
             }
 
             // bots fill in every field, humans never see this one
             if ((string)get('website') !== '') {
-                throw new Exception('Something went wrong. Please try again.');
+                throw new Exception(t('signup.error.generic'));
             }
 
             // bots submit instantly
             if (time() - (int)$session->get('inkwell.signup.started', 0) < 3) {
-                throw new Exception('That was quick! Please check your details and submit again.');
+                throw new Exception(t('signup.error.fast'));
             }
 
             if ($values['name'] === '' || Str::length($values['name']) > 80) {
-                throw new Exception('Please enter your name (up to 80 characters).');
+                throw new Exception(t('signup.error.name'));
             }
 
             if (V::email($values['email']) === false) {
-                throw new Exception('Please enter a valid email address.');
+                throw new Exception(t('signup.error.email'));
             }
 
             if (Str::length($password) < 8) {
-                throw new Exception('Your password needs at least 8 characters.');
+                throw new Exception(t('signup.error.password'));
             }
 
             if ($kirby->users()->findBy('email', $values['email'])) {
-                throw new Exception('There’s already an account with this email. Try signing in instead.');
+                throw new Exception(t('signup.error.exists'));
             }
 
             if (inkwell_rate_limit('signup', 5, 3600) === false) {
-                throw new Exception('Too many sign-ups from your network. Please try again in an hour.');
+                throw new Exception(t('signup.error.rate'));
             }
 
             // create the account and the author profile as the system user;
             // the new member only gets the restricted "contributor" role
-            $user = $kirby->impersonate('kirby', function () use ($kirby, $values, $password) {
+            $lang = $kirby->language()->code();
+            $user = $kirby->impersonate('kirby', function () use ($kirby, $values, $password, $lang) {
                 $user = $kirby->users()->create([
                     'email'    => $values['email'],
                     'name'     => $values['name'],
                     'password' => $password,
                     'role'     => 'contributor',
-                    'language' => 'en',
+                    'language' => $lang,
                 ]);
 
                 $authors = page('authors');
@@ -86,7 +87,7 @@ return function ($kirby) {
                     'template' => 'author',
                     'content'  => [
                         'title'   => $values['name'],
-                        'role'    => 'Contributor',
+                        'role'    => t('signup.role'),
                         'account' => [$user->uuid()->toString()],
                     ],
                 ]);
@@ -97,7 +98,7 @@ return function ($kirby) {
             $user->loginPasswordless();
             $session->remove('inkwell.signup.started');
 
-            go(url('write', ['query' => ['welcome' => 1]]));
+            go(lurl('write', ['welcome' => 1]));
         } catch (Throwable $e) {
             $error = $e->getMessage();
         }

@@ -12,7 +12,7 @@ return function ($kirby) {
     if ($redirect !== '' && preg_match('#^[a-z0-9][a-z0-9/_-]*$#i', $redirect) !== 1) {
         $redirect = '';
     }
-    $target = $redirect === '' ? site()->url() : url($redirect);
+    $target = $redirect === '' ? site()->url() : lurl($redirect);
 
     if ($kirby->user()) {
         go($target);
@@ -26,16 +26,14 @@ return function ($kirby) {
 
         try {
             if (csrf(get('csrf')) !== true) {
-                throw new Exception('Your session expired. Please try again.');
+                throw new Exception(t('error.session'));
             }
 
             $kirby->auth()->login($email, (string)get('password'), get('remember') === 'on');
             go($target);
         } catch (Throwable $e) {
             // never reveal whether the email exists
-            $error = str_contains($e->getMessage(), 'session')
-                ? $e->getMessage()
-                : 'That email and password don’t match. Please try again.';
+            $error = $e->getMessage() === t('error.session') ? $e->getMessage() : t('login.error');
         }
     }
 

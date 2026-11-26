@@ -40,7 +40,7 @@ class DoiLookup
     }
 
     /**
-     * @throws \RuntimeException with a user-friendly message
+     * @throws \RuntimeException code 404 = DOI not found, 502/504 = service problem
      */
     public function lookup(string $doi): array
     {
@@ -48,10 +48,10 @@ class DoiLookup
         [$status, $body, $finalUrl] = $this->get('https://doi.org/' . $path, ['Accept: application/vnd.citationstyles.csl+json']);
 
         if ($status === 404) {
-            throw new \RuntimeException('We couldn’t find that DOI. Please check it and try again.');
+            throw new \RuntimeException('We couldn’t find that DOI. Please check it and try again.', 404);
         }
         if ($status !== 200 || ($csl = json_decode($body, true)) === null) {
-            throw new \RuntimeException('The DOI service didn’t respond properly. Please try again in a moment.');
+            throw new \RuntimeException('The DOI service didn’t respond properly. Please try again in a moment.', 502);
         }
 
         $isDataCite = str_contains((string)parse_url($finalUrl, PHP_URL_HOST), 'crosscite') || str_contains((string)parse_url($finalUrl, PHP_URL_HOST), 'datacite');
@@ -233,7 +233,7 @@ class DoiLookup
         $body = curl_exec($curl);
 
         if ($body === false) {
-            throw new \RuntimeException('The DOI service didn’t respond in time. Please try again in a moment.');
+            throw new \RuntimeException('The DOI service didn’t respond in time. Please try again in a moment.', 504);
         }
 
         return [curl_getinfo($curl, CURLINFO_HTTP_CODE), (string)$body, (string)curl_getinfo($curl, CURLINFO_EFFECTIVE_URL)];

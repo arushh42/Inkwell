@@ -1,0 +1,41 @@
+Title: Warum wir auf ein dateibasiertes CMS umgestiegen sind
+
+----
+
+Subtitle: Keine Datenbank, kein Plugin-Friedhof, keine Updates um zwei Uhr nachts. Was wir gewonnen haben und worauf wir verzichten.
+
+----
+
+Text: [{"content": {"text": "<p>Jahrelang lief unser Magazin auf einem CMS mit Datenbank. Das ging gut, bis es nicht mehr ging: Ein Plugin-Update legte den Editor in der Nacht vor einem Launch lahm, und ein Backup einzuspielen hieß, <em>alles</em> zurückzuspielen.</p>"}, "id": "c58de88c-9ac3-42d6-170b-ab419e254e58", "isHidden": false, "type": "text"}, {"content": {"text": "<p>Für den Neustart von Inkwell haben wir uns für Kirby entschieden, ein dateibasiertes CMS in PHP. Jeder Beitrag hier ist ein Ordner mit einer Textdatei und seinen Bildern. Das ist die ganze Datenbank.</p>"}, "id": "f2029628-95e6-6c0e-83d7-1c2d9d56733c", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Inhalte, die jeder Editor lesen kann"}, "id": "b9c72c0d-c668-3032-328a-aa7fd91184bf", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Weil die Inhalte als Klartext vorliegen, lassen sie sich mit Git versionieren, in Pull Requests prüfen und durch einfaches Kopieren eines Ordners auf einen anderen Server bringen.</p>"}, "id": "40498f36-e07d-c016-7391-d7126afdb195", "isHidden": false, "type": "text"}, {"content": {"code": "<?php foreach (page('stories')->children()->listed() as $story): ?>\n  <h2><?= $story->title()->esc() ?></h2>\n<?php endforeach ?>", "language": "php"}, "id": "664c5191-c81b-dddf-dced-c93004cdc92c", "isHidden": false, "type": "code"}, {"content": {"level": "h2", "text": "Ein Panel, das die Redaktion mag"}, "id": "2fba85c3-0a60-303f-583f-ead7a5625e02", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Das Kirby-Panel entsteht aus YAML-Blueprints. Wir haben genau die Felder angelegt, die unsere Autor:innen brauchen: Untertitel, Titelbild, Schlagwörter, Autor:in. Mehr nicht.</p>"}, "id": "893a495e-bb4e-a037-c3c9-64bc50c19a00", "isHidden": false, "type": "text"}, {"content": {"text": "<p>Das beste CMS ist das, das der Redaktion nicht mehr auffällt.</p>", "citation": ""}, "id": "10987af5-762b-01d2-1a52-c0a64ef6966b", "isHidden": false, "type": "quote"}, {"content": {"level": "h2", "text": "Die Kompromisse"}, "id": "181f2041-9287-2236-ea2a-7cc42f38b2c5", "isHidden": false, "type": "heading"}, {"content": {"text": "<ul><li>Die Volltextsuche läuft im Arbeitsspeicher. Für Tausende Seiten reicht das, für Millionen nicht.</li><li>Serverloses Hosting braucht besondere Sorgfalt, weil das Dateisystem schreibgeschützt ist.</li><li>Für den Einsatz in Produktion braucht man eine Kirby-Lizenz.</li></ul>"}, "id": "b3ea9fb7-c642-2468-5b7c-924e53b0a821", "isHidden": false, "type": "list"}, {"content": {"text": "<p>Für ein Magazin unserer Größe waren das leicht verkraftbare Kompromisse.</p>"}, "id": "f3c6ef80-29a1-d35f-498e-da9258872f03", "isHidden": false, "type": "text"}]
+
+----
+
+Kind: article
+
+----
+
+Author: - page://711f662d8e702444
+
+----
+
+Date: 2026-11-18
+
+----
+
+Tags: Kirby, PHP, Webentwicklung
+
+----
+
+Cover: - file://91416d105b9b8037
+
+----
+
+Featured: true
+
+----
+
+Uuid: b858edfb5fc0ed9f
+
+----
+
+Availablein: de, en

@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Das Formular mit Titel, Autor:innen und Zeitschrift des Papers.
+
+----
+
+Uuid: 1a5ead54ff7ba3bd

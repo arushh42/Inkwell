@@ -1,0 +1,1 @@
+Alt: Die Registrierungsseite mit Feldern für Name, E-Mail und Passwort.

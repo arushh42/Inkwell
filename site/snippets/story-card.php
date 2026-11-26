@@ -5,6 +5,7 @@ $index  = $index ?? null;
 $cover  = $story->cover()->toFile();
 $author = $story->author()->toPages()->first();
 $tag    = $story->tags()->split(',')[0] ?? null;
+$other  = !inkwell_is_translated($story) ? inkwell_versions($story)[0] : null;
 ?>
 <article class="card card--<?= $size ?>">
   <?php if ($index !== null): ?>
@@ -20,14 +21,17 @@ $tag    = $story->tags()->split(',')[0] ?? null;
   <?php endif ?>
   <div class="card__body">
     <p class="eyebrow">
-      <span class="sticker sticker--<?= $story->kind()->esc('attr') ?>"><?= $story->kind()->value() === 'blog' ? 'Blog' : 'Article' ?></span>
+      <span class="sticker sticker--<?= $story->kind()->esc('attr') ?>"><?= $story->kind()->value() === 'blog' ? t('kind.blog.short') : t('kind.article') ?></span>
       <?php if ($tag): ?>
         <a class="eyebrow__tag" href="<?= url('stories', ['params' => ['tag' => urlencode($tag)]]) ?>"><?= esc($tag) ?></a>
       <?php endif ?>
+      <?php if ($other): ?>
+        <span class="lang-badge" lang="<?= $other ?>" title="<?= esc(tt('fallback.note', null, ['language' => inkwell_lang_name($other)]), 'attr') ?>"><?= strtoupper($other) ?></span>
+      <?php endif ?>
     </p>
-    <h3 class="card__title"><a href="<?= $story->url() ?>"><?= $story->title()->esc() ?></a></h3>
+    <h3 class="card__title"><a href="<?= $story->url() ?>" <?= $other ? 'lang="' . $other . '"' : '' ?>><?= $story->title()->esc() ?></a></h3>
     <?php if ($size !== 'compact'): ?>
-      <p class="card__excerpt"><?= esc($story->excerpt(150)) ?></p>
+      <p class="card__excerpt" <?= $other ? 'lang="' . $other . '"' : '' ?>><?= esc($story->excerpt(150)) ?></p>
     <?php endif ?>
     <?php snippet('byline', ['page' => $story, 'author' => $author]) ?>
   </div>

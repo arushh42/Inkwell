@@ -11,6 +11,15 @@
   const stats = form.querySelector('[data-stats]');
   const toolbar = form.querySelector('.toolbar');
   const WPM = 230;
+  // interface text in the page language (set by the template)
+  const T = Object.assign({
+    wordsOne: '{count} word', wordsOther: '{count} words', minRead: '{n} min read',
+    link: 'Link address (https://…)', linkBad: 'Please use a full link that starts with https://',
+    imageBig: 'That image is larger than 4 MB. Please choose a smaller one.',
+    empty: 'Your story is still empty. Please write something before you submit it.',
+  }, window.INKWELL_I18N || {});
+  const fill = (text, values) => text.replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
+  const lang = document.documentElement.lang || 'en';
 
   let dirty = false;
   let submitting = false;
@@ -71,7 +80,8 @@
   const updateStats = () => {
     const words = (editor.innerText.match(/\S+/g) || []).length;
     const minutes = Math.max(1, Math.ceil(words / WPM));
-    stats.textContent = `${words.toLocaleString()} word${words === 1 ? '' : 's'} · ${minutes} min read`;
+    const count = words.toLocaleString(lang);
+    stats.textContent = fill(words === 1 ? T.wordsOne : T.wordsOther, { count }) + ' · ' + fill(T.minRead, { n: minutes });
     editor.classList.toggle('is-empty', isEmpty());
   };
 
@@ -112,9 +122,9 @@
     ul: () => document.execCommand('insertUnorderedList'),
     ol: () => document.execCommand('insertOrderedList'),
     link: () => {
-      const url = window.prompt('Link to (https://…)');
+      const url = window.prompt(T.link);
       if (!url) return;
-      if (!/^(https?:\/\/|mailto:|\/)/i.test(url)) return window.alert('Please use a full https:// link.');
+      if (!/^(https?:\/\/|mailto:|\/)/i.test(url)) return window.alert(T.linkBad);
       document.execCommand('createLink', false, url);
     },
   };
@@ -206,7 +216,7 @@
     const file = coverInput.files[0];
     if (!file) return;
     if (file.size > 4 * 1024 * 1024) {
-      window.alert('That image is larger than 4 MB. Please choose a smaller one.');
+      window.alert(T.imageBig);
       coverInput.value = '';
       return;
     }
@@ -225,7 +235,7 @@
     const action = e.submitter?.value;
     if (action === 'publish' && isEmpty()) {
       e.preventDefault();
-      window.alert('Your story is still empty — write something before publishing.');
+      window.alert(T.empty);
       editor.focus();
       return;
     }

@@ -17,6 +17,17 @@
   let dirty = false;
   let submitting = false;
 
+  // interface text in the page language (set by the template)
+  const T = Object.assign({
+    fetch: 'Fetch details', fetching: 'Fetching…', looking: 'Looking up {doi}…',
+    fetched: 'Loaded “{title}” from {registry}.', preprint: 'Found a matching preprint on arXiv.',
+    check: 'Please check the details.', ownWords: 'The abstract is not openly licensed, so please describe the paper in your own words.',
+    continue: 'Continue editing your draft →', view: 'Open “{title}” →',
+    network: 'Could not reach the lookup service. Please check your connection and try again.',
+    unexpected: 'Unexpected response. Please try again.', source: 'Source: {source}', sourceYou: 'Written by you. It will be credited to you.',
+  }, window.INKWELL_I18N || {});
+  const fillIn = (text, values) => text.replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
+
   const escape = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   const message = (html, type = '') => {
@@ -44,7 +55,7 @@
     $('abstract').value = p.abstract;
     $('abstractSource').value = p.abstractSource;
     licenseNote.hidden = p.abstractOpen;
-    sourceLabel.textContent = p.abstractSource ? `Source: ${p.abstractSource}` : 'Written by you — it will be credited to you.';
+    sourceLabel.textContent = p.abstractSource ? fillIn(T.source, { source: p.abstractSourceLabel || p.abstractSource }) : T.sourceYou;
     form.querySelectorAll('[data-autogrow]').forEach((a) => a.dispatchEvent(new Event('input')));
     updateAuthorCount();
     dirty = true;
@@ -62,9 +73,9 @@
     inFlight = new AbortController();
 
     fetchBtn.disabled = true;
-    fetchBtn.textContent = 'Fetching…';
+    fetchBtn.textContent = T.fetching;
     form.classList.add('is-fetching');
-    message('Looking up <b>' + escape(doi) + '</b>…');
+    message(escape(fillIn(T.looking, { doi })));
 
     try {
       const res = await fetch(`${form.dataset.lookup}?doi=${encodeURIComponent(doi)}`, {
@@ -72,30 +83,28 @@
         credentials: 'same-origin',
         signal: inFlight.signal,
       });
-      const data = await res.json().catch(() => ({ error: 'Unexpected response. Please try again.' }));
+      const data = await res.json().catch(() => ({ error: T.unexpected }));
 
       if (!res.ok) {
-        let html = escape(data.error || 'Lookup failed.');
-        if (data.duplicate?.edit) html += ` <a href="${escape(data.duplicate.edit)}">Continue editing your draft →</a>`;
-        else if (data.duplicate?.url) html += ` <a href="${escape(data.duplicate.url)}">View “${escape(data.duplicate.title)}” →</a>`;
+        let html = escape(data.error || T.unexpected);
+        if (data.duplicate?.edit) html += ` <a href="${escape(data.duplicate.edit)}">${escape(T.continue)}</a>`;
+        else if (data.duplicate?.url) html += ` <a href="${escape(data.duplicate.url)}">${escape(fillIn(T.view, { title: data.duplicate.title }))}</a>`;
         message(html, 'notice--error');
         return;
       }
 
       fill(data.paper);
       const p = data.paper;
-      message(
-        `Fetched <b>${escape(p.title)}</b> from ${escape(p.registry)}` +
-          (p.arxiv ? ` (preprint found on arXiv)` : '') +
-          '. Please check the details' +
-          (p.abstractOpen ? '' : ' and describe the paper in your own words, since its abstract isn’t openly licensed') +
-          '.'
-      );
+      message(escape(
+        fillIn(T.fetched, { title: p.title, registry: p.registry }) +
+          (p.arxiv ? ' ' + T.preprint : '') + ' ' +
+          (p.abstractOpen ? T.check : T.ownWords)
+      ));
     } catch (e) {
-      if (e.name !== 'AbortError') message('Couldn’t reach the lookup service. Check your connection and try again.', 'notice--error');
+      if (e.name !== 'AbortError') message(escape(T.network), 'notice--error');
     } finally {
       fetchBtn.disabled = false;
-      fetchBtn.textContent = 'Fetch details';
+      fetchBtn.textContent = T.fetch;
       form.classList.remove('is-fetching');
     }
   };

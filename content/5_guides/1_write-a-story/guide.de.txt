@@ -1,0 +1,101 @@
+Title: So schreiben Sie einen Beitrag
+
+----
+
+Intro: Von der Registrierung bis zum veröffentlichten Beitrag in acht kurzen Schritten, dazu einer für die Redaktion. Technisches Vorwissen brauchen Sie nicht.
+
+----
+
+Audience: Alle, die für Inkwell schreiben möchten
+
+----
+
+Duration: 5 Minuten
+
+----
+
+Cta: Ersten Beitrag schreiben
+
+----
+
+Steps: 
+-
+  title: "Konto anlegen"
+  text: "Klicken Sie unten auf einer beliebigen Seite auf **Konto erstellen** oder auf **Anmelden → Registrieren**. Geben Sie Ihren Namen, Ihre E-Mail-Adresse und ein Passwort mit mindestens 8 Zeichen ein und klicken Sie auf **Konto erstellen**."
+  callout: "Ausfüllen, dann klicken"
+  image:
+    - file://58457a443c6d985c
+  url: "inkwellpress.vercel.app/de/signup"
+  box: "62.97,46.25,30.63,7.38"
+-
+  title: "Editor öffnen"
+  text: "Wenn Sie angemeldet sind, zeigt die Kopfzeile zwei zusätzliche Schaltflächen. Klicken Sie auf **Beitrag schreiben**, um den Editor zu öffnen."
+  callout: "Auf „Beitrag schreiben“ klicken"
+  image:
+    - file://bfa5eed3699922d7
+  url: "inkwellpress.vercel.app/de"
+  box: "80.29,5.13,12.83,6.25"
+-
+  title: "Überschrift eingeben"
+  text: "Klicken Sie auf **Überschrift** und geben Sie den Titel Ihres Beitrags ein. Mit **Enter** springen Sie zum Untertitel: ein Satz, der sagt, worum es geht."
+  callout: "Überschrift eingeben"
+  image:
+    - file://b529bf5208a68011
+  url: "inkwellpress.vercel.app/de/write"
+  box: "4.22,22.00,60.62,20.50"
+-
+  title: "Text schreiben"
+  text: "Klicken Sie unter die Werkzeugleiste und beginnen Sie zu schreiben. Mit **Enter** beginnt ein neuer Absatz. Gespeichert wird, wenn Sie rechts auf eine der Schaltflächen klicken. Schließen Sie den Tab also nicht vorher."
+  callout: "Hier schreiben"
+  image:
+    - file://6b55a2128d9284a3
+  url: "inkwellpress.vercel.app/de/write"
+  box: "4.22,24.00,60.62,52.00"
+-
+  title: "Text formatieren"
+  text: "Markieren Sie Text und machen Sie ihn über die Werkzeugleiste **fett**, *kursiv* oder zu einem Link. Sie können eine Zeile auch zur Überschrift, zum Zitat oder zur Liste machen. Tipp: `## ` am Zeilenanfang macht die Zeile zur Überschrift."
+  callout: "Überschriften, Fett, Listen"
+  image:
+    - file://53f1c14008d8d1d2
+  url: "inkwellpress.vercel.app/de/write"
+  box: "4.22,45.88,60.62,8.25"
+-
+  title: "Angaben ergänzen"
+  text: "Wählen Sie rechts **Artikel** oder **Blogbeitrag**, ergänzen Sie ein paar **Schlagwörter** (mit Kommas getrennt) und auf Wunsch ein **Titelbild**. Klicken Sie dazu auf das gestrichelte Feld und wählen Sie ein Foto mit bis zu 4 MB."
+  callout: "Art, Schlagwörter, Titelbild"
+  image:
+    - file://e68432cdc01fedab
+  url: "inkwellpress.vercel.app/de/write"
+  box: "69.06,1.38,27.81,97.26"
+-
+  title: "Einreichen"
+  text: "Wenn Sie zufrieden sind, klicken Sie auf **Zur Prüfung einreichen**. Sind Sie noch nicht fertig, klicken Sie auf **Entwurf speichern** und machen später weiter. Die Redaktion liest jeden Beitrag, bevor er online geht."
+  callout: "Klicken, wenn Sie fertig sind"
+  image:
+    - file://4a7358b6bc943c4e
+  url: "inkwellpress.vercel.app/de/write"
+  box: "70.94,46.05,23.75,7.38"
+-
+  title: "Den Überblick behalten"
+  text: "Ihr Beitrag steht jetzt rechts in der Liste unter **Eingereicht**. Bis die Redaktion ihn veröffentlicht, können Sie weiter daran arbeiten oder ihn **zurückziehen**, dann ist er wieder ein Entwurf. Nach der Veröffentlichung erscheint er mit Ihrem Namen auf der Website."
+  callout: "Hier stehen Ihre Beiträge"
+  image:
+    - file://83fc4fd0071d8615
+  url: "inkwellpress.vercel.app/de/write/notizen-aus-meiner-ersten-woche-feldforschung"
+  box: "69.06,39.26,27.81,21.38"
+-
+  title: "Für die Redaktion: freigeben"
+  text: "Die Redaktion sieht neue Einreichungen im Editor unter **Warten auf Freigabe**. Öffnen Sie eine, nehmen Sie bei Bedarf Änderungen vor und klicken Sie auf **Freigeben**."
+  callout: "Freigeben"
+  image:
+    - file://a87a5d2c7db3d3eb
+  url: "inkwellpress.vercel.app/de/write/notizen-aus-meiner-ersten-woche-feldforschung"
+  box: "71.09,46.30,23.75,7.38"
+
+----
+
+Ctalink: write
+
+----
+
+Uuid: 726bd62fc87a171e

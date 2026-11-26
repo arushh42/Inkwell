@@ -1,0 +1,13 @@
+Title: What I learned reviewing forty conference papers
+
+----
+
+Subtitle: Reviewing made me a better writer. Here are the patterns that separated accepts from rejects.
+
+----
+
+Text: [{"content":{"text":"<p>This year I reviewed forty submissions. The strongest papers had little in common in topic, but a lot in common in structure.</p>"},"id":"36a182b6-dab8-4748-7183-a0b8edb5aeb8","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"Say the claim on page one"},"id":"b02a6828-67fb-5358-e7f3-89baf0e74413","isHidden":false,"type":"heading"},{"content":{"text":"<p>The best papers stated their contribution in the first paragraph and then spent the rest of the paper defending it.</p>"},"id":"8969069b-d8ad-318a-180f-f84bfc7e89d7","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"Show the failure cases"},"id":"69291325-a032-a39e-3494-7b557f9724d0","isHidden":false,"type":"heading"},{"content":{"text":"<p>Papers that discussed where their method fails were more convincing, not less.</p>"},"id":"498a6171-1cef-9116-bf2c-3d452d0012f0","isHidden":false,"type":"text"},{"content":{"text":"<p>Reviewers are tired readers. Write for tired readers.</p>","citation":""},"id":"cbc9b9d6-6b4c-bdd0-df6e-147181a02703","isHidden":false,"type":"quote"}]
+
+----
+
+Tags: Academia, Peer review

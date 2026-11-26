@@ -1,0 +1,9 @@
+Title: Home
+
+----
+
+Headline: Ideas worth reading *slowly*.
+
+----
+
+Intro: Articles, blog posts and research summaries from our authors. Take your time with them.

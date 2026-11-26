@@ -22,6 +22,7 @@ columns:
       featured:
         label: Featured stories
         type: pages
+        translate: false
         query: site.find("stories").children.listed
         max: 3
         help: Pinned to the top of the home page. Leave empty to show the newest stories.
@@ -30,4 +31,5 @@ columns:
       showPapers:
         label: Show latest papers
         type: toggle
+        translate: false
         default: true

@@ -1,9 +1,0 @@
-Template: screenshot
-
-----
-
-Alt: The Inkwell home page with the “Write a story” button in the header highlighted.
-
-----
-
-Uuid: 2bf3f6c0b70b246d

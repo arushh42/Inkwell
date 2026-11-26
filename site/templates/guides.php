@@ -5,7 +5,7 @@
 
 <div class="container section">
   <header class="page-head">
-    <p class="kicker">Help &amp; how-to</p>
+    <p class="kicker"><?= t('guides.kicker') ?></p>
     <h1 class="page-head__title"><?= $page->title()->esc() ?></h1>
     <p class="page-head__sub"><?= $page->intro()->esc() ?></p>
   </header>
@@ -20,10 +20,10 @@
           </span>
         <?php endif ?>
         <span class="guide-card__body">
-          <span class="kicker"><?= $guide->steps()->toStructure()->count() ?> steps · <?= $guide->duration()->esc() ?></span>
+          <span class="kicker"><?= tt('guides.steps', null, ['count' => $guide->steps()->toStructure()->count()]) ?> · <?= $guide->duration()->esc() ?></span>
           <span class="guide-card__title"><?= $guide->title()->esc() ?></span>
           <span class="guide-card__intro"><?= $guide->intro()->esc() ?></span>
-          <span class="guide-card__cta">Start the guide →</span>
+          <span class="guide-card__cta"><?= t('guides.open') ?></span>
         </span>
       </a>
     <?php endforeach ?>
@@ -32,7 +32,7 @@
   <?php if ($page->faq()->isNotEmpty()): ?>
     <section class="faq">
       <header class="section-head">
-        <h2 class="section-head__title">Good to know</h2>
+        <h2 class="section-head__title"><?= t('guides.faq') ?></h2>
         <span class="section-head__rule" aria-hidden="true"></span>
       </header>
       <?php foreach ($page->faq()->toStructure() as $item): ?>

@@ -1,0 +1,9 @@
+Title: Über uns
+
+----
+
+Text: [{"content": {"text": "<p>Inkwell ist ein kleines Online-Magazin. Wir veröffentlichen längere Artikel, kürzere Blogbeiträge und Forschungspaper. Zu jedem Paper gibt es eine kurze Zusammenfassung in einfacher Sprache.</p>"}, "id": "8ea4c55e-1c99-5081-f1a2-0dc966c03827", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "So funktioniert es"}, "id": "578ab7d8-989f-fdd7-6734-948e74d2ea5b", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Unsere Autor:innen schreiben direkt auf dieser Website. Die Redaktion liest jeden Beitrag und jedes Paper, bevor es online geht. Bis dahin bleiben Entwürfe und Einreichungen privat.</p>"}, "id": "6a670789-a6a2-c619-e424-f33e0fe35966", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Mitschreiben"}, "id": "b4825fde-2bb1-ec71-7ade-fbfefa85522d", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Jede:r kann ein Konto anlegen und einen Beitrag einreichen, auf Deutsch oder Englisch. Wie das geht, zeigen die <a href=\"/de/guides\">Anleitungen</a> Schritt für Schritt.</p>"}, "id": "0488023b-42e9-3aa6-848e-5ad82c8cec1a", "isHidden": false, "type": "text"}]
+
+----
+
+Uuid: 5780daf6db0b013d

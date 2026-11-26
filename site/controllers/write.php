@@ -32,14 +32,14 @@ return function ($kirby, $page) {
     $story    = $slug ? $stories->childrenAndDrafts()->find($slug) : null;
 
     if ($slug && $story === null) {
-        go('write');
+        go(lurl('write'));
     }
 
     $ownsStory = fn ($s) => $myAuthor !== null && in_array($myAuthor->uuid()->toString(), $s->author()->yaml(), true);
 
     // contributors may only open their own stories
     if ($story && !$isEditor && !$ownsStory($story)) {
-        go('write');
+        go(lurl('write'));
     }
 
     // contributors can't change a story once it's live
@@ -47,7 +47,7 @@ return function ($kirby, $page) {
 
     // A brand-new member's author profile is committed to Git and reaches
     // every serverless instance with the next deploy (~1 min). Until then,
-    // an instance may not know it yet — show a friendly notice, not an error.
+    // an instance may not know it yet. Show a friendly notice, not an error.
     $setupPending = !$isEditor && $myAuthor === null;
 
     // run a write with the right permissions
@@ -56,6 +56,11 @@ return function ($kirby, $page) {
     $defaultAuthor = $isEditor
         ? ($story?->author()->toPages()->first() ?? $myAuthor ?? $authors->first())
         : $myAuthor;
+
+    // language: which version is being edited, and does it exist yet?
+    $lang        = $kirby->language()->code();
+    $versions    = $story ? inkwell_versions($story) : [];
+    $translating = $story !== null && !in_array($lang, $versions, true);
 
     $values = [
         'title'    => $story?->title()->value() ?? '',
@@ -80,31 +85,31 @@ return function ($kirby, $page) {
 
         try {
             if (csrf(get('csrf')) !== true) {
-                throw new Exception('Your session expired. Reload the page and try again.');
+                throw new Exception(t('error.session'));
             }
 
             if ($setupPending) {
-                throw new Exception('Your account is still being set up. Please wait a minute and try again — your text is still in the editor.');
+                throw new Exception(t('write.error.setup'));
             }
 
             if ($readOnly) {
-                throw new Exception('This story is already published. Ask an editor if it needs changes.');
+                throw new Exception(t('write.readonly'));
             }
 
             $allowed = $isEditor
                 ? ['draft', 'publish', 'unpublish', 'submit']
                 : ['draft', 'submit', 'withdraw'];
             if (!in_array($action, $allowed, true)) {
-                throw new Exception('That action isn’t available to you.');
+                throw new Exception(t('write.error.action'));
             }
 
             if ($values['title'] === '') {
-                throw new Exception('Give your story a headline first.');
+                throw new Exception(t('write.error.headline'));
             }
 
             $author = $isEditor ? $authors->find($values['author']) : $myAuthor;
             if ($author === null) {
-                throw new Exception($isEditor ? 'Please choose an author.' : 'Your author profile is missing. Please contact an editor.');
+                throw new Exception($isEditor ? t('write.error.author') : t('write.error.profile'));
             }
 
             // editor HTML → sanitized → Kirby blocks
@@ -112,18 +117,21 @@ return function ($kirby, $page) {
             $blocks = Blocks::factory(Blocks::parse($html))->toArray();
             $tags   = array_values(array_unique(array_filter(array_map('trim', explode(',', $values['tags'])))));
 
-            $content = [
+            // translatable text vs. fields shared by both language versions
+            $text = [
                 'title'    => $values['title'],
                 'subtitle' => $values['subtitle'],
-                'kind'     => $values['kind'],
                 'tags'     => implode(', ', $tags),
-                'author'   => [$author->uuid()->toString()],
                 'text'     => Json::encode($blocks),
             ];
+            $shared = [
+                'kind'   => $values['kind'],
+                'author' => [$author->uuid()->toString()],
+            ];
 
-            $story = $as(function () use ($story, $stories, $content, $values) {
+            $story = $as(function () use ($story, $stories, $text, $shared, $values, $lang) {
                 if ($story) {
-                    return $story->update($content);
+                    return inkwell_save_version($story, $text, $shared, $lang);
                 }
 
                 $base    = Str::slug($values['title']) ?: 'untitled';
@@ -135,7 +143,7 @@ return function ($kirby, $page) {
                 return $stories->createChild([
                     'slug'     => $newSlug,
                     'template' => 'story',
-                    'content'  => $content + ['date' => date('Y-m-d')],
+                    'content'  => $text + $shared + ['date' => date('Y-m-d'), 'availableIn' => [$lang]],
                 ]);
             });
 
@@ -152,7 +160,7 @@ return function ($kirby, $page) {
                     return $story->update(['cover' => [$file->uuid()->toString()]]);
                 });
             } elseif ($upload && ($upload['error'] ?? 0) === UPLOAD_ERR_INI_SIZE) {
-                throw new Exception('That image is too large. Please use one under 4 MB.');
+                throw new Exception(t('write.error.image'));
             }
 
             $target = match ($action) {
@@ -168,12 +176,12 @@ return function ($kirby, $page) {
 
             go($action === 'publish'
                 ? $story->url()
-                : url('write/' . $story->slug(), ['query' => ['saved' => match ($action) {
+                : lurl('write/' . $story->slug(), ['saved' => match ($action) {
                     'submit'    => 'submitted',
                     'withdraw'  => 'withdrawn',
                     'unpublish' => 'unpublished',
                     default     => 'draft',
-                }]]));
+                }]));
         } catch (Throwable $e) {
             $error = $e->getMessage();
         }
@@ -188,6 +196,9 @@ return function ($kirby, $page) {
         'isEditor'  => $isEditor,
         'readOnly'  => $readOnly,
         'setupPending' => $setupPending,
+        'lang'      => $lang,
+        'versions'  => $versions,
+        'translating' => $translating,
         'myAuthor'  => $myAuthor,
         'values'    => $values,
         'error'     => $error,

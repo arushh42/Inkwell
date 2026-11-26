@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Das Textfeld des Editors mit zwei Absätzen.
+
+----
+
+Uuid: 6b55a2128d9284a3

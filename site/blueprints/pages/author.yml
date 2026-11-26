@@ -19,21 +19,25 @@ columns:
       website:
         label: Website
         type: url
+        translate: false
         width: 1/2
       email:
         label: Public email
         type: email
+        translate: false
         width: 1/2
   - width: 1/3
     fields:
       account:
         label: Login account
         type: users
+        translate: false
         multiple: false
         help: The member account that writes as this author (set automatically on sign-up).
       avatar:
         label: Portrait
         type: files
+        translate: false
         multiple: false
         uploads: image
         query: page.images

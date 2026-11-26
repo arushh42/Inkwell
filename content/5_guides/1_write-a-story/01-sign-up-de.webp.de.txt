@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Registrierungsseite mit Feldern für Name, E-Mail und Passwort.
+
+----
+
+Uuid: 58457a443c6d985c

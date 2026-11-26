@@ -1,0 +1,9 @@
+Template: screenshot
+
+----
+
+Alt: Die Startseite, die Schaltfläche „Paper eintragen“ ist hervorgehoben.
+
+----
+
+Uuid: 7aa9371bb912d312

@@ -1,0 +1,17 @@
+Title: Inkwell
+
+----
+
+Tagline: Ein kleines Magazin für lange Texte, Feldnotizen und Forschung.
+
+----
+
+Description: Inkwell veröffentlicht Artikel, Blogbeiträge und Forschungszusammenfassungen seiner Autor:innen. Jede:r kann sich registrieren und einen Beitrag einreichen.
+
+----
+
+Social: 
+
+- 
+  platform: github
+  url: https://github.com/

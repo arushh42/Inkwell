@@ -1,0 +1,5 @@
+Title: About
+
+----
+
+Text: [{"content": {"text": "<p>Inkwell is a small online magazine. We publish longer articles, shorter blog posts and research papers. Every paper comes with a short summary in plain language.</p>"}, "id": "fa9236c8-0200-0458-38b0-15261479a718", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "How it works"}, "id": "ce6d5683-46b4-f035-1643-b330872f2f95", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Authors write directly on this site. An editor reads every story and paper before it goes online, so drafts and submissions stay private until then.</p>"}, "id": "23ea8dc1-0271-59fa-e368-2d07680be7d1", "isHidden": false, "type": "text"}, {"content": {"level": "h2", "text": "Write for us"}, "id": "13c5cf4c-0392-9075-b97d-09de68afc9c5", "isHidden": false, "type": "heading"}, {"content": {"text": "<p>Anyone can create an account and send in a story, in German or English. The <a href=\"/en/guides\">guides</a> show you how, step by step.</p>"}, "id": "040190e0-6951-3a69-86d8-57ce8ded7848", "isHidden": false, "type": "text"}]
