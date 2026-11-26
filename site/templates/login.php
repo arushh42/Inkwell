@@ -13,7 +13,7 @@
       <div class="notice notice--error" role="alert"><?= esc($error) ?></div>
     <?php endif ?>
 
-    <form method="post" action="<?= url('login', ['query' => ['redirect' => $redirect]]) ?>">
+    <form method="post" action="<?= $redirect !== '' ? url('login', ['query' => ['redirect' => $redirect]]) : url('login') ?>">
       <input type="hidden" name="csrf" value="<?= csrf() ?>">
 
       <div class="field">
