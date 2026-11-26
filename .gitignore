@@ -1,0 +1,17 @@
+# Dependencies (installed by Composer)
+/vendor
+
+# Kirby runtime folders
+/media/*
+!/media/index.html
+/site/accounts
+/site/cache
+/site/sessions
+/site/logs
+
+# Local env / OS
+.env
+.env.*
+!.env.example
+.DS_Store
+.vercel

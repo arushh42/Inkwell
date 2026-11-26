@@ -1,0 +1,11 @@
+title: Image
+accept:
+  mime: image/*
+  maxsize: 5000000
+fields:
+  alt:
+    label: Alt text
+    type: text
+  caption:
+    label: Caption / credit
+    type: text

@@ -1,0 +1,43 @@
+title: Stories
+icon: text
+options:
+  delete: false
+  changeSlug: false
+  changeTemplate: false
+
+sections:
+  drafts:
+    type: pages
+    label: Drafts
+    status: draft
+    template: story
+    layout: table
+    empty: No drafts
+    columns:
+      kind:
+        label: Type
+        width: 1/6
+      date:
+        label: Date
+        width: 1/6
+        display: "{{ page.date.toDate('d.m.Y') }}"
+  published:
+    type: pages
+    label: Published
+    status: listed
+    template: story
+    layout: table
+    sortBy: date desc
+    limit: 25
+    search: true
+    columns:
+      kind:
+        label: Type
+        width: 1/6
+      tags:
+        label: Tags
+        width: 1/4
+      date:
+        label: Date
+        width: 1/6
+        display: "{{ page.date.toDate('d.m.Y') }}"

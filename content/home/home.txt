@@ -1,0 +1,21 @@
+Title: Home
+
+----
+
+Headline: Ideas worth reading *slowly*.
+
+----
+
+Intro: Articles, blog posts and peer-reviewed research from our authors — written to be read, not skimmed.
+
+----
+
+Featured: 
+
+----
+
+Showpapers: true
+
+----
+
+Uuid: e83249bd3ba79932

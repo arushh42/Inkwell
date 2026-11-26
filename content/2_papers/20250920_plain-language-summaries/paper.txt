@@ -1,0 +1,44 @@
+Title: Do Plain-Language Summaries Increase the Reach of Research? A Field Study
+
+----
+
+Abstract: We randomly assigned 214 papers to receive a plain-language summary on an institutional blog. Over six months, papers with summaries received 2.3 times more full-text views and were more frequently shared outside academia, with no change in citation counts. We provide guidelines for writing summaries that are accurate, accessible and quick to produce.
+
+----
+
+Text: [{"content":{"level":"h2","text":"In plain language"},"id":"eee846aa-cb8e-ff88-6371-e67de24dfe72","isHidden":false,"type":"heading"},{"content":{"text":"<p>This is a demo paper created to showcase the Inkwell publishing platform. Editors can attach a PDF, add a plain-language summary like this one, and readers can download a BibTeX citation with one click.</p>"},"id":"a9800937-767f-762b-7f33-e6a0b8443d71","isHidden":false,"type":"text"}]
+
+----
+
+Authors: 
+
+- page://7ed89acdf64a8458
+- page://59ad83a58305fc0b
+
+----
+
+Coauthors: 
+
+----
+
+Date: 2025-09-20
+
+----
+
+Venue: Example Review of Science Communication (demo)
+
+----
+
+Doi: 10.5555/demo.2025.0003
+
+----
+
+Keywords: Open science, Science communication
+
+----
+
+Pdf: 
+
+----
+
+Uuid: 0066ecabf426d8a4

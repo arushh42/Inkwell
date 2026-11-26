@@ -1,0 +1,38 @@
+title: Papers
+icon: book
+options:
+  delete: false
+  changeSlug: false
+  changeTemplate: false
+
+sections:
+  content:
+    type: fields
+    fields:
+      intro:
+        label: Intro text
+        type: textarea
+        size: small
+  drafts:
+    type: pages
+    label: Drafts
+    status: draft
+    template: paper
+    layout: table
+    empty: No drafts
+  published:
+    type: pages
+    label: Published papers
+    status: listed
+    template: paper
+    layout: table
+    sortBy: date desc
+    search: true
+    columns:
+      venue:
+        label: Venue
+        width: 1/3
+      date:
+        label: Year
+        width: 1/6
+        display: "{{ page.date.toDate('Y') }}"

@@ -1,0 +1,37 @@
+Title: Reproducibility checklists that actually work
+
+----
+
+Subtitle: Most checklists are filled in the night before the deadline. A few change how research gets done.
+
+----
+
+Text: [{"content":{"text":"<p>Reproducibility checklists have become standard at many venues. Whether they help depends on when they are used.</p>"},"id":"48b75572-f845-b7b2-2155-816ddd409582","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"Start at the beginning"},"id":"4cc55ec4-3d14-6d47-b5f0-a971ad56eb40","isHidden":false,"type":"heading"},{"content":{"text":"<p>Labs that adopt the checklist when a project starts — not when the paper is written — report far fewer missing details.</p>"},"id":"e5e0d561-c373-5e20-e919-6d85eb797bcd","isHidden":false,"type":"text"},{"content":{"text":"<ul><li>Pin every dependency version.</li><li>Publish the exact data split.</li><li>Record the random seeds you actually used.</li><li>Write down what you tried that did not work.</li></ul>"},"id":"d6a77d8f-ac1f-baf6-15ee-1eed7aa9dfd5","isHidden":false,"type":"list"},{"content":{"text":"<p>None of this is glamorous. All of it saves the next researcher weeks.</p>"},"id":"1f50dd04-14ed-9ac9-e0db-36943cc5c3df","isHidden":false,"type":"text"}]
+
+----
+
+Kind: article
+
+----
+
+Author: - page://7ed89acdf64a8458
+
+----
+
+Date: 2026-09-14
+
+----
+
+Tags: Open science, Research methods
+
+----
+
+Cover: - file://a7238806938f18b2
+
+----
+
+Featured: false
+
+----
+
+Uuid: 76ea5e09f7837884

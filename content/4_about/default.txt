@@ -1,0 +1,9 @@
+Title: About
+
+----
+
+Text: [{"content":{"text":"<p>Inkwell is a small, independent publication. We publish long-form articles, shorter blog posts and research papers by our contributors.</p>"},"id":"1533f4ca-d8cc-d33d-6f94-4749753943ca","isHidden":false,"type":"text"},{"content":{"level":"h2","text":"How it works"},"id":"6540fa61-23eb-925c-dd28-2002b44fd8d8","isHidden":false,"type":"heading"},{"content":{"text":"<p>Every piece on this site is written and edited in the Kirby Panel. Authors draft, editors review, and publishing is a single click — no developer required.</p>"},"id":"f91cc9f3-e1bb-e8d8-def6-bae6fd9bf8cc","isHidden":false,"type":"text"},{"content":{"text":"<p>Write drunk, edit sober.</p>","citation":"Often misattributed"},"id":"3fb805f6-ae00-ddae-0ed2-fce0de705c72","isHidden":false,"type":"quote"},{"content":{"level":"h2","text":"Contribute"},"id":"43c8b20a-fbeb-8bac-a5ec-136ef9622587","isHidden":false,"type":"heading"},{"content":{"text":"<p>Want to write for us? Get in touch with one of our editors on the <a href=\"/authors\">authors page</a>.</p>"},"id":"7e1ad89c-7071-3331-4863-34541095dde7","isHidden":false,"type":"text"}]
+
+----
+
+Uuid: 5780daf6db0b013d

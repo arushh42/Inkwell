@@ -1,0 +1,18 @@
+Title: Inkwell
+
+----
+
+Tagline: Essays, field notes and research from people who think in long form.
+
+----
+
+Description: Inkwell is an independent publication for articles, blog posts and research papers.
+
+----
+
+Social: 
+
+- 
+  platform: github
+  url: https://github.com/
+

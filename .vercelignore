@@ -1,0 +1,12 @@
+# Installed fresh by Composer during the Vercel build
+/vendor
+
+# Never upload local runtime data or secrets
+/media
+/site/accounts
+/site/sessions
+/site/cache
+/site/logs
+.env
+.env.*
+README.md

@@ -1,0 +1,8 @@
+title: PDF document
+accept:
+  mime: application/pdf
+  maxsize: 4000000
+fields:
+  pages:
+    label: Number of pages
+    type: number

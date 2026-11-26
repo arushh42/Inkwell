@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstract illustration for “Designing for long-form reading on the web”
+
+----
+
+Caption: 
+
+----
+
+Uuid: 292f888bee9cd706

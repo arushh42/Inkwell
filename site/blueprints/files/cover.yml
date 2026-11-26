@@ -1,0 +1,12 @@
+title: Cover image
+accept:
+  mime: image/jpeg, image/png, image/webp, image/avif
+  maxsize: 5000000
+fields:
+  alt:
+    label: Alt text
+    type: text
+    required: true
+  caption:
+    label: Caption / credit
+    type: text

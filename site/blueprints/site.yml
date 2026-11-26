@@ -1,0 +1,96 @@
+title: Inkwell
+
+tabs:
+  dashboard:
+    label: Dashboard
+    icon: dashboard
+    columns:
+      - width: 2/3
+        sections:
+          drafts:
+            type: pages
+            label: Drafts in progress
+            parent: site.find("stories")
+            status: draft
+            layout: table
+            empty: No drafts — start writing!
+            info: "{{ page.kind }} · {{ page.author.toPages.first.title }}"
+          published:
+            type: pages
+            label: Recently published stories
+            parent: site.find("stories")
+            status: listed
+            layout: cards
+            size: small
+            limit: 6
+            sortBy: date desc
+            image:
+              query: page.cover.toFile
+              cover: true
+              ratio: 3/2
+            info: "{{ page.date.toDate('d M Y') }}"
+          papers:
+            type: pages
+            label: Latest papers
+            parent: site.find("papers")
+            status: listed
+            layout: list
+            limit: 5
+            sortBy: date desc
+            info: "{{ page.venue }} · {{ page.date.toDate('Y') }}"
+      - width: 1/3
+        sections:
+          stats:
+            type: stats
+            label: At a glance
+            reports:
+              - label: Published stories
+                value: "{{ site.find('stories').children.listed.count }}"
+                link: pages/stories
+              - label: Drafts
+                value: "{{ site.find('stories').drafts.count }}"
+                link: pages/stories
+              - label: Papers
+                value: "{{ site.find('papers').children.listed.count }}"
+                link: pages/papers
+              - label: Authors
+                value: "{{ site.find('authors').children.listed.count }}"
+                link: pages/authors
+          pages:
+            type: pages
+            label: Site pages
+            status: all
+            layout: list
+            templates:
+              - home
+              - stories
+              - papers
+              - authors
+              - search
+              - default
+  settings:
+    label: Settings
+    icon: settings
+    fields:
+      tagline:
+        label: Tagline
+        type: text
+        help: Shown in the header and as the default meta description.
+      description:
+        label: About this publication
+        type: textarea
+        size: small
+      social:
+        label: Social links
+        type: structure
+        fields:
+          platform:
+            type: select
+            options:
+              github: GitHub
+              linkedin: LinkedIn
+              mastodon: Mastodon
+              x: X
+              website: Website
+          url:
+            type: url

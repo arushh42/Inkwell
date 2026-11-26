@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstract illustration for “A practical guide to open-access publishing”
+
+----
+
+Caption: 
+
+----
+
+Uuid: 094a55d981096919

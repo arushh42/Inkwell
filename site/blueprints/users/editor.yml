@@ -1,0 +1,15 @@
+title: Editor
+description: Can write, edit and publish stories and papers, but cannot manage users or system settings.
+
+permissions:
+  access:
+    system: false
+    users: false
+  user:
+    changeRole: false
+    delete: false
+  users: false
+  site:
+    update: false
+  pages:
+    changeTemplate: false

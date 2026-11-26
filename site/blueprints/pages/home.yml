@@ -1,0 +1,33 @@
+title: Home
+icon: home
+options:
+  delete: false
+  changeSlug: false
+  changeStatus: false
+  changeTemplate: false
+
+columns:
+  - width: 2/3
+    fields:
+      headline:
+        label: Hero headline
+        type: text
+        required: true
+        help: Wrap a word in *asterisks* to set it in italic with the hand-drawn underline.
+      intro:
+        label: Hero intro
+        type: textarea
+        size: small
+        buttons: false
+      featured:
+        label: Featured stories
+        type: pages
+        query: site.find("stories").children.listed
+        max: 3
+        help: Pinned to the top of the home page. Leave empty to show the newest stories.
+  - width: 1/3
+    fields:
+      showPapers:
+        label: Show latest papers
+        type: toggle
+        default: true

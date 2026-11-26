@@ -1,0 +1,34 @@
+title: Author
+icon: user
+
+status:
+  draft: Hidden
+  listed: Visible
+
+columns:
+  - width: 2/3
+    fields:
+      role:
+        label: Role / position
+        type: text
+        placeholder: e.g. PhD candidate, Computational Linguistics
+      bio:
+        label: Bio
+        type: textarea
+        size: medium
+      website:
+        label: Website
+        type: url
+        width: 1/2
+      email:
+        label: Public email
+        type: email
+        width: 1/2
+  - width: 1/3
+    fields:
+      avatar:
+        label: Portrait
+        type: files
+        multiple: false
+        uploads: image
+        query: page.images

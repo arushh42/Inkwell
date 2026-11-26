@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstract illustration for “What I learned reviewing forty conference papers”
+
+----
+
+Caption: 
+
+----
+
+Uuid: c76b47509800fe5d

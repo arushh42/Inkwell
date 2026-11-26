@@ -1,0 +1,13 @@
+Template: cover
+
+----
+
+Alt: Abstract illustration for “Reproducibility checklists that actually work”
+
+----
+
+Caption: 
+
+----
+
+Uuid: a7238806938f18b2

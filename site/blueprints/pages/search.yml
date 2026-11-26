@@ -1,0 +1,12 @@
+title: Search
+icon: search
+options:
+  delete: false
+  changeSlug: false
+  changeTemplate: false
+  changeStatus: false
+
+fields:
+  info:
+    type: info
+    text: This page renders search results for stories, papers and authors. It has no editable content.

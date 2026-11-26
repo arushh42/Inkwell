@@ -1,0 +1,61 @@
+title: Research paper
+icon: book
+num: date
+
+status:
+  draft: Draft
+  unlisted: In review
+  listed: Published
+
+columns:
+  main:
+    width: 2/3
+    fields:
+      abstract:
+        label: Abstract
+        type: textarea
+        buttons: false
+        required: true
+      text:
+        label: Summary / notes (optional)
+        type: blocks
+        help: Optional long-form summary shown below the abstract.
+  sidebar:
+    width: 1/3
+    sections:
+      meta:
+        type: fields
+        fields:
+          authors:
+            label: Authors (on this site)
+            type: pages
+            query: site.find("authors").children
+          coauthors:
+            label: External co-authors
+            type: tags
+            help: Names of co-authors without a profile here.
+          date:
+            label: Publication date
+            type: date
+            required: true
+            default: today
+          venue:
+            label: Journal / conference
+            type: text
+          doi:
+            label: DOI
+            type: text
+            placeholder: 10.1234/abcd.5678
+            pattern: '^10\.\d{4,9}/\S+$'
+          keywords:
+            label: Keywords
+            type: tags
+          pdf:
+            label: PDF
+            type: files
+            multiple: false
+            uploads: pdf
+            query: page.documents
+      files:
+        type: files
+        label: Attachments
