@@ -155,6 +155,6 @@ $action = $story ? url('write/' . $story->slug()) : url('write');
   </div>
 </form>
 
-<script src="<?= url('assets/js/editor.js') ?>?v=<?= filemtime($kirby->root('assets') . '/js/editor.js') ?>" defer></script>
+<script src="<?= asset_url('assets/js/editor.js') ?>" defer></script>
 
 <?php snippet('footer', ['cta' => false]) ?>

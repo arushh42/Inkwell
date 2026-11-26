@@ -7,6 +7,21 @@ use Kirby\Cms\Response;
 use Kirby\Toolkit\Str;
 
 /**
+ * URL for a file in /assets with a content-based version, e.g.
+ * assets/css/main.css?v=3f2a9c01. Changes whenever the file changes, so
+ * browsers never keep stale CSS/JS. (File mtimes can't be used: Vercel
+ * gives every deployed file the same timestamp.)
+ */
+function asset_url(string $path): string
+{
+    static $versions = [];
+    $file = kirby()->root('index') . '/' . ltrim($path, '/');
+    $versions[$path] ??= is_file($file) ? substr(hash_file('xxh3', $file), 0, 10) : '0';
+
+    return url($path) . '?v=' . $versions[$path];
+}
+
+/**
  * Inkwell core plugin: publication-specific helpers, routes and feeds.
  */
 Kirby::plugin('inkwell/core', [

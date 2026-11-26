@@ -29,7 +29,7 @@ $issue       = page('stories')?->children()->listed()->count() ?? 0;
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23E0482B'/><text x='16' y='24' font-family='Georgia' font-style='italic' font-weight='700' font-size='22' text-anchor='middle' fill='%23F3EEE3'>i</text></svg>">
   <link rel="preload" href="<?= url('assets/fonts/fraunces.woff2') ?>" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="<?= url('assets/fonts/instrument-sans.woff2') ?>" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="<?= url('assets/css/main.css') ?>?v=<?= filemtime($kirby->root('assets') . '/css/main.css') ?>">
+  <link rel="stylesheet" href="<?= asset_url('assets/css/main.css') ?>">
 </head>
 <body class="template-<?= $template ?>">
   <a class="skip-link" href="#main">Skip to content</a>
